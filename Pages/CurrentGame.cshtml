@@ -1,6 +1,13 @@
 @page "/current-game"
+@inject Transdim.Service.IGameStateService GameStateService
+@using Transdim.DomainModel;
 
 <h1>Current Game</h1>
 
+<p>Current player: @game.Players.First().Faction.FactionIdentifier.ToString()</p>
+
 @functions {
+    Game game;
+
+    protected override void OnInit() => game = GameStateService.GetGameState();
 }

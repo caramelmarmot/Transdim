@@ -1,22 +1,17 @@
 @page "/new-game"
 @inject Microsoft.AspNetCore.Blazor.Services.IUriHelper UriHelper
+@inject Transdim.Service.IGameStateService GameStateService
 
 <h1>New Game</h1>
-
-<p>Current count: @currentCount</p>
-<button class="btn btn-primary" onclick="@IncrementCount">Increment count</button>
 
 <button class="btn btn-primary" onclick="@StartGame">Start game</button>
 
 @functions {
-    int currentCount = 0;
 
-    void IncrementCount()
+
+    void StartGame()
     {
-        currentCount++;
-    }
-
-    void StartGame() {
+        GameStateService.InitializeGame(); ;
         UriHelper.NavigateTo("/current-game");
     }
 }
