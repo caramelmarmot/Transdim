@@ -4,6 +4,6 @@ namespace Transdim.DomainModel
     {
         public bool IsAutoma { get; set; }
 
-        public FactionIdentifier Faction { get; set; }
+        public FactionIdentifier FactionIdentifier { get; set; }
     }
 }

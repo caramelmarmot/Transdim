@@ -1,23 +1,54 @@
 @page "/new-game"
 @inject Microsoft.AspNetCore.Blazor.Services.IUriHelper UriHelper
-@inject Transdim.Service.IGameStateService GameStateService
+@inject Transdim.Service.INewGameController NewGameController
+@inject Transdim.Service.IFactionService FactionService
 
 <h1>New Game</h1>
 
-<select bind=game.Players[0].Faction>
-    <option value=@FactionIdentifier.Ambas>@FactionIdentifier.Ambas</option>
-    <option value=@FactionIdentifier.BalTaks>@FactionIdentifier.BalTaks</option>
-    <option value=@FactionIdentifier.Becasods>@FactionIdentifier.Becasods</option>
-</select>
+@for (int i = 0; i < game.Players.Count; i++)
+{
+    <div>
+        <select bind=game.Players[i].FactionIdentifier>
+            <option value=game.Players[i].FactionIdentifier>@FactionService.GetByIdentifier(game.Players[i].FactionIdentifier).FriendlyName</option>
+            @foreach (var factionIdentifier in NewGameController.GetAvailableFactions(game))
+            {
+                <option value=@factionIdentifier>@FactionService.GetByIdentifier(factionIdentifier).FriendlyName</option>
+            }
+        </select>
+        Automa? <input type="checkbox" bind="@game.Players[i].IsAutoma" />
+    </div>
+}
 
-<button class="btn btn-primary" onclick="@StartGame">Start game</button>
+<div>
+    <button disabled=@NewGameController.AddPlayerButtonIsDisabled(game) class="btn" onclick="@AddPlayer">Add player</button>
+    <button disabled=@NewGameController.RemovePlayerButtonIsDisabled(game) class="btn" onclick="@RemovePlayer">Remove player</button>
+</div>
+<div>
+    <button class="btn btn-primary" onclick="@StartGame">Start game</button>
+</div>
+
+@for (int i = 0; i < game.Players.Count; i++)
+{
+    <div>
+        <span>@game.Players[i].FactionIdentifier.ToString()</span>
+    </div>
+}
 
 @functions {
-    private Game game = new Game() { Players = new List<Player> { new Player { Faction = FactionIdentifier.Ambas } } };
+    private Game game = new Game()
+    {
+        Players = new List<Player> {
+        new Player { FactionIdentifier = FactionIdentifier.Ambas, IsAutoma = false },
+        new Player { FactionIdentifier = FactionIdentifier.BalTaks, IsAutoma = true }
+    }
+    };
 
     void StartGame()
     {
-        GameStateService.InitializeGame(); ;
-        UriHelper.NavigateTo("/current-game");
+        NewGameController.StartGame(game);
+        //UriHelper.NavigateTo("/current-game");
     }
+
+    void AddPlayer() => NewGameController.AddPlayer(game);
+    void RemovePlayer() => NewGameController.RemovePlayer(game);
 }

@@ -1,6 +1,8 @@
-using Microsoft.Extensions.DependencyInjection;
 using System;
+using Microsoft.Extensions.DependencyInjection;
 using Transdim.Service.Internal;
+using Transdim.Service.Internal.Controllers;
+using Transdim.Service.Internal.Services;
 
 namespace Transdim.Service
 {
@@ -13,7 +15,12 @@ namespace Transdim.Service
                 throw new ArgumentNullException(nameof(services));
             }
 
+            // Controllers
+            services.AddTransient<INewGameController, NewGameController>();
+
+            // Services
             services.AddSingleton<IGameStateService, GameStateService>();
+            services.AddSingleton<IFactionService, FactionService>();
         }
     }
 }

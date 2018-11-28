@@ -9,9 +9,13 @@
 
   <ItemGroup>
     <Compile Remove="src\**" />
+    <Compile Remove="test\**" />
     <Content Remove="src\**" />
+    <Content Remove="test\**" />
     <EmbeddedResource Remove="src\**" />
+    <EmbeddedResource Remove="test\**" />
     <None Remove="src\**" />
+    <None Remove="test\**" />
   </ItemGroup>
 
   <ItemGroup>
