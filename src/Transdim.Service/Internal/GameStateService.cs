@@ -22,8 +22,8 @@ namespace Transdim.Service.Internal
         public void InitializeGame() =>
             currentGame = new Game {
                 Players = new List<Player> {
-                    new Player { Faction = new Faction { FactionIdentifier = FactionIdentifier.Ambas } },
-                    new Player { Faction = new Faction { FactionIdentifier = FactionIdentifier.BalTaks } },
+                    new Player { Faction = FactionIdentifier.Ambas },
+                    new Player { Faction = FactionIdentifier.BalTaks }
                 }
             };
     }

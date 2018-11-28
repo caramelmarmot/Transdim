@@ -4,10 +4,16 @@
 
 <h1>New Game</h1>
 
+<select bind=game.Players[0].Faction>
+    <option value=@FactionIdentifier.Ambas>@FactionIdentifier.Ambas</option>
+    <option value=@FactionIdentifier.BalTaks>@FactionIdentifier.BalTaks</option>
+    <option value=@FactionIdentifier.Becasods>@FactionIdentifier.Becasods</option>
+</select>
+
 <button class="btn btn-primary" onclick="@StartGame">Start game</button>
 
 @functions {
-
+    private Game game = new Game() { Players = new List<Player> { new Player { Faction = FactionIdentifier.Ambas } } };
 
     void StartGame()
     {
