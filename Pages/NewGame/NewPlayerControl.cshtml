@@ -1,0 +1,20 @@
+@inject Transdim.Service.IFactionService FactionService
+@inject Transdim.Service.INewGameController NewGameController
+
+<div>
+    <select bind=Player.FactionIdentifier>
+        @foreach (var factionIdentifier in NewGameController.GetAvailableFactions(Game))
+        {
+            <option value=@factionIdentifier>@FactionService.GetByIdentifier(factionIdentifier).FriendlyName</option>
+        }
+    </select>
+    Automa? <input type="checkbox" bind="@Player.IsAutoma" />
+</div>
+
+@functions{
+    [Parameter]
+    private Player Player { get; set; }
+
+    [Parameter]
+    private Game Game { get; set; }
+}

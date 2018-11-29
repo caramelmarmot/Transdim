@@ -12,6 +12,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Transdim.DomainModel\Transdim.DomainModel.csproj" />
+    <ProjectReference Include="..\Transdim.Persistence\Transdim.Persistence.csproj" />
   </ItemGroup>
 
 </Project>

@@ -1,0 +1,30 @@
+@page "/setup/board/{GameId}"
+@inject Transdim.Utilities.SetupNavigationUtility SetupNavigationUtility
+@inject Transdim.Service.IGameStateService GameStateService
+
+<div>
+    <span>Here's the board for game ID @GameId </span>
+</div>
+<div>
+    <button class="btn btn-primary" onclick="@Next">Next</button>
+</div>
+
+@functions {
+    [Parameter]
+    private string GameId { get; set; }
+
+    private Game game;
+
+    protected override void OnInit()
+    {
+        game = GameStateService.GetGame(new Guid(GameId));
+        base.OnInit();
+    }
+
+
+    void Next() {
+        // TODO: make this betterer
+        game.MapLink = "http://gaia-project.hol.es/?s=1272&p=3&m=5&b=4";
+        SetupNavigationUtility.NextStep(game);
+    }
+}

@@ -1,3 +1,4 @@
+using System;
 using Transdim.DomainModel;
 
 namespace Transdim.Persistence.Internal
@@ -12,6 +13,11 @@ namespace Transdim.Persistence.Internal
         {
             inMemoryGame = gameToCreate;
 
+            return inMemoryGame;
+        }
+
+        public Game GetGame(Guid gameId)
+        {
             return inMemoryGame;
         }
     }

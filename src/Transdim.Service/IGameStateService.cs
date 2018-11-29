@@ -1,11 +1,10 @@
+using System;
 using Transdim.DomainModel;
 
 namespace Transdim.Service
 {
     public interface IGameStateService
     {
-        void InitializeGame();
-
-        Game GetGameState();
+        Game GetGame(Guid GameId);
     }
 }

@@ -9,9 +9,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Transdim.DomainModel", "src
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Transdim.Service", "src\Transdim.Service\Transdim.Service.csproj", "{0CFAAB66-89C9-4E86-987F-11F7C8FEF1B4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Transdim.Persistence", "src\Transdim.Persistence\Transdim.Persistence.csproj", "{E7B28088-480B-489A-B7DE-4758CE0B3528}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Transdim.Persistence", "src\Transdim.Persistence\Transdim.Persistence.csproj", "{E7B28088-480B-489A-B7DE-4758CE0B3528}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Transdim.Service.UnitTests", "test\Transdim.Service.UnitTests\Transdim.Service.UnitTests.csproj", "{2AE787F1-CD40-4436-9C1B-79DB93860836}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Transdim.Service.UnitTests", "test\Transdim.Service.UnitTests\Transdim.Service.UnitTests.csproj", "{2AE787F1-CD40-4436-9C1B-79DB93860836}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

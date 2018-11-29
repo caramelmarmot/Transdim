@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Blazor.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Transdim.Service;
 using Transdim.Persistence;
+using Transdim.Utilities;
 
 namespace Transdim
 {
@@ -9,6 +10,7 @@ namespace Transdim
     {
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddSingleton<SetupNavigationUtility>();
             services.AddTransdimService();
             services.AddTransdimPersistence();
         }

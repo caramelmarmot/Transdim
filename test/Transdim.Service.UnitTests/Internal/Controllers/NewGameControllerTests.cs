@@ -8,29 +8,29 @@ namespace Transdim.Service.UnitTests.Internal.Controllers
     [TestClass]
     public class NewGameControllerTests
     {
-        private NewGameController sut;
+        //private NewGameController sut;
 
-        [TestInitialize]
-        public void SetUp() => sut = new NewGameController();
+        //[TestInitialize]
+        //public void SetUp() => sut = new NewGameController();
 
-        [TestMethod]
-        public void Something_WhenSomething_DoesSomething()
-        {
-            // Arrange
+        //[TestMethod]
+        //public void Something_WhenSomething_DoesSomething()
+        //{
+        //    // Arrange
 
-            var game = new Game()
-            {
-                Players = new List<Player> {
-                    new Player { FactionIdentifier = FactionIdentifier.Ambas, IsAutoma = false },
-                    new Player { FactionIdentifier = FactionIdentifier.BalTaks, IsAutoma = true }
-                }
-            };
+        //    var game = new Game()
+        //    {
+        //        Players = new List<Player> {
+        //            new Player { FactionIdentifier = FactionIdentifier.Ambas, IsAutoma = false },
+        //            new Player { FactionIdentifier = FactionIdentifier.BalTaks, IsAutoma = true }
+        //        }
+        //    };
 
-            // Act
-            var result = sut.GetAvailableFactions(game);
+        //    // Act
+        //    var result = sut.GetAvailableFactions(game);
 
-            // Assert
-            //Assert.That(result.Count, Doe)
-        }
+        //    // Assert
+        //    //Assert.That(result.Count, Doe)
+        //}
     }
 }
