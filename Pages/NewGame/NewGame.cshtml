@@ -5,21 +5,23 @@
 
 <h1>New Game</h1>
 
-@for (int i = 0; i < game.Players.Count; i++)
-{
-    <NewPlayerControl Player="@game.Players[i]" Game="@game"></NewPlayerControl>
-}
+<form class="player-setup-form">
+    @for (int i = 0; i < game.Players.Count; i++)
+    {
+        <NewPlayerControl Player="@game.Players[i]" Game="@game"></NewPlayerControl>
+    }
+</form>
 
-<div>
-    <button disabled=@NewGameController.AddPlayerButtonIsDisabled(game) class="btn" onclick="@AddPlayer">Add player</button>
-    <button disabled=@NewGameController.RemovePlayerButtonIsDisabled(game) class="btn" onclick="@RemovePlayer">Remove player</button>
+<div class="button-container">
+    <button disabled=@NewGameController.AddPlayerButtonIsDisabled(game) class="btn btn-sm oi oi-plus" onclick="@AddPlayer"></button>
+    <button disabled=@NewGameController.RemovePlayerButtonIsDisabled(game) class="btn btn-sm oi oi-minus" onclick="@RemovePlayer"></button>
 </div>
-<div>
+<div class="form-row">
     <button class="btn btn-primary" onclick="@StartGame">Start game</button>
 </div>
 @if (NewGameController.StartGameButtonIsDisabled(game))
 {
-    <div>
+    <div class="form-row">
         <span class="alert alert-danger">Only one automa is allowed. All players must belong to different factions.</span>
     </div>
 }

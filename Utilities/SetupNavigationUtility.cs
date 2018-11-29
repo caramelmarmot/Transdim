@@ -14,7 +14,7 @@ namespace Transdim.Utilities
         {
             if (game.MapLink == null)
             {
-                uriHelper.NavigateTo($"/setup/new-game/");
+                uriHelper.NavigateTo($"/new-game/");
             }
             else if (game.IsTechSetUp == false)
             {
