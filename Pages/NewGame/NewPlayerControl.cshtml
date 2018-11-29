@@ -3,7 +3,7 @@
 
 <div>
     <select bind=Player.FactionIdentifier>
-        @foreach (var factionIdentifier in NewGameController.GetAvailableFactions(Game))
+        @foreach (var factionIdentifier in NewGameController.GetAvailableFactions())
         {
             <option value=@factionIdentifier>@FactionService.GetByIdentifier(factionIdentifier).FriendlyName</option>
         }

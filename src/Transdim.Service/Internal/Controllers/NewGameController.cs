@@ -32,7 +32,7 @@ namespace Transdim.Service.Internal.Controllers
         }
 
         public void AddPlayer(Game game) =>
-            game.Players.Add(new Player { FactionIdentifier = GetAvailableFactions(game).First() });
+            game.Players.Add(new Player { FactionIdentifier = GetUnusedFactions(game).First() });
 
         public void RemovePlayer(Game game) =>
             game.Players.RemoveAt(game.Players.Count - 1);
@@ -52,10 +52,16 @@ namespace Transdim.Service.Internal.Controllers
             return moreThanOneAutoma | duplicatePlayers;
         }
 
-        public List<FactionIdentifier> GetAvailableFactions(Game game)
+        public List<FactionIdentifier> GetAvailableFactions()
         {
             var factionIdentifiers = Enum.GetValues(typeof(FactionIdentifier)).Cast<FactionIdentifier>();
             return factionIdentifiers.OrderBy(f => f.ToString()).ToList();
+        }
+
+        public List<FactionIdentifier> GetUnusedFactions(Game game)
+        {
+            var factionIdentifiers = Enum.GetValues(typeof(FactionIdentifier)).Cast<FactionIdentifier>();
+            return factionIdentifiers.Where(factionIdentifier => !game.Players.Any(player => player.FactionIdentifier == factionIdentifier)).OrderBy(f => f.ToString()).ToList();
         }
 
     }

@@ -6,6 +6,7 @@
     <span>Here's the board for game ID @GameId </span>
 </div>
 <div>
+    <button class="btn" onclick="@Back">Back</button>
     <button class="btn btn-primary" onclick="@Next">Next</button>
 </div>
 
@@ -21,6 +22,11 @@
         base.OnInit();
     }
 
+
+    void Back()
+    {
+        SetupNavigationUtility.PreviousStep(game);
+    }
 
     void Next() {
         // TODO: make this betterer

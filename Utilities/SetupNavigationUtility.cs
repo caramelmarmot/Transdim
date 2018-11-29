@@ -14,7 +14,7 @@ namespace Transdim.Utilities
         {
             if (game.MapLink == null)
             {
-                throw new InvalidOperationException("You shouldn't be calling this method from the map screen...");
+                uriHelper.NavigateTo($"/setup/new-game/");
             }
             else if (game.IsTechSetUp == false)
             {
