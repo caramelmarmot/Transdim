@@ -1,9 +1,11 @@
+using System.Collections.Generic;
+
 namespace Transdim.DomainModel.PointGenerationInterfaces
 {
     public interface IOnPassPointGenerator
     {
-        string PointsOnPassImagePath { get; set; }
+        string PointsOnPassImagePath { get; }
 
-        void AddPointsOnPass(int points);
+        void AddPointsOnPass(List<int> pointCollections, int? pointsToAdd);
     }
 }

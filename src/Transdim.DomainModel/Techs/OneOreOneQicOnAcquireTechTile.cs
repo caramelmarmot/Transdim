@@ -1,12 +1,12 @@
 namespace Transdim.DomainModel.Techs
 {
-    public class ChargeFourPowerActionTech : ITech
+    public class OneOreOneQicOnAcquireTechTile : ITech
     {
-        internal const string ImagePath = "/Images/tech-charge-four-power.png";
+        internal const string ImagePath = "/Images/tech-one-ore-one-qic.png";
 
         internal const bool IsAdvancedTechValue = false;
 
-        public TechIdentifier Identifier => TechIdentifier.ChargeFourPowerAction;
+        public TechIdentifier Identifier => TechIdentifier.OneOreOneQicOnAcquire;
 
         public string TechImagePath => ImagePath;
 

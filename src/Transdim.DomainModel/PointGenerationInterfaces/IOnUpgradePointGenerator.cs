@@ -1,9 +1,11 @@
+using System.Collections.Generic;
+
 namespace Transdim.DomainModel.PointGenerationInterfaces
 {
     public interface IOnUpgradePointGenerator
     {
-        string PointsOnUpgradeImagePath { get; set; }
+        string PointsOnUpgradeImagePath { get; }
 
-        void AddPointsOnUpgrade(int points);
+        void AddPointsOnUpgrade(List<int> pointCollections);
     }
 }

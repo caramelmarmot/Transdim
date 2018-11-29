@@ -6,8 +6,10 @@ namespace Transdim.DomainModel.Techs
 
         internal const bool IsAdvancedTechValue = false;
 
-        public string TechImagePath { get => ImagePath; }
+        public TechIdentifier Identifier => TechIdentifier.BetterBigBuildings;
 
-        public bool IsAdvancedTech { get => IsAdvancedTechValue; }
+        public string TechImagePath => ImagePath;
+
+        public bool IsAdvancedTech => IsAdvancedTechValue;
     }
 }

@@ -1,9 +1,11 @@
+using System.Collections.Generic;
+
 namespace Transdim.DomainModel.PointGenerationInterfaces
 {
     public interface IOnFederatePointGenerator
     {
-        string PointsOnFederateImagePath { get; set; }
+        string PointsOnFederateImagePath { get; }
 
-        void AddPointsOnFederate(int points);
+        void AddPointsOnFederate(List<int> pointCollections);
     }
 }

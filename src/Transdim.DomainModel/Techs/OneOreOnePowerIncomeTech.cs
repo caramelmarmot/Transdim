@@ -1,10 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
 namespace Transdim.DomainModel.Techs
 {
-    class OneOreOnePowerIncomeTech
+    public class OneOreOnePowerIncomeTech : ITech
     {
+        internal const string ImagePath = "/Images/tech-one-ore-one-power-income.png";
+
+        internal const bool IsAdvancedTechValue = false;
+
+        public TechIdentifier Identifier => TechIdentifier.OneOreOnePowerIncome;
+
+        public string TechImagePath => ImagePath;
+
+        public bool IsAdvancedTech => IsAdvancedTechValue;
     }
 }

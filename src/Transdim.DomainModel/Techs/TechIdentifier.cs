@@ -1,13 +1,13 @@
 public enum TechIdentifier
 {
-    OneOreOneQicOnReseach = 0,
+    OneOreOneQicOnAcquire = 0,
     ChargeFourPowerAction = 1,
     OneOreOnePowerIncome = 2,
-    ScienceForPlanetsOnResearch = 3,
+    ScienceForPlanetsOnAcquire = 3,
     FourCreditsIncome = 4,
     BetterBigBuildings = 5,
     OneKnowledgeOneCreditIncome = 6,
-    SevenPointsOnResearch = 7,
+    SevenPointsOnAcquireTechTile = 7,
     ThreeVpOnBuildOnGaia = 8,
     ThreeKnowledgeAction = 9,
     OneQicFiveCreditsAction = 10,

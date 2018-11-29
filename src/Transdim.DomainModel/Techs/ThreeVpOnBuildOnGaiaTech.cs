@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using System.Linq;
 using Transdim.DomainModel.PointGenerationInterfaces;
 
 namespace Transdim.DomainModel.Techs
@@ -8,15 +10,20 @@ namespace Transdim.DomainModel.Techs
 
         internal const bool IsAdvancedTechValue = false;
 
-        public string TechImagePath { get => ImagePath; }
+        public TechIdentifier Identifier => TechIdentifier.ThreeVpOnBuildOnGaia;
 
-        public bool IsAdvancedTech { get => IsAdvancedTechValue; }
+        public string TechImagePath => ImagePath;
 
-        public string PointsOnBuildImagePath { get => TechImagePath; }
+        public bool IsAdvancedTech => IsAdvancedTechValue;
 
-        public void AddPointsOnBuild(int points)
+        public string PointsOnBuildImagePath => TechImagePath;
+
+        public void AddPointsOnBuild(List<int> pointCollections)
         {
-            points = points + 3;
+            for (int i = 0; i < pointCollections.Count(); i++)
+            {
+                pointCollections[i] += 3;
+            }
         }
     }
 }
