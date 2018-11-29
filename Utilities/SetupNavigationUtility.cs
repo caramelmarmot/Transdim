@@ -16,7 +16,7 @@ namespace Transdim.Utilities
             {
                 uriHelper.NavigateTo($"/new-game");
             }
-            else if (game.IsTechSetUp == false)
+            else if (game.TechTrack == null)
             {
                 uriHelper.NavigateTo($"/setup/board/{game.Id}");
             }
@@ -28,7 +28,7 @@ namespace Transdim.Utilities
             {
                 uriHelper.NavigateTo($"/setup/board/{game.Id}");
             }
-            else if (game.IsTechSetUp == false)
+            else if (game.TechTrack == null)
             {
                 uriHelper.NavigateTo($"/setup/tech/{game.Id}");
             }

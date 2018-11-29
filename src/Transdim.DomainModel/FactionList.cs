@@ -2,7 +2,7 @@ using System.Collections.Generic;
 
 namespace Transdim.DomainModel
 {
-    public static class Factions
+    public static class FactionList
     {
         public static List<Faction> AvailableFactions = new List<Faction>
         {

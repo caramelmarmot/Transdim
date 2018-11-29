@@ -8,5 +8,7 @@ namespace Transdim.Persistence
         Game CreateGame(Game gameToCreate);
 
         Game GetGame(Guid gameId);
+
+        void SaveGame(Game game);
     }
 }

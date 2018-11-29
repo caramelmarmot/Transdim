@@ -20,5 +20,10 @@ namespace Transdim.Persistence.Internal
         {
             return inMemoryGame;
         }
+
+        public void SaveGame(Game game)
+        {
+            inMemoryGame = game;
+        }
     }
 }

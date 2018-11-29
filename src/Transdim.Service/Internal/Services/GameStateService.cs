@@ -3,7 +3,7 @@ using Transdim.DomainModel;
 using Transdim.DomainModel.Exceptions;
 using Transdim.Persistence;
 
-namespace Transdim.Service.Internal
+namespace Transdim.Service.Internal.Services
 {
     internal class GameStateService : IGameStateService
     {
@@ -22,6 +22,11 @@ namespace Transdim.Service.Internal
             }
 
             return game;
+        }
+
+        public void SaveGame(Game game)
+        {
+            gameRepository.SaveGame(game);
         }
     }
 }

@@ -1,0 +1,38 @@
+<div class="col-12 col-sm-6 col-md-4">
+    <div class="tech-background @GetBackgroundColor()">
+        <img class="tech-tile" src="@GetStandardTechImage()" asp-append-version="true" />
+        <img class="tech-tile advanced-tech-tile" src="@GetAdvancedTechImage()" asp-append-version="true" />
+    </div>
+</div>
+
+@functions{
+    [Parameter]
+    private TechTrack TechTrackInstance { get; set; }
+
+    public string GetBackgroundColor()
+    {
+        switch (TechTrackInstance.Identifier)
+        {
+            case TechTrackIdentifier.Terraforming:
+                return "terraforming-tech-background";
+            case TechTrackIdentifier.Navigation:
+                return "navigation-tech-background";
+            case TechTrackIdentifier.ArtificialIntellegence:
+                return "artificial-intelligence-tech-background";
+            case TechTrackIdentifier.Gaiaforming:
+                return "gaiaforming-tech-background";
+            case TechTrackIdentifier.Economy:
+                return "economy-tech-background";
+            case TechTrackIdentifier.Science:
+                return "science-tech-background";
+            case TechTrackIdentifier.Wild:
+                return "";
+            default:
+                return "";
+        }
+    }
+
+    public string GetStandardTechImage() => TechTrackInstance.StandardTech.TechImagePath;
+
+    public string GetAdvancedTechImage() => TechTrackInstance.AdvancedTech.TechImagePath;
+}

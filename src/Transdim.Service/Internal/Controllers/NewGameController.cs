@@ -10,20 +10,17 @@ namespace Transdim.Service.Internal.Controllers
     {
         private readonly IGameRepository gameRepository;
 
+        private readonly IGameInitializationService gameInitializationService;
+        public NewGameController(IGameRepository gameRepository, IGameInitializationService gameInitializationService)
+        {
+            this.gameRepository = gameRepository ?? throw new ArgumentNullException(nameof(gameRepository));
+            this.gameInitializationService = gameInitializationService ?? throw new ArgumentNullException(nameof(gameInitializationService));
+        }
+
         public Game InitializeGame() {
             // TODO: load game setup and prepopulate configuration
-            
-            return new Game()
-            {
-                Id = Guid.NewGuid(),
-                Players = new List<Player> {
-                    new Player { FactionIdentifier = FactionIdentifier.Ambas, IsAutoma = false },
-                    new Player { FactionIdentifier = FactionIdentifier.BalTaks, IsAutoma = true }
-                }
-            };
-        }
-        public NewGameController(IGameRepository gameRepository) {
-            this.gameRepository = gameRepository ?? throw new ArgumentNullException(nameof(gameRepository));
+
+            return gameInitializationService.InitializeGame();
         }
 
         public void StartGame(Game gameToStart) {

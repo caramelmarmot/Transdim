@@ -1,0 +1,15 @@
+<div class="col-12 col-sm-4">
+    <div class="row">
+        <div class="col-8 tech-background wild-tech-background">
+            <img class="tech-tile" src="@GetStandardTechImage()" asp-append-version="true" />
+        </div>
+    </div>
+</div>
+
+
+@functions{
+    [Parameter]
+    private TechTrack TechTrackInstance { get; set; }
+
+    public string GetStandardTechImage() => TechTrackInstance.StandardTech.TechImagePath;
+}

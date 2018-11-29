@@ -5,6 +5,8 @@ namespace Transdim.Service
 {
     public interface IGameStateService
     {
-        Game GetGame(Guid GameId);
+        Game GetGame(Guid gameId);
+
+        void SaveGame(Game game);
     }
 }

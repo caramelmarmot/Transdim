@@ -1,68 +1,19 @@
 @page "/setup/tech/{GameId}"
 @inject Transdim.Utilities.SetupNavigationUtility SetupNavigationUtility
-@inject Transdim.Service.IGameStateService GameStateService
+@inject Transdim.Service.ITechSetupController TechSetupController
 
 <div class="tech-setup">
     <div class="row">
-        <div class="col-12 col-sm-6 col-md-4">
-            <div class="tech-background terraforming-tech-background">
-                <img class="tech-tile" src="/Images/tech-7-vp.png" asp-append-version="true" />
-                <img class="tech-tile advanced-tech-tile" src="/Images/tech-7-vp.png" asp-append-version="true" />
-            </div>
-        </div>
-        <div class="col-12 col-sm-6 col-md-4">
-            <div class="tech-background navigation-tech-background">
-                <img class="tech-tile" src="/Images/tech-7-vp.png" asp-append-version="true" />
-                <img class="tech-tile advanced-tech-tile" src="/Images/tech-7-vp.png" asp-append-version="true" />
-            </div>
-        </div>
-        <div class="col-12 col-sm-6 col-md-4">
-            <div class="tech-background artificial-intelligence-tech-background">
-                <img class="tech-tile" src="/Images/tech-7-vp.png" asp-append-version="true" />
-                <img class="tech-tile advanced-tech-tile" src="/Images/tech-7-vp.png" asp-append-version="true" />
-            </div>
-        </div>
-        <div class="col-12 col-sm-6 col-md-4">
-            <div class="tech-background gaiaforming-tech-background">
-                <img class="tech-tile" src="/Images/tech-7-vp.png" asp-append-version="true" />
-                <img class="tech-tile advanced-tech-tile" src="/Images/tech-7-vp.png" asp-append-version="true" />
-            </div>
-        </div>
-        <div class="col-12 col-sm-6 col-md-4">
-            <div class="tech-background economy-tech-background">
-                <img class="tech-tile" src="/Images/tech-7-vp.png" asp-append-version="true" />
-                <img class="tech-tile advanced-tech-tile" src="/Images/tech-7-vp.png" asp-append-version="true" />
-            </div>
-        </div>
-        <div class="col-12 col-sm-6 col-md-4">
-            <div class="tech-background science-tech-background">
-                <img class="tech-tile" src="/Images/tech-7-vp.png" asp-append-version="true" />
-                <img class="tech-tile advanced-tech-tile" src="/Images/tech-7-vp.png" asp-append-version="true" />
-            </div>
-        </div>
+        @foreach (var track in TechSetupController.GetTechTracks(game))
+        {
+            <TechTrackSetupControl TechTrackInstance="track"></TechTrackSetupControl>
+        }
     </div>
     <div class="row">
-        <div class="col-12 col-sm-4">
-            <div class="row">
-                <div class="col-8 tech-background wild-tech-background">
-                    <img class="tech-tile" src="/Images/tech-7-vp.png" asp-append-version="true" />
-                </div>
-            </div>
-        </div>
-        <div class="col-12 col-sm-4">
-            <div class="row">
-                <div class="col-8 tech-background wild-tech-background">
-                    <img class="tech-tile" src="/Images/tech-7-vp.png" asp-append-version="true" />
-                </div>
-            </div>
-        </div>
-        <div class="col-12 col-sm-4">
-            <div class="row">
-                <div class="col-8 tech-background wild-tech-background">
-                    <img class="tech-tile" src="/Images/tech-7-vp.png" asp-append-version="true" />
-                </div>
-            </div>
-        </div>
+        @foreach (var tech in TechSetupController.GetWildTechs(game))
+        {
+            <WildTechSetupControl TechTrackInstance="tech"></WildTechSetupControl>
+        }
     </div>
     <div>
         <button class="btn" onclick="@Back">Back</button>
@@ -70,7 +21,7 @@
     </div>
 </div>
 
-    @functions {
+@functions {
     [Parameter]
     private string GameId { get; set; }
 
@@ -78,20 +29,18 @@
 
     protected override void OnInit()
     {
-        game = GameStateService.GetGame(new Guid(GameId));
+        game = TechSetupController.GetGameWithInitializedTech(new Guid(GameId));
         base.OnInit();
     }
 
     void Back()
     {
-        game.IsTechSetUp = false;
+        TechSetupController.ClearTech(game);
         SetupNavigationUtility.PreviousStep(game);
     }
 
     void Next()
     {
-        // TODO: make this betterer
-        game.IsTechSetUp = true;
         SetupNavigationUtility.NextStep(game);
     }
-    }
+}

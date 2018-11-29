@@ -15,6 +15,6 @@ namespace Transdim.DomainModel
 
         public string MapLink { get; set; }
 
-        public bool IsTechSetUp { get; set; }
+        public List<TechTrack> TechTrack { get; set; }
     }
 }
