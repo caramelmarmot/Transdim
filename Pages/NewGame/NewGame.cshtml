@@ -28,24 +28,24 @@
 
 
 @functions {
-    private Game game;
+private Game game;
 
-    protected override void OnInit()
+protected override void OnInit()
+{
+    game = NewGameController.InitializeGame();
+    base.OnInit();
+}
+
+void StartGame()
+{
+    if (NewGameController.StartGameButtonIsDisabled(game))
     {
-        game = NewGameController.InitializeGame();
-        base.OnInit();
+        return;
     }
+    NewGameController.StartGame(game);
+    SetupNavigationUtility.NextStep(game);
+}
 
-    void StartGame()
-    {
-        if (NewGameController.StartGameButtonIsDisabled(game))
-        {
-            return;
-        }
-        NewGameController.StartGame(game);
-        SetupNavigationUtility.NextStep(game);
-    }
-
-    void AddPlayer() => NewGameController.AddPlayer(game);
-    void RemovePlayer() => NewGameController.RemovePlayer(game);
+void AddPlayer() => NewGameController.AddPlayer(game);
+void RemovePlayer() => NewGameController.RemovePlayer(game);
 }

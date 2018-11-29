@@ -2,5 +2,9 @@
   {
     "outputFile": "wwwroot/css/base.css",
     "inputFile": "wwwroot/css/base.less"
+  },
+  {
+    "outputFile": "Pages/Setup/tech-setup.css",
+    "inputFile": "Pages/Setup/tech-setup.less"
   }
 ]

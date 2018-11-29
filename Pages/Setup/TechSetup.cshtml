@@ -2,8 +2,45 @@
 @inject Transdim.Utilities.SetupNavigationUtility SetupNavigationUtility
 @inject Transdim.Service.IGameStateService GameStateService
 
-<div>
-    <span>And now the tech setup for game ID @GameId </span>
+<div class="tech-setup">
+    <div class="row">
+        <div class="col-12 col-sm-6 col-md-4">
+            <div class="tech-background terraforming-tech-background">
+                <img class="tech-tile" src="/Images/tech-7-vp.png" asp-append-version="true" />
+                <img class="tech-tile advanced-tech-tile" src="/Images/tech-7-vp.png" asp-append-version="true" />
+            </div>
+        </div>
+        <div class="col-12 col-sm-6 col-md-4">
+            <div class="tech-background navigation-tech-background">
+                <img class="tech-tile" src="/Images/tech-7-vp.png" asp-append-version="true" />
+                <img class="tech-tile advanced-tech-tile" src="/Images/tech-7-vp.png" asp-append-version="true" />
+            </div>
+        </div>
+        <div class="col-12 col-sm-6 col-md-4">
+            <div class="tech-background qic-tech-background">
+                <img class="tech-tile" src="/Images/tech-7-vp.png" asp-append-version="true" />
+                <img class="tech-tile advanced-tech-tile" src="/Images/tech-7-vp.png" asp-append-version="true" />
+            </div>
+        </div>
+        <div class="col-12 col-sm-6 col-md-4">
+            <div class="tech-background gaiaforming-tech-background">
+                <img class="tech-tile" src="/Images/tech-7-vp.png" asp-append-version="true" />
+                <img class="tech-tile advanced-tech-tile" src="/Images/tech-7-vp.png" asp-append-version="true" />
+            </div>
+        </div>
+        <div class="col-12 col-sm-6 col-md-4">
+            <div class="tech-background economy-tech-background">
+                <img class="tech-tile" src="/Images/tech-7-vp.png" asp-append-version="true" />
+                <img class="tech-tile advanced-tech-tile" src="/Images/tech-7-vp.png" asp-append-version="true" />
+            </div>
+        </div>
+        <div class="col-12 col-sm-6 col-md-4">
+            <div class="tech-background knowledge-tech-background">
+                <img class="tech-tile" src="/Images/tech-7-vp.png" asp-append-version="true" />
+                <img class="tech-tile advanced-tech-tile" src="/Images/tech-7-vp.png" asp-append-version="true" />
+            </div>
+        </div>
+    </div>
 </div>
 <div>
     <button class="btn" onclick="@Back">Back</button>
@@ -24,6 +61,7 @@
 
     void Back()
     {
+        game.IsTechSetUp = false;
         SetupNavigationUtility.PreviousStep(game);
     }
 

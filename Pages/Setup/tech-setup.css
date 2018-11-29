@@ -1,7 +1,4 @@
-﻿.player-setup-form .form-row {
-  padding-bottom: 3px;
-}
-.tech-setup .tech-background {
+﻿.tech-setup .tech-background {
   margin-bottom: 25px;
 }
 .tech-setup .terraforming-tech-background {
@@ -24,11 +21,4 @@
 }
 .tech-setup .tech-tile {
   margin-left: 5px;
-}
-.button-container {
-  padding-bottom: 15px;
-}
-.tech-tile {
-  filter: drop-shadow(4px 3px 5px #475159);
-  height: 80px;
 }
