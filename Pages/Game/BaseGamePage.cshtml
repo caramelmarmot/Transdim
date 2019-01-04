@@ -1,0 +1,40 @@
+@page "/game/{GameId}"
+@inject Transdim.Service.IGameStateService GameStateService
+
+<div class="row">
+    <div class="col-6" style="background-color:burlywood">0</div>
+    <div class="col-6" style="background-color:aquamarine">0</div>
+</div>
+<div class="row">
+    <div class="col-12">Here's the game</div>
+    <button class="btn btn-primary" onclick="@AddLogEntry">Add log entry</button>
+</div>
+
+
+<GameLog Game="@game"></GameLog>
+
+@functions {
+    [Parameter]
+    private string GameId { get; set; }
+
+    private Game game;
+
+    private int i = 0;
+
+    protected override void OnInit()
+    {
+        game = GameStateService.GetGame(new Guid(GameId));
+        if (game.Log == null)
+        {
+            game.Log = new List<string>();
+        }
+
+        base.OnInit();
+    }
+
+    void AddLogEntry()
+    {
+        game.Log.Add($"Logged a thing {i}");
+        i++;
+    }
+}

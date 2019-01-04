@@ -32,6 +32,10 @@ namespace Transdim.Utilities
             {
                 uriHelper.NavigateTo($"/setup/tech/{game.Id}");
             }
+            else
+            {
+                uriHelper.NavigateTo($"/game/{game.Id}");
+            }
         }
     }
 }

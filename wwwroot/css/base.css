@@ -1,4 +1,4 @@
-.player-setup-form .form-row {
+﻿.player-setup-form .form-row {
   padding-bottom: 3px;
 }
 .tech-setup .tech-background {
@@ -27,6 +27,20 @@
 }
 .tech-setup .tech-tile {
   margin-left: 5px;
+}
+.game-log-container {
+  border-style: hidden;
+  border-radius: 15px;
+  margin-bottom: 5px;
+  background-image: linear-gradient(180deg, #ffffff 0%, #000000 400%);
+  font-family: monospace;
+  padding-bottom: 5px;
+  padding-top: 5px;
+  max-height: 60px;
+  min-height: 60px;
+}
+.game-log {
+  min-height: 40px;
 }
 .button-container {
   padding-bottom: 15px;

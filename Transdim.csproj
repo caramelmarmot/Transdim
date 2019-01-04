@@ -44,4 +44,8 @@
     <ProjectReference Include="src\Transdim.Service\Transdim.Service.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Pages\Game\Score\" />
+  </ItemGroup>
+
 </Project>
