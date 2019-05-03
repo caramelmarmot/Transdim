@@ -1,4 +1,4 @@
-using Microsoft.AspNetCore.Blazor.Services;
+using Microsoft.AspNetCore.Components;
 using System;
 using Transdim.DomainModel;
 
