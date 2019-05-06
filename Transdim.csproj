@@ -45,7 +45,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Pages\Game\Log\" />
     <Folder Include="Pages\Game\Score\" />
   </ItemGroup>
 

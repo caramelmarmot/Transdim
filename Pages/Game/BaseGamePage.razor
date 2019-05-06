@@ -1,5 +1,6 @@
 @page "/game/{GameId}"
 @inject Transdim.Service.IGameStateService GameStateService
+@using Transdim.Pages.Game.Log;
 
 <div class="row">
     <div class="col-6" style="background-color:burlywood">0</div>
@@ -9,9 +10,9 @@
     <div class="col-12">Here's the game</div>
     <button class="btn btn-primary" onclick="@AddLogEntry">Add log entry</button>
 </div>
-
-
-<GameLog Game="@game"></GameLog>
+<div class="row">
+    <GameLog Game="@game"></GameLog>
+</div>
 
 @functions {
     [Parameter]
@@ -24,9 +25,9 @@
     protected override void OnInit()
     {
         game = GameStateService.GetGame(new Guid(GameId));
-        if (game.Log == null)
+        if (game.GameActions == null)
         {
-            game.Log = new List<string>();
+            game.GameActions = new List<GameAction>();
         }
 
         base.OnInit();
@@ -34,7 +35,7 @@
 
     void AddLogEntry()
     {
-        game.Log.Add($"Logged a thing {i}");
+        game.GameActions.Add(new GameAction { LogText = $"Logged a thing {i}" });
         i++;
     }
 }
