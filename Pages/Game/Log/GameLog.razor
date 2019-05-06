@@ -1,10 +1,11 @@
 ﻿<div class="container">
     <div class="row game-log-container">
         <div class="col-12">
-            @foreach (var gameAction in game.GameActions)
-            {
-                <span>@gameAction.LogText</span>
-            }
+            <div class="container">
+                <div class="row log-row log-row-oldest">@GetLogText(2)</div>
+                <div class="row log-row log-row-middle">@GetLogText(1)</div>
+                <div class="row log-row log-row-newest">@GetLogText(0)</div>
+            </div>
         </div>
     </div>
 </div>
@@ -12,4 +13,20 @@
 @functions {
     [Parameter]
     public Game game { get; set; }
+
+    public string GetLogText(int distanceFromEnd)
+    {
+        Console.WriteLine($"distanceFromEnd: {distanceFromEnd}");
+        Console.WriteLine($"gameActionCount: {game.GameActions.Count}");
+
+        if (game == null || game.GameActions.Count <= distanceFromEnd)
+        {
+            return string.Empty;
+        }
+
+        var indexToReport = game.GameActions.Count - distanceFromEnd - 1;
+        Console.WriteLine($"I want to report game.gameActions[{indexToReport}].");        
+
+        return game.GameActions[indexToReport].LogText;
+    }
 }

@@ -19,7 +19,7 @@ namespace Transdim.Service
             services.AddTransient<IBoardSetupController, BoardSetupController>();
             services.AddTransient<ITechSetupController, TechSetupController>();
             services.AddTransient<IBaseGameController, BaseGameController>();
-
+            services.AddTransient<IGameLogController, GameLogController>();
 
             // Services
             services.AddSingleton<IGameInitializationService, GameInitializationService>();
