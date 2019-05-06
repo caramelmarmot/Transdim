@@ -2,24 +2,26 @@
 @inject Transdim.Utilities.SetupNavigationUtility SetupNavigationUtility
 @inject Transdim.Service.ITechSetupController TechSetupController
 
-<div class="tech-setup">
-    <div class="row">
-        @foreach (var track in TechSetupController.GetTechTracks(game))
-        {
-            <TechTrackSetupControl TechTrackInstance="track"></TechTrackSetupControl>
-        }
+    <div class="container">
+        <div class="tech-setup">
+            <div class="row">
+                @foreach (var track in TechSetupController.GetTechTracks(game))
+                {
+                    <TechTrackSetupControl TechTrackInstance="track"></TechTrackSetupControl>
+                }
+            </div>
+            <div class="row">
+                @foreach (var tech in TechSetupController.GetWildTechs(game))
+                {
+                    <WildTechSetupControl TechTrackInstance="tech"></WildTechSetupControl>
+                }
+            </div>
+            <div>
+                <button class="btn" onclick="@Back">Back</button>
+                <button class="btn btn-primary" onclick="@Next">Next</button>
+            </div>
+        </div>
     </div>
-    <div class="row">
-        @foreach (var tech in TechSetupController.GetWildTechs(game))
-        {
-            <WildTechSetupControl TechTrackInstance="tech"></WildTechSetupControl>
-        }
-    </div>
-    <div>
-        <button class="btn" onclick="@Back">Back</button>
-        <button class="btn btn-primary" onclick="@Next">Next</button>
-    </div>
-</div>
 
 @functions {
     [Parameter]

@@ -2,16 +2,21 @@
 @inject Transdim.Service.IBaseGameController BaseGameController
 @using Transdim.Pages.Game.Log;
 
-<div class="row">
-    <div class="col-6" style="background-color:burlywood">0</div>
-    <div class="col-6" style="background-color:aquamarine">0</div>
-</div>
-<div class="row">
-    <div class="col-12">Here's the game</div>
-    <button class="btn btn-primary" onclick="@AddLogEntry">Add log entry</button>
-</div>
-<GameLog Game="@game"></GameLog>
-
+    <div class="container">
+        <div class="row">
+            <div class="col-6" style="background-color:burlywood">0</div>
+            <div class="col-6" style="background-color:aquamarine">0</div>
+        </div>
+        <div class="row">
+            <div class="col-12">Here's the game</div>
+            <button class="btn btn-primary" onclick="@AddLogEntry">Add log entry</button>
+        </div>
+    </div>
+    <footer class="footer">
+        <div class="container">
+            <GameLog Game="@game"></GameLog>
+        </div>
+    </footer>
 @functions {
     [Parameter]
     private string GameId { get; set; }

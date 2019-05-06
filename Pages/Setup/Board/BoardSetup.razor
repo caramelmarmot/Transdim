@@ -2,13 +2,15 @@
 @inject Transdim.Utilities.SetupNavigationUtility SetupNavigationUtility
 @inject Transdim.Service.IBoardSetupController BoardSetupController
 
-<div>
-    <span>Here's the board for game ID @GameId </span>
-</div>
-<div>
-    <button class="btn" onclick="@Back">Back</button>
-    <button class="btn btn-primary" onclick="@Next">Next</button>
-</div>
+    <div class="container">
+        <div>
+            <span>Here's the board for game ID @GameId </span>
+        </div>
+        <div>
+            <button class="btn" onclick="@Back">Back</button>
+            <button class="btn btn-primary" onclick="@Next">Next</button>
+        </div>
+    </div>
 
 @functions {
     [Parameter]

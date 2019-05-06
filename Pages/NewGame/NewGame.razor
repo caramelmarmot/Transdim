@@ -2,28 +2,30 @@
 @inject Transdim.Utilities.SetupNavigationUtility SetupNavigationUtility
 @inject Transdim.Service.INewGameController NewGameController
 
-<h1>New Game</h1>
+    <div class="container">
+        <h1>New Game</h1>
 
-<form class="player-setup-form">
-    @for (int i = 0; i < game.Players.Count; i++)
-    {
-        <NewPlayerControl Player="@game.Players[i]" Game="@game"></NewPlayerControl>
-    }
-</form>
+        <form class="player-setup-form">
+            @for (int i = 0; i < game.Players.Count; i++)
+            {
+                <NewPlayerControl Player="@game.Players[i]" Game="@game"></NewPlayerControl>
+            }
+        </form>
 
-<div class="button-container">
-    <button disabled=@NewGameController.AddPlayerButtonIsDisabled(game) class="btn btn-sm oi oi-plus" onclick="@AddPlayer"></button>
-    <button disabled=@NewGameController.RemovePlayerButtonIsDisabled(game) class="btn btn-sm oi oi-minus" onclick="@RemovePlayer"></button>
-</div>
-<div class="form-row">
-    <button class="btn btn-primary" onclick="@StartGame">Start game</button>
-</div>
-@if (NewGameController.StartGameButtonIsDisabled(game))
-{
-    <div class="form-row">
-        <span class="alert alert-danger">Only one automa is allowed. All players must belong to different factions.</span>
+        <div class="button-container">
+            <button disabled=@NewGameController.AddPlayerButtonIsDisabled(game) class="btn btn-sm oi oi-plus" onclick="@AddPlayer"></button>
+            <button disabled=@NewGameController.RemovePlayerButtonIsDisabled(game) class="btn btn-sm oi oi-minus" onclick="@RemovePlayer"></button>
+        </div>
+        <div class="form-row">
+            <button class="btn btn-primary" onclick="@StartGame">Start game</button>
+        </div>
+        @if (NewGameController.StartGameButtonIsDisabled(game))
+        {
+            <div class="form-row">
+                <span class="alert alert-danger">Only one automa is allowed. All players must belong to different factions.</span>
+            </div>
+        }
     </div>
-}
 
 
 @functions {

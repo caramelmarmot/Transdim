@@ -1,7 +1,12 @@
+@import url('open-iconic/font/css/open-iconic-bootstrap.min.css');
 @import "colors.less";
 @import "../../Pages/NewGame/new-game";
 @import "../../Pages/Setup/Tech/tech-setup.less";
 @import "../../Pages/Game/Log/game-log.less";
+
+html, body {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
 
 .button-container {
     padding-bottom: 15px;
@@ -10,4 +15,10 @@
 .tech-tile {
     filter: drop-shadow(4px 3px 5px @drop-shadow);
     height: 60px;
+}
+
+.footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
 }

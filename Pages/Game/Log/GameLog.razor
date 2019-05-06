@@ -1,9 +1,11 @@
-﻿<div class="row game-log-container">
-    <div class="col-12">
-        @foreach (var gameAction in game.GameActions)
-        {
-            <span>@gameAction.LogText</span>
-        }
+﻿<div class="container">
+    <div class="row game-log-container">
+        <div class="col-12">
+            @foreach (var gameAction in game.GameActions)
+            {
+                <span>@gameAction.LogText</span>
+            }
+        </div>
     </div>
 </div>
 
