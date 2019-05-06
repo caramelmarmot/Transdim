@@ -1,6 +1,6 @@
 using Transdim.DomainModel;
 
-namespace Transdim.Service
+namespace Transdim.Service.Internal.Services
 {
     public interface IFactionService
     {

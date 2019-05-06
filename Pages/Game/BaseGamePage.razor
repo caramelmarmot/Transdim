@@ -1,5 +1,5 @@
 @page "/game/{GameId}"
-@inject Transdim.Service.IGameStateService GameStateService
+@inject Transdim.Service.IBaseGameController BaseGameController
 @using Transdim.Pages.Game.Log;
 
 <div class="row">
@@ -24,7 +24,7 @@
 
     protected override void OnInit()
     {
-        game = GameStateService.GetGame(new Guid(GameId));
+        game = BaseGameController.GetGame(new Guid(GameId));
         if (game.GameActions == null)
         {
             game.GameActions = new List<GameAction>();

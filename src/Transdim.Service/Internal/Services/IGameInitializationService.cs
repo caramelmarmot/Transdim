@@ -1,9 +1,9 @@
 using System.Collections.Generic;
 using Transdim.DomainModel;
 
-namespace Transdim.Service
+namespace Transdim.Service.Internal.Services
 {
-    public interface IGameInitializationService
+    internal interface IGameInitializationService
     {
         Game InitializeGame();
 

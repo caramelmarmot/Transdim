@@ -1,6 +1,6 @@
 @page "/setup/board/{GameId}"
 @inject Transdim.Utilities.SetupNavigationUtility SetupNavigationUtility
-@inject Transdim.Service.IGameStateService GameStateService
+@inject Transdim.Service.IBoardSetupController BoardSetupController
 
 <div>
     <span>Here's the board for game ID @GameId </span>
@@ -18,7 +18,7 @@
 
     protected override void OnInit()
     {
-        game = GameStateService.GetGame(new Guid(GameId));
+        game = BoardSetupController.GetGame(new Guid(GameId));
         base.OnInit();
     }
 

@@ -1,4 +1,3 @@
-@inject Transdim.Service.IFactionService FactionService
 @inject Transdim.Service.INewGameController NewGameController
 
 <div class="form-row">
@@ -6,7 +5,7 @@
         <select class="form-control " bind=Player.FactionIdentifier>
             @foreach (var factionIdentifier in NewGameController.GetAvailableFactions())
             {
-                <option value=@factionIdentifier>@FactionService.GetByIdentifier(factionIdentifier).FriendlyName</option>
+                <option value=@factionIdentifier>@NewGameController.GetFactionByIdentifier(factionIdentifier).FriendlyName</option>
             }
         </select>
     </div>

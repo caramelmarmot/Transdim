@@ -1,9 +1,9 @@
 using System;
 using Transdim.DomainModel;
 
-namespace Transdim.Service
+namespace Transdim.Service.Internal.Services
 {
-    public interface IGameStateService
+    internal interface IGameStateService
     {
         Game GetGame(Guid gameId);
 

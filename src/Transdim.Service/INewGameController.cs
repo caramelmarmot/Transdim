@@ -22,5 +22,7 @@ namespace Transdim.Service
         List<FactionIdentifier> GetAvailableFactions();
 
         List<FactionIdentifier> GetUnusedFactions(Game game);
+
+        Faction GetFactionByIdentifier(FactionIdentifier factionIdentifier);
     }
 }

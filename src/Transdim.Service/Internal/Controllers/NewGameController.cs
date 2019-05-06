@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Transdim.DomainModel;
 using Transdim.Persistence;
+using Transdim.Service.Internal.Services;
 
 namespace Transdim.Service.Internal.Controllers
 {
@@ -11,10 +12,14 @@ namespace Transdim.Service.Internal.Controllers
         private readonly IGameRepository gameRepository;
 
         private readonly IGameInitializationService gameInitializationService;
-        public NewGameController(IGameRepository gameRepository, IGameInitializationService gameInitializationService)
+
+        private readonly IFactionService factionService;
+
+        public NewGameController(IGameRepository gameRepository, IGameInitializationService gameInitializationService, IFactionService factionService)
         {
             this.gameRepository = gameRepository ?? throw new ArgumentNullException(nameof(gameRepository));
             this.gameInitializationService = gameInitializationService ?? throw new ArgumentNullException(nameof(gameInitializationService));
+            this.factionService = factionService ?? throw new ArgumentNullException(nameof(factionService));
         }
 
         public Game InitializeGame() {
@@ -61,5 +66,7 @@ namespace Transdim.Service.Internal.Controllers
             return factionIdentifiers.Where(factionIdentifier => !game.Players.Any(player => player.FactionIdentifier == factionIdentifier)).OrderBy(f => f.ToString()).ToList();
         }
 
+        public Faction GetFactionByIdentifier(FactionIdentifier factionIdentifier) =>
+            factionService.GetByIdentifier(factionIdentifier);
     }
 }
