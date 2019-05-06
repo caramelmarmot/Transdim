@@ -1,0 +1,11 @@
+﻿<div class="row">
+    <div class="col-3" style="background-color:burlywood">@Game.Players[0].Score</div>
+    <div class="col-3" style="background-color:aquamarine">@Game.Players[1].Score</div>
+    <div class="col-3" style="background-color:lightpink">0</div>
+    <div class="col-3" style="background-color:lightgoldenrodyellow">0</div>
+</div>
+
+@functions {
+    [Parameter]
+    Game Game { get; set; }
+}

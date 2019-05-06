@@ -1,12 +1,11 @@
 @page "/game/{GameId}"
 @inject Transdim.Service.IBaseGameController BaseGameController
+
 @using Transdim.Pages.Game.Log;
+@using Transdim.Pages.Game.ScoreTracker;
 
     <div class="container">
-        <div class="row">
-            <div class="col-6" style="background-color:burlywood">0</div>
-            <div class="col-6" style="background-color:aquamarine">0</div>
-        </div>
+        <ScoreTracker Game="@game"></ScoreTracker>
         <div class="row">
             <div class="col-12">Here's the game</div>
             <button class="btn btn-primary" onclick="@AddLogEntry">Add log entry</button>

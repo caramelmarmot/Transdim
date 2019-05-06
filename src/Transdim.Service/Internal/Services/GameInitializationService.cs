@@ -14,8 +14,8 @@ namespace Transdim.Service.Internal.Services
             {
                 Id = Guid.NewGuid(),
                 Players = new List<Player> {
-                    new Player { FactionIdentifier = FactionIdentifier.Ambas, IsAutoma = false },
-                    new Player { FactionIdentifier = FactionIdentifier.BalTaks, IsAutoma = true }
+                    new Player { FactionIdentifier = FactionIdentifier.Ambas, IsAutoma = false, Score = 10 },
+                    new Player { FactionIdentifier = FactionIdentifier.BalTaks, IsAutoma = true, Score = 10 }
                 }
             };
         }
