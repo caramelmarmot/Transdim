@@ -5,10 +5,10 @@
 @using Transdim.Pages.Game.ScoreTracker;
 
     <div class="container">
-        <ScoreTracker Game="@game"></ScoreTracker>
+        <ScoreTrackerComponent Game="@game"></ScoreTrackerComponent>
         <div class="row">
             <div class="col-12">Here's the game</div>
-            <button class="btn btn-primary" onclick="@AddLogEntry">Add log entry</button>
+            <button class="btn btn-primary" onclick="@DoAnAction">Do an action</button>
         </div>
     </div>
     <footer class="footer">
@@ -35,9 +35,19 @@
         base.OnInit();
     }
 
-    void AddLogEntry()
+    void DoAnAction()
     {
-        game.GameActions.Add(new GameAction { LogText = $"Logged a thing {i}" });
+        var playerIndex = i % 2;
+
+        var player = game.Players[playerIndex];
+
+        var random = new Random();
+        int randomNumber = random.Next(1, 4);
+
+        game.GameActions.Add(new GameAction {
+            Player = player,
+            Points = randomNumber,
+            LogText = $"Player {player.FactionIdentifier} did a thing and got {randomNumber} points" });
         i++;
     }
 }

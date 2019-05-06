@@ -30,6 +30,15 @@ namespace Transdim.Service.Internal.Controllers
 
         public void StartGame(Game gameToStart) {
             // TODO: save game setup as preferences
+            foreach (var player in gameToStart.Players)
+            {
+                gameToStart.GameActions.Add(new GameAction
+                {
+                    Player = player,
+                    LogText = string.Empty,
+                    Points = 10
+                });
+            }
             gameRepository.CreateGame(gameToStart);
         }
 

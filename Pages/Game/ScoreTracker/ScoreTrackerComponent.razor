@@ -1,0 +1,26 @@
+﻿<div class="row">
+    <div class="col-3" style="background-color:burlywood">@GetScore(Game.Players[0])</div>
+    <div class="col-3" style="background-color:aquamarine">@GetScore(Game.Players[1])</div>
+    <div class="col-3" style="background-color:lightpink">0</div>
+    <div class="col-3" style="background-color:lightgoldenrodyellow">0</div>
+</div>
+
+@functions {
+    [Parameter]
+    Game Game { get; set; }
+
+    public int GetScore(Player player)
+    {
+        Console.WriteLine($"Hi, I see {Game.GameActions.Count} actions");
+        var actions = Game.GameActions.Where(action => action.Player.Id == player.Id);
+
+        var score = 0;
+
+        foreach (var action in actions)
+        {
+            score = score + action.Points;
+        }
+
+        return score;
+    }
+}

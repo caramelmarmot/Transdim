@@ -4,8 +4,8 @@ namespace Transdim.DomainModel
     {
         public Player Player { get; set; }
 
-        public Player NextToPlay { get; set; }
-
         public string LogText { get; set; }
+
+        public int Points { get; set; }
     }
 }

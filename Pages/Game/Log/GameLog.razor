@@ -16,16 +16,13 @@
 
     public string GetLogText(int distanceFromEnd)
     {
-        Console.WriteLine($"distanceFromEnd: {distanceFromEnd}");
-        Console.WriteLine($"gameActionCount: {game.GameActions.Count}");
-
+        // TODO: use controller
         if (game == null || game.GameActions.Count <= distanceFromEnd)
         {
             return string.Empty;
         }
 
         var indexToReport = game.GameActions.Count - distanceFromEnd - 1;
-        Console.WriteLine($"I want to report game.gameActions[{indexToReport}].");        
 
         return game.GameActions[indexToReport].LogText;
     }
