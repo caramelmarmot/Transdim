@@ -9,5 +9,7 @@ namespace Transdim.DomainModel
         public bool IsAutoma { get; set; }
 
         public FactionIdentifier FactionIdentifier { get; set; }
+
+        public bool Passed { get; set; }
     }
 }
