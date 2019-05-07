@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace Transdim.Service.Internal.Helpers
 {
-    public class Randomizer<T> where T : class
+    public class Randomizer<T>: IRandomizer<T> where T : class
     {
         private List<T> itemList;
         

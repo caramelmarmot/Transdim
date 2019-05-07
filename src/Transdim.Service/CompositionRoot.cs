@@ -1,6 +1,7 @@
 using System;
 using Microsoft.Extensions.DependencyInjection;
 using Transdim.Service.Internal.Controllers;
+using Transdim.Service.Internal.Helpers;
 using Transdim.Service.Internal.Services;
 
 namespace Transdim.Service
@@ -25,6 +26,9 @@ namespace Transdim.Service
             services.AddSingleton<IGameInitializationService, GameInitializationService>();
             services.AddSingleton<IGameStateService, GameStateService>();
             services.AddSingleton<IFactionService, FactionService>();
+
+            // Helpers
+            services.AddSingleton<IRandomizerFactory, RandomizerFactory>();
         }
     }
 }

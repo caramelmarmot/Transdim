@@ -8,6 +8,12 @@ namespace Transdim.Service.Internal.Services
 {
     internal class GameInitializationService : IGameInitializationService
     {
+        private readonly IRandomizerFactory randomizerFactory;
+
+        public GameInitializationService(IRandomizerFactory randomizerFactory) {
+            this.randomizerFactory = randomizerFactory ?? throw new ArgumentNullException(nameof(randomizerFactory));
+        }
+
         public Game InitializeGame()
         {
             return new Game()
@@ -23,7 +29,7 @@ namespace Transdim.Service.Internal.Services
 
         public List<TechTrack> GetInitializedTechTrack()
         {
-            var randomizer = new Randomizer<ITech>(StandardTechList.Get());
+            var randomizer = randomizerFactory.GetRandomizer(StandardTechList.Get());
 
             return new List<TechTrack>
             {
