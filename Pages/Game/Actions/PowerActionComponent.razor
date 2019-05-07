@@ -1,0 +1,12 @@
+﻿@inject IModalService ModalService;
+
+<button class="btn btn-primary" onclick="@TwoTerraforms">Two Terraforms</button>
+<button class="btn btn-primary" onclick="@PointsForPlanets">Points for planets</button>
+
+@functions {
+    public void TwoTerraforms() { }
+
+    public void PointsForPlanets() {
+        ModalService.Close(ModalResult.Ok("foo"));
+    }
+}

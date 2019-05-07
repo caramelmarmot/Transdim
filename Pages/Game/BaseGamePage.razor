@@ -1,15 +1,18 @@
 @page "/game/{GameId}"
 @inject Transdim.Service.IBaseGameController BaseGameController
+@inject IModalService ModalService;
 
 @using Transdim.Pages.Game.Log;
 @using Transdim.Pages.Game.ScoreTracker;
+@using Transdim.Pages.Game.Actions;
 
     <div class="container">
         <ScoreTrackerComponent Game="@game"></ScoreTrackerComponent>
+
         <div class="row">
             <div class="col-12">Here's the game</div>
             <button class="btn btn-primary" onclick="@DoAnAction">Do an action</button>
-            <button class="btn btn-primary" onclick="@Pass">Pass</button>
+            <button class="btn btn-primary" onclick="@ShowModal">ShowModal</button>
         </div>
     </div>
     <footer class="footer">
@@ -60,8 +63,23 @@
         game.Players[nextPlayerIndex].IsActive = true;
     }
 
-    void Pass()
+    void ShowModal()
     {
+        ModalService.OnClose += ModalClosed;
+        ModalService.Show("Power Action", typeof(PowerActionComponent));
+    }
 
+    void ModalClosed(ModalResult modalResult)
+    {
+        ModalService.OnClose -= ModalClosed;
+
+        if (modalResult.Cancelled)
+        {
+            Console.WriteLine("Modal was cancelled");
+        }
+        else
+        {
+            Console.WriteLine(modalResult.Data);
+        }
     }
 }
