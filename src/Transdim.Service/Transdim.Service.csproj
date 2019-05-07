@@ -16,7 +16,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Internal\Controllers\CurrentGame\Actions\" />
+    <Folder Include="Internal\Controllers\CurrentGame\ActionPanel\" />
     <Folder Include="Internal\Controllers\CurrentGame\Log\" />
     <Folder Include="Internal\Controllers\CurrentGame\ScoreTracker\" />
   </ItemGroup>
