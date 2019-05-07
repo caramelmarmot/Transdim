@@ -6,6 +6,8 @@ namespace Transdim.DomainModel
     {
         public Guid Id { get; set; }
 
+        public bool IsActive { get; set; }
+
         public bool IsAutoma { get; set; }
 
         public FactionIdentifier FactionIdentifier { get; set; }

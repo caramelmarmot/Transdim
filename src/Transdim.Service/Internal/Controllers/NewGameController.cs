@@ -28,7 +28,7 @@ namespace Transdim.Service.Internal.Controllers
         }
 
         public void AddPlayer(Game game) =>
-            game.Players.Add(new Player { FactionIdentifier = GetUnusedFactions(game).First() });
+            game.Players.Add(new Player { FactionIdentifier = GetUnusedFactions(game).First(), Id = Guid.NewGuid() });
 
         public void RemovePlayer(Game game) =>
             game.Players.RemoveAt(game.Players.Count - 1);

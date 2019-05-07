@@ -9,8 +9,6 @@ namespace Transdim.DomainModel
 
         public List<Player> Players { get; set; }
 
-        public Player ActivePlayer { get; set; }
-
         public List<GameAction> GameActions { get; set; }
 
         public List<Round> Rounds { get; set; }

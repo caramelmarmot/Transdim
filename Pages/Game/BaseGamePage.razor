@@ -24,19 +24,22 @@
 
     private Game game;
 
-    private int i = 0;
-
     protected override void OnInit()
     {
         game = BaseGameController.GetGame(new Guid(GameId));
+
+        SetActivePlayerInACrappyWay();
         base.OnInit();
+    }
+
+    // TODO: Less crappy!
+    void SetActivePlayerInACrappyWay() {
+        game.Players.First(p => p.Id == game.Rounds[0].OrderedPlayerIds[0]).IsActive = true;
     }
 
     void DoAnAction()
     {
-        var playerIndex = i % 2;
-
-        var player = game.Players[playerIndex];
+        var player = game.Players.First(p => p.IsActive == true);
 
         var random = new Random();
         int randomNumber = random.Next(1, 4);
@@ -45,7 +48,16 @@
             Player = player,
             Points = randomNumber,
             LogText = $"Player {player.FactionIdentifier} did a thing and got {randomNumber} points" });
-        i++;
+
+        // TODO: Encapsulate active player selection and keep it from always being 
+        var nextPlayerIndex = game.Players.IndexOf(player) + 1;
+        if (nextPlayerIndex > game.Players.Count - 1)
+        {
+            nextPlayerIndex = 0;
+        }
+
+        player.IsActive = false;
+        game.Players[nextPlayerIndex].IsActive = true;
     }
 
     void Pass()

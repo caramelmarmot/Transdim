@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 
 namespace Transdim.DomainModel
@@ -6,8 +7,6 @@ namespace Transdim.DomainModel
     {
         public RoundState State { get; set; }
 
-        public List<Player> ActivePlayers { get; set; }
-
-        public List<Player> PassedPlayers { get; set; }
+        public List<Guid> OrderedPlayerIds { get; set; }
     }
 }

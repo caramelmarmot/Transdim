@@ -33,7 +33,6 @@ namespace Transdim.Service.Internal.Services
         }
 
         public void StartGame(Game gameToStart) {
-            // TODO: save game setup as preferences
             foreach (var player in gameToStart.Players)
             {
                 gameToStart.GameActions.Add(new GameAction
@@ -44,14 +43,37 @@ namespace Transdim.Service.Internal.Services
                 });
             }
 
-            var nonAutomaPlayers = gameToStart.Players.Where(player => !player.IsAutoma).ToList();
-            var randomizer = randomizerFactory.GetRandomizer(nonAutomaPlayers);
-
-            gameToStart.ActivePlayer = randomizer.PluckRandomItem();
+            // TODO: Make rounds bettera
+            SetUpDummyRound(gameToStart);
 
             gameRepository.CreateGame(gameToStart);
         }
-        
+
+        public void SetUpDummyRound(Game gameToStart)
+        {
+            var nonAutomaPlayers = gameToStart.Players.Where(player => !player.IsAutoma).ToList();
+            var automaPlayers = gameToStart.Players.Where(player => player.IsAutoma).ToList();
+
+            var nonAutomaRandomizer = randomizerFactory.GetRandomizer(nonAutomaPlayers);
+            var automaRandomizer = randomizerFactory.GetRandomizer(automaPlayers);
+
+            var orderedPlayerIdList = new List<Guid>();
+
+            for (int i = 0; i < nonAutomaPlayers.Count; i++)
+            {
+                orderedPlayerIdList.Add(nonAutomaRandomizer.PluckRandomItem().Id);
+            }
+
+            for (int i = 0; i < automaPlayers.Count; i++)
+            {
+                orderedPlayerIdList.Add(automaRandomizer.PluckRandomItem().Id);
+            }
+
+            gameToStart.Rounds = new List<Round> {
+                new Round { OrderedPlayerIds = orderedPlayerIdList }
+            };
+        }
+
         public List<TechTrack> GetInitializedTechTrack()
         {
             var randomizer = randomizerFactory.GetRandomizer(StandardTechList.Get());

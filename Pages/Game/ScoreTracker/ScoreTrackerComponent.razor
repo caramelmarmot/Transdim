@@ -1,8 +1,20 @@
 ﻿<div class="row">
-    <div class="col-3" style="background-color:burlywood">@GetScore(Game.Players[0])</div>
-    <div class="col-3" style="background-color:aquamarine">@GetScore(Game.Players[1])</div>
-    <div class="col-3" style="background-color:lightpink">0</div>
-    <div class="col-3" style="background-color:lightgoldenrodyellow">0</div>
+    @if (Game.Players.Count > 0)
+    {
+        <div class="col-3 @GetActiveClass(Game.Players[0])" style="background-color:burlywood">@GetScore(Game.Players[0])</div>
+    }
+    @if (Game.Players.Count > 1)
+    {
+        <div class="col-3 @GetActiveClass(Game.Players[1])" style="background-color:pink">@GetScore(Game.Players[1])</div>
+    }
+    @if (Game.Players.Count > 2)
+    {
+        <div class="col-3 @GetActiveClass(Game.Players[2])" style="background-color:lightcoral">@GetScore(Game.Players[2])</div>
+    }
+    @if (Game.Players.Count > 3)
+    {
+        <div class="col-3 @GetActiveClass(Game.Players[3])" style="background-color:lightgoldenrodyellow">@GetScore(Game.Players[3])</div>
+    }
 </div>
 
 @functions {
@@ -11,7 +23,7 @@
 
     public int GetScore(Player player)
     {
-        Console.WriteLine($"Hi, I see {Game.GameActions.Count} actions");
+        // TODO: move to controller
         var actions = Game.GameActions.Where(action => action.Player.Id == player.Id);
 
         var score = 0;
@@ -23,4 +35,7 @@
 
         return score;
     }
+
+    public string GetActiveClass(Player player) =>
+        (player.IsActive) ? "active" : "";
 }
