@@ -9,37 +9,22 @@ namespace Transdim.Service.Internal.Controllers
 {
     internal class NewGameController : INewGameController
     {
-        private readonly IGameRepository gameRepository;
-
         private readonly IGameInitializationService gameInitializationService;
 
         private readonly IFactionService factionService;
 
-        public NewGameController(IGameRepository gameRepository, IGameInitializationService gameInitializationService, IFactionService factionService)
+        public NewGameController(IGameInitializationService gameInitializationService, IFactionService factionService)
         {
-            this.gameRepository = gameRepository ?? throw new ArgumentNullException(nameof(gameRepository));
             this.gameInitializationService = gameInitializationService ?? throw new ArgumentNullException(nameof(gameInitializationService));
             this.factionService = factionService ?? throw new ArgumentNullException(nameof(factionService));
         }
 
         public Game InitializeGame() {
-            // TODO: load game setup and prepopulate configuration
-
             return gameInitializationService.InitializeGame();
         }
 
         public void StartGame(Game gameToStart) {
-            // TODO: save game setup as preferences
-            foreach (var player in gameToStart.Players)
-            {
-                gameToStart.GameActions.Add(new GameAction
-                {
-                    Player = player,
-                    LogText = string.Empty,
-                    Points = 10
-                });
-            }
-            gameRepository.CreateGame(gameToStart);
+            gameInitializationService.StartGame(gameToStart);
         }
 
         public void AddPlayer(Game game) =>

@@ -8,5 +8,7 @@ namespace Transdim.Service.Internal.Services
         Game InitializeGame();
 
         List<TechTrack> GetInitializedTechTrack();
+
+        void StartGame(Game gameToStart);
     }
 }
