@@ -15,4 +15,10 @@
     <ProjectReference Include="..\Transdim.Persistence\Transdim.Persistence.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Internal\Controllers\CurrentGame\Actions\" />
+    <Folder Include="Internal\Controllers\CurrentGame\Log\" />
+    <Folder Include="Internal\Controllers\CurrentGame\ScoreTracker\" />
+  </ItemGroup>
+
 </Project>

@@ -2,10 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Transdim.DomainModel;
-using Transdim.Persistence;
 using Transdim.Service.Internal.Services;
 
-namespace Transdim.Service.Internal.Controllers
+namespace Transdim.Service.Internal.Controllers.NewGame
 {
     internal class NewGameController : INewGameController
     {
@@ -19,11 +18,13 @@ namespace Transdim.Service.Internal.Controllers
             this.factionService = factionService ?? throw new ArgumentNullException(nameof(factionService));
         }
 
-        public Game InitializeGame() {
+        public Game InitializeGame()
+        {
             return gameInitializationService.InitializeGame();
         }
 
-        public void StartGame(Game gameToStart) {
+        public void StartGame(Game gameToStart)
+        {
             gameInitializationService.StartGame(gameToStart);
         }
 

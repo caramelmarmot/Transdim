@@ -1,8 +1,12 @@
 using System;
 using Microsoft.Extensions.DependencyInjection;
 using Transdim.Service.Internal.Controllers;
+using Transdim.Service.Internal.Controllers.Setup.Tech;
+using Transdim.Service.Internal.Controllers.Setup.Board;
 using Transdim.Service.Internal.Helpers;
 using Transdim.Service.Internal.Services;
+using Transdim.Service.Internal.Controllers.NewGame;
+using Transdim.Service.Internal.Controllers.CurrentGame;
 
 namespace Transdim.Service
 {

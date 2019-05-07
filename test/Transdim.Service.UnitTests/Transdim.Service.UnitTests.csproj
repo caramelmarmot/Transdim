@@ -16,4 +16,8 @@
     <ProjectReference Include="..\..\src\Transdim.Service\Transdim.Service.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Internal\Controllers\" />
+  </ItemGroup>
+
 </Project>

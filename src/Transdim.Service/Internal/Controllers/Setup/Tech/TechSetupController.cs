@@ -4,7 +4,7 @@ using System.Linq;
 using Transdim.DomainModel;
 using Transdim.Service.Internal.Services;
 
-namespace Transdim.Service.Internal.Controllers
+namespace Transdim.Service.Internal.Controllers.Setup.Tech
 {
     internal class TechSetupController : ITechSetupController
     {

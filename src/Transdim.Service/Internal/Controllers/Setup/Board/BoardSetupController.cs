@@ -2,13 +2,13 @@
 using Transdim.DomainModel;
 using Transdim.Service.Internal.Services;
 
-namespace Transdim.Service.Internal.Controllers
+namespace Transdim.Service.Internal.Controllers.Setup.Board
 {
-    internal class BaseGameController : IBaseGameController
+    internal class BoardSetupController : IBoardSetupController
     {
         private readonly IGameStateService gameStateService;
 
-        public BaseGameController(IGameStateService gameStateService) {
+        public BoardSetupController(IGameStateService gameStateService) {
             this.gameStateService = gameStateService ?? throw new ArgumentNullException(nameof(gameStateService));
         }
 
