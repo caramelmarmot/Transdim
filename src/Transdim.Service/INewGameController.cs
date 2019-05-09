@@ -9,11 +9,11 @@ namespace Transdim.Service
 
         void StartGame(Game gameToStart);
 
-        bool AddPlayerButtonIsDisabled(Game game);
+        bool IsAddPlayerButtonDisabled(Game game);
 
-        bool RemovePlayerButtonIsDisabled(Game game);
+        bool IsRemovePlayerButtonDisabled(Game game);
 
-        bool StartGameButtonIsDisabled(Game game);
+        bool IsStartGameDisabled(Game game);
 
         void AddPlayer(Game game);
 

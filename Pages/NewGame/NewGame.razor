@@ -13,13 +13,13 @@
         </form>
 
         <div class="button-container">
-            <button disabled=@NewGameController.AddPlayerButtonIsDisabled(game) class="btn btn-sm oi oi-plus" onclick="@AddPlayer"></button>
-            <button disabled=@NewGameController.RemovePlayerButtonIsDisabled(game) class="btn btn-sm oi oi-minus" onclick="@RemovePlayer"></button>
+            <button disabled=@NewGameController.IsAddPlayerButtonDisabled(game) class="btn btn-sm oi oi-plus" onclick="@AddPlayer"></button>
+            <button disabled=@NewGameController.IsRemovePlayerButtonDisabled(game) class="btn btn-sm oi oi-minus" onclick="@RemovePlayer"></button>
         </div>
         <div class="form-row">
             <button class="btn btn-primary" onclick="@StartGame">Start game</button>
         </div>
-        @if (NewGameController.StartGameButtonIsDisabled(game))
+        @if (NewGameController.IsStartGameDisabled(game))
         {
             <div class="form-row">
                 <span class="alert alert-danger">Only one automa is allowed. All players must belong to different factions.</span>
@@ -29,24 +29,26 @@
 
 
 @functions {
-private Game game;
+    private Game game;
 
-protected override void OnInit()
-{
-    game = NewGameController.InitializeGame();
-    base.OnInit();
-}
-
-void StartGame()
-{
-    if (NewGameController.StartGameButtonIsDisabled(game))
+    protected override void OnInit()
     {
-        return;
+        game = NewGameController.InitializeGame();
+        base.OnInit();
     }
-    NewGameController.StartGame(game);
-    SetupNavigationUtility.NextStep(game);
-}
 
-void AddPlayer() => NewGameController.AddPlayer(game);
-void RemovePlayer() => NewGameController.RemovePlayer(game);
+    void StartGame()
+    {
+        if (NewGameController.IsStartGameDisabled(game))
+        {
+            return;
+        }
+        NewGameController.StartGame(game);
+        SetupNavigationUtility.NextStep(game);
+    }
+
+    void AddPlayer() => NewGameController.AddPlayer(game);
+    void RemovePlayer() => NewGameController.RemovePlayer(game);
+
+
 }

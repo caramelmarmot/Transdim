@@ -34,13 +34,13 @@ namespace Transdim.Service.Internal.Controllers.NewGame
         public void RemovePlayer(Game game) =>
             game.Players.RemoveAt(game.Players.Count - 1);
 
-        public bool AddPlayerButtonIsDisabled(Game game) =>
+        public bool IsAddPlayerButtonDisabled(Game game) =>
             game.Players.Count == 4;
 
-        public bool RemovePlayerButtonIsDisabled(Game game) =>
+        public bool IsRemovePlayerButtonDisabled(Game game) =>
             game.Players.Count <= 2;
 
-        public bool StartGameButtonIsDisabled(Game game)
+        public bool IsStartGameDisabled(Game game)
         {
             var moreThanOneAutoma = game.Players.Where(p => p.IsAutoma).Count() > 1;
 
