@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Transdim.DomainModel.PointGenerationInterfaces;
 
-namespace Transdim.DomainModel.Techs
+namespace Transdim.DomainModel.GameComponents.Techs.Advanced
 {
     public class ThreeVpOnBuildOnGaiaTech : ITech, IOnBuildPointGenerator
     {

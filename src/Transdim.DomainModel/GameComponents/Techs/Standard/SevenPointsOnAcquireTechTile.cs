@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Transdim.DomainModel.PointGenerationInterfaces;
 
-namespace Transdim.DomainModel.Techs
+namespace Transdim.DomainModel.GameComponents.Techs.Standard
 {
     public class SevenPointsOnAcquireTechTile : ITech, IOnAcquireTechTilePointGenerator
     {

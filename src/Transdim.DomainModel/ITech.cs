@@ -1,3 +1,5 @@
+using Transdim.DomainModel.GameComponents.Techs;
+
 namespace Transdim.DomainModel
 {
     public interface ITech

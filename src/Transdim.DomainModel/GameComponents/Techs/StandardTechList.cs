@@ -1,6 +1,7 @@
 using System.Collections.Generic;
+using Transdim.DomainModel.GameComponents.Techs.Standard;
 
-namespace Transdim.DomainModel.Techs
+namespace Transdim.DomainModel.GameComponents.Techs
 {
     public static class StandardTechList
     {

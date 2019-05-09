@@ -2,7 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Transdim.DomainModel;
-using Transdim.DomainModel.Techs;
+using Transdim.DomainModel.GameComponents.Techs;
+using Transdim.DomainModel.GameComponents.Techs.Advanced;
 using Transdim.Persistence;
 using Transdim.Service.Internal.Helpers;
 
