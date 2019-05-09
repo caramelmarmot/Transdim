@@ -1,10 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿//using System;
+//using System.Collections.Generic;
+//using System.Text;
 
-namespace Transdim.DomainModel.Techs
-{
-    class OneQicFiveCreditsActionTech
-    {
-    }
-}
+//namespace Transdim.DomainModel.Techs
+//{
+//    class OneQicFiveCreditsActionTech
+//    {
+//    }
+//}
