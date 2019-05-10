@@ -1,0 +1,17 @@
+﻿@inject Transdim.Service.IGameComponentController GameComponentController
+
+<button class="tech-tile" onclick="@Activate">foo</button>
+
+@*<img class="tech-tile" src="@GetImage()" onclick="@Activate" asp-append-version="true" />*@
+
+@functions {
+    [Parameter]
+    private string gameComponentId { get; set; }
+
+    [Parameter]
+    private Game game { get; set; }
+
+    string GetImage() => GameComponentController.GetImageSrc(gameComponentId);
+
+    void Activate() => GameComponentController.Activate(gameComponentId, game);
+}

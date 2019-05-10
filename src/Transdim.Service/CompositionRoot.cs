@@ -7,6 +7,7 @@ using Transdim.Service.Internal.Helpers;
 using Transdim.Service.Internal.Services;
 using Transdim.Service.Internal.Controllers.NewGame;
 using Transdim.Service.Internal.Controllers.CurrentGame;
+using Transdim.Service.Internal.Controllers.Shared;
 
 namespace Transdim.Service
 {
@@ -25,6 +26,7 @@ namespace Transdim.Service
             services.AddTransient<ITechSetupController, TechSetupController>();
             services.AddTransient<IBaseGameController, BaseGameController>();
             services.AddTransient<IGameLogController, GameLogController>();
+            services.AddTransient<IGameComponentController, GameComponentController>();
 
             // Services
             services.AddSingleton<IGameInitializationService, GameInitializationService>();
