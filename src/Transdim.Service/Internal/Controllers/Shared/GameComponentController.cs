@@ -1,29 +1,22 @@
 ﻿using System;
-using Transdim.DomainModel;
-using Transdim.DomainModel.GameComponents.PowerActions;
+using Transdim.DomainModel.GameComponents;
 
 namespace Transdim.Service.Internal.Controllers.Shared
 {
     internal class GameComponentController : IGameComponentController
     {
-        private PointsForPlanetsQicAction pointsForPlanetsQicAction;
+        private IGameComponentFactory gameComponentFactory;
 
-        public GameComponentController(PointsForPlanetsQicAction pointsForPlanetsQicAction)
+        public GameComponentController(IGameComponentFactory gameComponentFactory)
         {
-            this.pointsForPlanetsQicAction = pointsForPlanetsQicAction ?? throw new ArgumentNullException(nameof(pointsForPlanetsQicAction));
+            this.gameComponentFactory = gameComponentFactory ?? throw new ArgumentNullException(nameof(gameComponentFactory));
         }
 
-        public string GetImageSrc(string componentId)
+        public string GetImageSrc(GameComponentIdentifier gameComponentIdentifier)
         {
             //// TODO: Get from ComponentFactory
-            var component = pointsForPlanetsQicAction;
+            var component = gameComponentFactory.GetById(gameComponentIdentifier);
             return component.ImagePath;
-        }
-
-        public void Activate(string componentId, Game game) {
-            //// TODO: Get from ComponentFactory
-            var component = pointsForPlanetsQicAction;
-            component.OnActivate(game);
         }
     }
 }

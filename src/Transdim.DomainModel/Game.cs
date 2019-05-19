@@ -1,5 +1,6 @@
-using System;
+    using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Transdim.DomainModel
 {
@@ -8,6 +9,8 @@ namespace Transdim.DomainModel
         public Guid Id { get; set; }
 
         public List<Player> Players { get; set; }
+
+        public Player ActivePlayer { get => Players.First(p => p.IsActive == true); }
 
         public List<GameAction> GameActions { get; set; }
 

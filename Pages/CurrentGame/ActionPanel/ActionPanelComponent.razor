@@ -1,11 +1,28 @@
-﻿@using Transdim.Pages.CurrentGame.ActionPanel.PowerAction;
+﻿@using Transdim.DomainModel.GameComponents;
 
-<div class="row">
-    <PowerActionButton></PowerActionButton>
-</div>
+@inject Transdim.Service.IGameComponentFactory GameComponentFactory;
+
+    <div class="row">
+        <GameComponentIcon onclick="@(() => PerformAction(powerActionComponent))" gameComponent="@powerActionComponent"></GameComponentIcon>
+    </div>
 
 
 @functions {
     [Parameter]
     Game Game { get; set; }
+
+    private IGameComponent powerActionComponent;
+
+    protected override void OnInit()
+    {
+        powerActionComponent = GameComponentFactory.GetById(GameComponentIdentifier.PowerAction);
+    }
+
+    private void PerformAction(IGameComponent gameComponent)
+    {
+        Game.GameActions.Add(new GameAction
+        {
+            LogText = $"took action {nameof(gameComponent)}"
+        });
+    }
 }

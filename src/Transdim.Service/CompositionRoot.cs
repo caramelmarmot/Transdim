@@ -32,6 +32,7 @@ namespace Transdim.Service
             services.AddSingleton<IGameInitializationService, GameInitializationService>();
             services.AddSingleton<IGameStateService, GameStateService>();
             services.AddSingleton<IFactionService, FactionService>();
+            services.AddSingleton<IGameComponentFactory, GameComponentFactory>();
 
             // Helpers
             services.AddSingleton<IRandomizerFactory, RandomizerFactory>();
