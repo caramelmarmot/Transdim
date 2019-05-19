@@ -13,7 +13,7 @@ namespace Transdim.Service.Internal.Controllers.Setup.Board
         }
 
         public Game GetGame(Guid gameId) {
-            return gameStateService.GetGame(gameId);
+            return gameStateService.LoadGame(gameId);
         }
     }
 }

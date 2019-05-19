@@ -15,7 +15,7 @@ namespace Transdim.Service.Internal.Controllers.CurrentGame
 
         public Game GetGame(Guid gameId)
         {
-            return gameStateService.GetGame(gameId);
+            return gameStateService.LoadGame(gameId);
         }
     }
 }

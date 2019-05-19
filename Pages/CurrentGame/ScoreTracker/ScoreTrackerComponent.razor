@@ -1,30 +1,34 @@
-﻿<div class="row">
-    @if (Game.Players.Count > 0)
+﻿@inject Transdim.Service.IGameStateService GameStateService;
+
+<div class="row">
+    @if (GameStateService.Game.Players.Count > 0)
     {
-        <div class="col-3 @GetActiveClass(Game.Players[0])" style="background-color:burlywood">@GetScore(Game.Players[0])</div>
+        <div class="col-3 @GetActiveClass(GameStateService.Game.Players[0])" style="background-color:burlywood">@GetScore(GameStateService.Game.Players[0])</div>
     }
-    @if (Game.Players.Count > 1)
+    @if (GameStateService.Game.Players.Count > 1)
     {
-        <div class="col-3 @GetActiveClass(Game.Players[1])" style="background-color:pink">@GetScore(Game.Players[1])</div>
+        <div class="col-3 @GetActiveClass(GameStateService.Game.Players[1])" style="background-color:pink">@GetScore(GameStateService.Game.Players[1])</div>
     }
-    @if (Game.Players.Count > 2)
+    @if (GameStateService.Game.Players.Count > 2)
     {
-        <div class="col-3 @GetActiveClass(Game.Players[2])" style="background-color:lightcoral">@GetScore(Game.Players[2])</div>
+        <div class="col-3 @GetActiveClass(GameStateService.Game.Players[2])" style="background-color:lightcoral">@GetScore(GameStateService.Game.Players[2])</div>
     }
-    @if (Game.Players.Count > 3)
+    @if (GameStateService.Game.Players.Count > 3)
     {
-        <div class="col-3 @GetActiveClass(Game.Players[3])" style="background-color:lightgoldenrodyellow">@GetScore(Game.Players[3])</div>
+        <div class="col-3 @GetActiveClass(GameStateService.Game.Players[3])" style="background-color:lightgoldenrodyellow">@GetScore(GameStateService.Game.Players[3])</div>
     }
 </div>
 
 @functions {
-    [Parameter]
-    Game Game { get; set; }
+    protected override void OnInit()
+    {
+        GameStateService.OnChange += StateHasChanged;
+    }
 
     public int GetScore(Player player)
     {
         // TODO: move to controller
-        var actions = Game.GameActions.Where(action => action.Player.Id == player.Id);
+        var actions = GameStateService.Game.GameActions.Where(action => action.Player.Id == player.Id);
 
         var score = 0;
 

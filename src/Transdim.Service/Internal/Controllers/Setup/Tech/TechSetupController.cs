@@ -19,7 +19,7 @@ namespace Transdim.Service.Internal.Controllers.Setup.Tech
 
         public Game GetGameWithInitializedTech(Guid gameId)
         {
-            var game = gameStateService.GetGame(gameId);
+            var game = gameStateService.LoadGame(gameId);
             game.TechTrack = gameInitializationService.GetInitializedTechTrack();
 
             return game;

@@ -1,6 +1,7 @@
 ﻿@using Transdim.DomainModel.GameComponents;
 
 @inject Transdim.Service.IGameComponentFactory GameComponentFactory;
+@inject Transdim.Service.IGameStateService GameStateService;
 
     <div class="row">
         <GameComponentIcon onclick="@(() => PerformAction(powerActionComponent))" gameComponent="@powerActionComponent"></GameComponentIcon>
@@ -8,21 +9,25 @@
 
 
 @functions {
-    [Parameter]
-    Game Game { get; set; }
-
     private IGameComponent powerActionComponent;
+
+    private Game game;
 
     protected override void OnInit()
     {
         powerActionComponent = GameComponentFactory.GetById(GameComponentIdentifier.PowerAction);
+        game = GameStateService.Game;
     }
 
     private void PerformAction(IGameComponent gameComponent)
     {
-        Game.GameActions.Add(new GameAction
+        game.GameActions.Add(new GameAction
         {
-            LogText = $"took action {nameof(gameComponent)}"
-        });
+            Player = game.ActivePlayer,
+            Points = 0,
+            LogText = $"{game.ActivePlayer.FactionIdentifier} took action {nameof(gameComponent)}"
+        }) ;
+
+        GameStateService.UpdateGame(game);
     }
 }

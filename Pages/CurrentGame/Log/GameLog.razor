@@ -1,4 +1,6 @@
-﻿<div class="container">
+﻿@inject Transdim.Service.IGameStateService GameStateService;
+
+<div class="container">
     <div class="row game-log-container">
         <div class="col-12">
             <div class="container">
@@ -11,8 +13,13 @@
 </div>
 
 @functions {
-    [Parameter]
-    public Game game { get; set; }
+    private Game game;
+
+    protected override void OnInit()
+    {
+        game = GameStateService.Game;
+        GameStateService.OnChange += StateHasChanged;
+    }
 
     public string GetLogText(int distanceFromEnd)
     {
