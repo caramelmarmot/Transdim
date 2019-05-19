@@ -13,6 +13,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Transdim.Persistence", "src
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Transdim.Service.UnitTests", "test\Transdim.Service.UnitTests\Transdim.Service.UnitTests.csproj", "{2AE787F1-CD40-4436-9C1B-79DB93860836}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Blazored.Modal", "..\Modal\src\Blazored.Modal\Blazored.Modal.csproj", "{C6311987-24C3-4522-8F9A-26FB72D90EF0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{2AE787F1-CD40-4436-9C1B-79DB93860836}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2AE787F1-CD40-4436-9C1B-79DB93860836}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2AE787F1-CD40-4436-9C1B-79DB93860836}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C6311987-24C3-4522-8F9A-26FB72D90EF0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C6311987-24C3-4522-8F9A-26FB72D90EF0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C6311987-24C3-4522-8F9A-26FB72D90EF0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C6311987-24C3-4522-8F9A-26FB72D90EF0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
