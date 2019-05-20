@@ -1,12 +1,14 @@
 ﻿@using Transdim.DomainModel.GameComponents;
+@using Transdim.Pages.CurrentGame.ActionPanel.PowerAction.Modal;
 
 @inject Transdim.Service.IGameComponentFactory GameComponentFactory;
 @inject Transdim.Service.IGameStateService GameStateService;
+@inject Blazored.Modal.Services.IModalService ModalService;
 
-    <div class="row">
-        <GameComponentIcon onclick="@(() => PerformAction(powerActionComponent))" gameComponent="@powerActionComponent"></GameComponentIcon>
-    </div>
-
+<div class="row">
+    <GameComponentIcon onclick="@(() => PerformAction(powerActionComponent))" gameComponent="@powerActionComponent"></GameComponentIcon>
+</div>
+    
 
 @functions {
     private IGameComponent powerActionComponent;
@@ -20,6 +22,30 @@
 
     private void PerformAction(IGameComponent gameComponent)
     {
+        if (gameComponent.GameComponentIdentifier == GameComponentIdentifier.PowerAction)
+        {
+            ShowPowerActionModal();
+        }
+    }
+
+    // private Modal methods:
+
+    private void ShowPowerActionModal()
+    {
+        ModalService.OnClose += PowerActionModalClosed;
+        ModalService.Show("Power Action", typeof(PowerActionModal));
+    }
+
+    void PowerActionModalClosed(ModalResult modalResult)
+    {
+        ModalService.OnClose -= PowerActionModalClosed;
+
+        if (modalResult.Cancelled)
+        {
+            Console.WriteLine("Modal was cancelled");
+            return;
+        }
+        
         game = GameStateService.GetGame();
 
         game.GameActions.Add(new GameAction
@@ -27,9 +53,10 @@
             Player = game.ActivePlayer,
             Points = 0,
             // Todo: log using logservice so you don't need to be consistant about your wording. Maybe the action itself contains all the necessary information?
-            LogText = $"{game.ActivePlayer.FactionIdentifier} took action {gameComponent.GameComponentIdentifier}"
+            LogText = $"{game.ActivePlayer.FactionIdentifier} took action {modalResult.Data}"
         }) ;
 
         GameStateService.UpdateGame(game);
+     
     }
 }

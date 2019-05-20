@@ -1,15 +1,16 @@
-﻿@*@using Transdim.DomainModel.GameComponents.PowerActions;
-
-@inject IModalService ModalService;
+﻿@inject IModalService ModalService;
 
 <button class="btn btn-primary" onclick="@TwoTerraforms">Two Terraforms</button>
-<GameComponent gameComponentId="@nameof(PointsForPlanetsQicAction)" ></GameComponent>
+<button class="btn btn-primary" onclick="@PointsForPlanets">PointsForPlanets</button>
 
 @functions {
-    public void TwoTerraforms() { }
+    public void TwoTerraforms()
+    {
+        ModalService.Close(ModalResult.Ok("TwoTerraforms"));
+    }
 
     public void PointsForPlanets()
     {
-        ModalService.Close(ModalResult.Ok("foo"));
+        ModalService.Close(ModalResult.Ok("PointsForPlanets"));
     }
-}*@
+}
