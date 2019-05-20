@@ -17,7 +17,7 @@
 
     protected override void OnInit()
     {
-        game = GameStateService.Game;
+        game = GameStateService.GetGame();
         GameStateService.OnChange += StateHasChanged;
     }
 

@@ -16,16 +16,18 @@
     protected override void OnInit()
     {
         powerActionComponent = GameComponentFactory.GetById(GameComponentIdentifier.PowerAction);
-        game = GameStateService.Game;
     }
 
     private void PerformAction(IGameComponent gameComponent)
     {
+        game = GameStateService.GetGame();
+
         game.GameActions.Add(new GameAction
         {
             Player = game.ActivePlayer,
             Points = 0,
-            LogText = $"{game.ActivePlayer.FactionIdentifier} took action {nameof(gameComponent)}"
+            // Todo: log using logservice so you don't need to be consistant about your wording. Maybe the action itself contains all the necessary information?
+            LogText = $"{game.ActivePlayer.FactionIdentifier} took action {gameComponent.GameComponentIdentifier}"
         }) ;
 
         GameStateService.UpdateGame(game);

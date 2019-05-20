@@ -6,9 +6,13 @@ namespace Transdim.DomainModel.GameComponents.Actions
 {
     public class PowerAction : IGameComponent
     {
-        internal const string _ImagePath = "/Images/tech-charge-four-power.png";
+        internal const GameComponentIdentifier _GameComponentIdentifier = GameComponentIdentifier.PowerAction;
 
+        internal const string _ImagePath = "/Images/tech-charge-four-power.png";
+        
         public PowerAction() { }
+
+        public GameComponentIdentifier GameComponentIdentifier => _GameComponentIdentifier;
 
         public string ImagePath => _ImagePath;  
 

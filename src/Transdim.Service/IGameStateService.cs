@@ -5,13 +5,13 @@ namespace Transdim.Service
 {
     public interface IGameStateService
     {
-        Game Game { get; set; }
-
         event Action OnChange;
 
         Game LoadGame(Guid gameId);
 
         void SaveGame(Game game);
+
+        Game GetGame();
 
         void UpdateGame(Game game);
     }

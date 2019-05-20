@@ -9,7 +9,7 @@ namespace Transdim.Service.Internal.Services
     {
         private readonly IGameRepository gameRepository;
 
-        public Game Game { get; set; }
+        public Game CurrentGame { get; set; }
 
         public event Action OnChange;
 
@@ -26,7 +26,7 @@ namespace Transdim.Service.Internal.Services
                 throw new NotFoundException("Unable to find game");
             }
 
-            Game = game;
+            CurrentGame = game;
             return game;
         }
 
@@ -36,9 +36,11 @@ namespace Transdim.Service.Internal.Services
             gameRepository.SaveGame(game);
         }
 
+        public Game GetGame() => CurrentGame;
+
         public void UpdateGame(Game game)
         {
-            Game = game;
+            CurrentGame = game;
             NotifyStateChanged();
         }
 

@@ -1,20 +1,20 @@
-﻿using Blazored.Modal.Services;
-using System;
+﻿//using Blazored.Modal.Services;
+//using System;
 
-namespace Transdim.DomainModel.GameComponents.PowerActions
-{
-    public class PointsForPlanetsQicAction : IGameComponent
-    {
-        public PointsForPlanetsQicAction()
-        {
-        }
+//namespace Transdim.DomainModel.GameComponents.PowerActions
+//{
+//    public class PointsForPlanetsQicAction : IGameComponent
+//    {
+//        public PointsForPlanetsQicAction()
+//        {
+//        }
 
-        internal const string _ImagePath = "/Images/tech-seven-points-on-acquire.png";
+//        internal const string _ImagePath = "/Images/tech-seven-points-on-acquire.png";
 
-        public string ImagePath => _ImagePath;
+//        public string ImagePath => _ImagePath;
 
-        public void OnActivate(Game game)
-        {
-        }
-    }
-}
+//        public void OnActivate(Game game)
+//        {
+//        }
+//    }
+//}

@@ -1,7 +1,7 @@
 ﻿using System;
 using Transdim.DomainModel.GameComponents;
 using Transdim.DomainModel.GameComponents.Actions;
-using Transdim.DomainModel.GameComponents.PowerActions;
+//using Transdim.DomainModel.GameComponents.PowerActions;
 
 namespace Transdim.Service.Internal.Services
 {
@@ -13,7 +13,7 @@ namespace Transdim.Service.Internal.Services
                 case GameComponentIdentifier.PowerAction:
                     return new PowerAction();
                 case GameComponentIdentifier.PointsForPlanetsQicAction:
-                    return new PointsForPlanetsQicAction();
+                    throw new NotImplementedException();
                 default:
                     throw new NotImplementedException($"The component '{gameComponent}' is not handled by the {nameof(GameComponentFactory)}");
             }
