@@ -1,9 +1,15 @@
 ﻿@inject IModalService ModalService;
+@inject Transdim.Service.IGameStateService GameStateService;
 
 <button class="btn btn-primary" onclick="@TwoTerraforms">Two Terraforms</button>
 <button class="btn btn-primary" onclick="@PointsForPlanets">PointsForPlanets</button>
 
 @functions {
+    protected override void OnInit()
+    {
+        ModalService.OnClose += PowerActionModalClosed;
+    }
+
     public void TwoTerraforms()
     {
         ModalService.Close(ModalResult.Ok("TwoTerraforms"));
@@ -12,5 +18,38 @@
     public void PointsForPlanets()
     {
         ModalService.Close(ModalResult.Ok("PointsForPlanets"));
+    }
+
+    private void PowerActionModalClosed(ModalResult modalResult)
+    {
+        ModalService.OnClose -= PowerActionModalClosed;
+
+        var game = GameStateService.GetGame();
+
+        if (modalResult.Cancelled)
+        {
+            Console.WriteLine("Modal was cancelled");
+            return;
+        }
+
+        if ((string)modalResult.Data == "TwoTerraforms")
+        {
+            game = GameStateService.GetGame();
+
+            game.GameActions.Add(new GameAction
+            {
+                Player = game.ActivePlayer,
+                Points = 0,
+                // Todo: log using logservice so you don't need to be consistant about your wording. Maybe the action itself contains all the necessary information?
+                LogText = $"{game.ActivePlayer.FactionIdentifier} took action {modalResult.Data}"
+            });
+
+            GameStateService.UpdateGame(game);
+
+        }
+        else
+        {
+            ModalService.Show("Power Action", typeof(PointsModal));
+        }
     }
 }

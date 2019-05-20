@@ -1,4 +1,5 @@
 ﻿@inject IModalService ModalService;
+@inject Transdim.Service.IGameStateService GameStateService;
 
 <span>THIS IS THE POINTS MODAL!</span>
 
@@ -8,6 +9,11 @@
 <button class="btn btn-primary" onclick="@Three">3</button>
 
 @functions {
+    protected override void OnInit()
+    {   
+        ModalService.OnClose += PointsModalClosed;
+    }
+
     public void One()
     {
         ModalService.Close(ModalResult.Ok(1));
@@ -22,4 +28,23 @@
     {
         ModalService.Close(ModalResult.Ok(3));
     }
+
+    // Private modal method to react to the Points Chooser result
+    private void PointsModalClosed(ModalResult modalResult)
+    {
+        ModalService.OnClose -= PointsModalClosed;
+
+        var game = GameStateService.GetGame();
+
+        game.GameActions.Add(new GameAction
+        {
+            Player = game.ActivePlayer,
+            Points = (int)modalResult.Data,
+            // Todo: log using logservice so you don't need to be consistant about your wording. Maybe the action itself contains all the necessary information?
+            LogText = $"{game.ActivePlayer.FactionIdentifier} took points action and got {modalResult.Data} points"
+        });
+
+        GameStateService.UpdateGame(game);
+    }
+
 }
