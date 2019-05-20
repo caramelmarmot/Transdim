@@ -4,6 +4,7 @@ using Transdim.DomainModel.PointGenerationInterfaces;
 
 namespace Transdim.DomainModel.GameComponents.Techs.Standard
 {
+    // TODO: Get these in line with the standard component model
     public class SevenPointsOnAcquireTechTile : ITech, IOnAcquireTechTilePointGenerator
     {
         internal const string ImagePath = "/Images/tech-seven-points-on-acquire.png";

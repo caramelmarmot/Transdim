@@ -4,6 +4,7 @@ using Transdim.DomainModel.PointGenerationInterfaces;
 
 namespace Transdim.DomainModel.GameComponents.Techs.Advanced
 {
+    // TODO: Get these in line with the standard component model
     public class ThreeVpOnBuildOnGaiaTech : ITech, IOnBuildPointGenerator
     {
         internal const string ImagePath = "/Images/tech-3-vp-on-build-gaia.png";

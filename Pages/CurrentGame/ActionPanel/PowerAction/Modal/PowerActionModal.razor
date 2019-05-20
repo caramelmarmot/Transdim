@@ -1,8 +1,10 @@
-﻿@inject IModalService ModalService;
+﻿@using Transdim.DomainModel.GameComponents;
+
+@inject IModalService ModalService;
 @inject Transdim.Service.IGameStateService GameStateService;
 
-<button class="btn btn-primary" onclick="@TwoTerraforms">Two Terraforms</button>
-<button class="btn btn-primary" onclick="@PointsForPlanets">PointsForPlanets</button>
+    <GameComponentIcon onclick="@(() => ChoosePowerAction(GameComponents.PowerActionTwoOre))" gameComponent="@GameComponents.PowerActionTwoOre"></GameComponentIcon>
+<GameComponentIcon onclick="@(() => ChoosePowerAction(GameComponents.PowerActionQicPointsForPlanets))" gameComponent="@GameComponents.PowerActionQicPointsForPlanets"></GameComponentIcon>
 
 @functions {
     protected override void OnInit()
@@ -10,14 +12,9 @@
         ModalService.OnClose += PowerActionModalClosed;
     }
 
-    public void TwoTerraforms()
+    public void ChoosePowerAction(IGameComponent gameComponent)
     {
-        ModalService.Close(ModalResult.Ok("TwoTerraforms"));
-    }
-
-    public void PointsForPlanets()
-    {
-        ModalService.Close(ModalResult.Ok("PointsForPlanets"));
+        ModalService.Close(ModalResult.Ok(gameComponent.Identifier));
     }
 
     private void PowerActionModalClosed(ModalResult modalResult)
@@ -26,13 +23,11 @@
 
         var game = GameStateService.GetGame();
 
-        if (modalResult.Cancelled)
+        if ((GameComponentIdentifier)modalResult.Data == GameComponentIdentifier.PowerActionQicPointsForPlanets)
         {
-            Console.WriteLine("Modal was cancelled");
-            return;
+            ModalService.Show("Power Action", typeof(PointsModal));
         }
-
-        if ((string)modalResult.Data == "TwoTerraforms")
+        else
         {
             game = GameStateService.GetGame();
 
@@ -45,11 +40,6 @@
             });
 
             GameStateService.UpdateGame(game);
-
-        }
-        else
-        {
-            ModalService.Show("Power Action", typeof(PointsModal));
         }
     }
 }

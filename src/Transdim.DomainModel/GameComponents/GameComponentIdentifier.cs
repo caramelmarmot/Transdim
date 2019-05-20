@@ -3,9 +3,10 @@
     public enum GameComponentIdentifier
     {
         // Actions
-        PowerAction,
+        ActionPowerAction,
 
         // PowerActions
-        PointsForPlanetsQicAction
+        PowerActionQicPointsForPlanets,
+        PowerActionTwoOre
     }
 }

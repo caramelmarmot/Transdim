@@ -2,7 +2,7 @@
 {
     public interface IGameComponent
     {
-        GameComponentIdentifier GameComponentIdentifier { get; }
+        GameComponentIdentifier Identifier { get; }
 
         string ImagePath { get; }
 

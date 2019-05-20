@@ -1,20 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Transdim.DomainModel.GameComponents.Actions
+﻿namespace Transdim.DomainModel.GameComponents.PowerActions
 {
-    public class PowerAction : IGameComponent
+    public class QicPointsForPlanets : IGameComponent
     {
-        internal const GameComponentIdentifier _Identifier = GameComponentIdentifier.ActionPowerAction;
+        internal const GameComponentIdentifier _Identifier = GameComponentIdentifier.PowerActionQicPointsForPlanets;
 
-        internal const string _ImagePath = "/Images/tech-charge-four-power.png";
-        
-        public PowerAction() { }
+        internal const string _ImagePath = "/Images/power-action-qic-points-for-planets.png";
+
+        public QicPointsForPlanets() { }
 
         public GameComponentIdentifier Identifier => _Identifier;
 
-        public string ImagePath => _ImagePath;  
+        public string ImagePath => _ImagePath;
 
         public void OnActivate(Game game)
         {
@@ -28,5 +24,6 @@ namespace Transdim.DomainModel.GameComponents.Actions
                 LogText = $"{activePlayer.FactionIdentifier} is taking a power action..."
             });
         }
+
     }
 }
