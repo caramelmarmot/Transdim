@@ -28,15 +28,14 @@
         }
     }
 
-    // private Modal methods:
-
+    // private Modal method to show Power Action:
     private void ShowPowerActionModal()
     {
         ModalService.OnClose += PowerActionModalClosed;
         ModalService.Show("Power Action", typeof(PowerActionModal));
     }
 
-    void PowerActionModalClosed(ModalResult modalResult)
+    private void PowerActionModalClosed(ModalResult modalResult)
     {
         ModalService.OnClose -= PowerActionModalClosed;
 
@@ -45,18 +44,47 @@
             Console.WriteLine("Modal was cancelled");
             return;
         }
-        
+
+        if (modalResult.Data == "TwoTerraforms")
+        {
+            game = GameStateService.GetGame();
+
+            game.GameActions.Add(new GameAction
+            {
+                Player = game.ActivePlayer,
+                Points = 0,
+                // Todo: log using logservice so you don't need to be consistant about your wording. Maybe the action itself contains all the necessary information?
+                LogText = $"{game.ActivePlayer.FactionIdentifier} took action {modalResult.Data}"
+            }) ;
+
+            GameStateService.UpdateGame(game);
+
+        }
+        else
+        {
+            ModalService.OnClose += PointsModalClosed;
+            ModalService.Show("Power Action", typeof(PointsModal));
+        }
+
+    }
+
+    // Private modal method to react to the Points Chooser result
+    private void PointsModalClosed(ModalResult modalResult)
+    {
+        ModalService.OnClose -= PointsModalClosed;
+
         game = GameStateService.GetGame();
 
         game.GameActions.Add(new GameAction
-        {
-            Player = game.ActivePlayer,
-            Points = 0,
-            // Todo: log using logservice so you don't need to be consistant about your wording. Maybe the action itself contains all the necessary information?
-            LogText = $"{game.ActivePlayer.FactionIdentifier} took action {modalResult.Data}"
-        }) ;
+            {
+                Player = game.ActivePlayer,
+                Points = (int)modalResult.Data,
+                // Todo: log using logservice so you don't need to be consistant about your wording. Maybe the action itself contains all the necessary information?
+                LogText = $"{game.ActivePlayer.FactionIdentifier} took points action and got {modalResult.Data} points"
+            }) ;
 
-        GameStateService.UpdateGame(game);
-     
+            game = GameStateService.GetGame();
+
+            GameStateService.UpdateGame(game);
     }
 }
