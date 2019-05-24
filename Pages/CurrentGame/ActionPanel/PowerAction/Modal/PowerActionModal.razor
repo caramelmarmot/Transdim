@@ -15,7 +15,7 @@
 
         if (gameComponent.Identifier == GameComponentIdentifier.PowerActionQicPointsForPlanets)
         {
-            UiQueueUtility.Add(new UiEvent { Title = "foo", ModalToShow = Modal.AdjustablePointsScorer });
+            UiQueueUtility.Add(new UiEvent("foo", Modal.AdjustablePointsScorer));
             UiQueueUtility.Execute();
         }
         else

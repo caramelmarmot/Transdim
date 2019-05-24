@@ -16,13 +16,14 @@ namespace Transdim.Service.Internal.Services
 
         public void Activate(IGameComponent component)
         {
-            // TODO: Extract these into injected classes
-            if (component is IAdjustablePointsScorer) {
-                uiQueueService.Add(new UiEvent { Title = "Choose number of points", ModalToShow = Modal.AdjustablePointsScorer });
-            }
+            // TODO: Extract these into injected classes. Or a composite?
             if (component is IPowerActionTaker)
             {
-                uiQueueService.Add(new UiEvent { Title = "Power action", ModalToShow = Modal.PowerAction });
+                uiQueueService.Add(new UiEvent("Power action", Modal.PowerAction));
+            }
+            if (component is IAdjustablePointsScorer)
+            {
+                uiQueueService.Add(new UiEvent("Choose number of points", Modal.AdjustablePointsScorer));
             }
         }
     }
