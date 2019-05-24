@@ -5,11 +5,11 @@ using Transdim.DomainModel.GameComponents.Interfaces;
 
 namespace Transdim.Service.Internal.Services
 {
-    internal class ComponentActivationService : IComponentActivationService
+    internal class ComponentService : IComponentService
     {
         private readonly IUiQueueService uiQueueService;
 
-        public ComponentActivationService(IUiQueueService uiQueueService)
+        public ComponentService(IUiQueueService uiQueueService)
         {
             this.uiQueueService = uiQueueService ?? throw new ArgumentNullException(nameof(uiQueueService));
         }

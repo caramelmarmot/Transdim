@@ -2,7 +2,7 @@
 
 namespace Transdim.Service
 {
-    public interface IComponentActivationService
+    public interface IComponentService
     {
         void Activate(IGameComponent component);
     }

@@ -31,7 +31,7 @@ namespace Transdim.Service
             services.AddScoped<IGameStateService, GameStateService>();
             services.AddScoped<IFactionService, FactionService>();
             services.AddScoped<IUiQueueService, UiQueueService>();
-            services.AddScoped<IComponentActivationService, ComponentActivationService>();
+            services.AddScoped<IComponentService, ComponentService>();
 
             // Helpers
             services.AddScoped<IRandomizerFactory, RandomizerFactory>();

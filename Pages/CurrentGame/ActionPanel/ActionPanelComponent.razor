@@ -2,7 +2,7 @@
 
 @inject Blazored.Modal.Services.IModalService ModalService;
 @inject Transdim.Service.IGameStateService GameStateService;
-@inject Transdim.Service.IComponentActivationService ComponentActivationService;
+@inject Transdim.Service.IComponentService ComponentService;
 @inject Transdim.Utilities.UiQueueUtility UiQueueUtility;
 
 <div class="row">
@@ -13,7 +13,7 @@
 @functions {
     private void PerformAction(IGameComponent selectedComponent)
     {
-        ComponentActivationService.Activate(selectedComponent);
+        ComponentService.Activate(selectedComponent);
         UiQueueUtility.Execute();
     }
 }
