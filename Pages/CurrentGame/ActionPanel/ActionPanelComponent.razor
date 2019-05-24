@@ -1,8 +1,10 @@
 ﻿@using Transdim.DomainModel.GameComponents;
 @using Transdim.Pages.CurrentGame.ActionPanel.PowerAction.Modal;
 
+
 @inject Transdim.Service.IGameStateService GameStateService;
 @inject Blazored.Modal.Services.IModalService ModalService;
+@inject Transdim.Utilities.UiQueueExecutor UiQueueExecutor;
 
 <div class="row">
     <GameComponentIcon onclick="@(() => PerformAction(GameComponents.ActionPowerAction))" gameComponent="@GameComponents.ActionPowerAction"></GameComponentIcon>
@@ -12,14 +14,8 @@
 @functions {
     private void PerformAction(IGameComponent gameComponent)
     {
-        if (gameComponent.Identifier == GameComponentIdentifier.ActionPowerAction)
-        {
-            ShowPowerActionModal();
-        }
-    }
-
-    private void ShowPowerActionModal()
-    {
-        ModalService.Show("Power Action", typeof(PowerActionModal));
+        // TODO: replace with a call to a componentActivator that does all this
+        UiQueueExecutor.Add(typeof(PowerActionModal));
+        UiQueueExecutor.ExecuteQueue();
     }
 }

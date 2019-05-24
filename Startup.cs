@@ -20,6 +20,7 @@ namespace Transdim
 
             // 1st party
             services.AddScoped<SetupNavigationUtility>();
+            services.AddScoped<UiQueueExecutor>();
             services.AddTransdimService();
             services.AddTransdimPersistence();
 

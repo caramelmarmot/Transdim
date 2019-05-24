@@ -27,12 +27,13 @@ namespace Transdim.Service
             services.AddTransient<IGameLogController, GameLogController>();
 
             // Services
-            services.AddSingleton<IGameInitializationService, GameInitializationService>();
-            services.AddSingleton<IGameStateService, GameStateService>();
-            services.AddSingleton<IFactionService, FactionService>();
+            services.AddScoped<IGameInitializationService, GameInitializationService>();
+            services.AddScoped<IGameStateService, GameStateService>();
+            services.AddScoped<IFactionService, FactionService>();
+            services.AddScoped<IUiQueueService, UiQueueService>();
 
             // Helpers
-            services.AddSingleton<IRandomizerFactory, RandomizerFactory>();
+            services.AddScoped<IRandomizerFactory, RandomizerFactory>();
         }
     }
 }

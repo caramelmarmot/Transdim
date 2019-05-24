@@ -2,30 +2,20 @@
 
 @inject IModalService ModalService;
 @inject Transdim.Service.IGameStateService GameStateService;
+@inject Transdim.Utilities.UiQueueExecutor UiQueueExecutor;
 
-    <GameComponentIcon onclick="@(() => ChoosePowerAction(GameComponents.PowerActionTwoOre))" gameComponent="@GameComponents.PowerActionTwoOre"></GameComponentIcon>
+<GameComponentIcon onclick="@(() => ChoosePowerAction(GameComponents.PowerActionTwoOre))" gameComponent="@GameComponents.PowerActionTwoOre"></GameComponentIcon>
 <GameComponentIcon onclick="@(() => ChoosePowerAction(GameComponents.PowerActionQicPointsForPlanets))" gameComponent="@GameComponents.PowerActionQicPointsForPlanets"></GameComponentIcon>
 
 @functions {
-    protected override void OnInit()
-    {
-        ModalService.OnClose += PowerActionModalClosed;
-    }
-
     public void ChoosePowerAction(IGameComponent gameComponent)
     {
-        ModalService.Close(ModalResult.Ok(gameComponent.Identifier));
-    }
-
-    private void PowerActionModalClosed(ModalResult modalResult)
-    {
-        ModalService.OnClose -= PowerActionModalClosed;
-
         var game = GameStateService.GetGame();
 
-        if ((GameComponentIdentifier)modalResult.Data == GameComponentIdentifier.PowerActionQicPointsForPlanets)
+        if (gameComponent.Identifier == GameComponentIdentifier.PowerActionQicPointsForPlanets)
         {
-            ModalService.Show("Power Action", typeof(PointsModal));
+            UiQueueExecutor.Add(typeof(PointsModal));
+            UiQueueExecutor.ExecuteQueue();
         }
         else
         {
@@ -36,10 +26,12 @@
                 Player = game.ActivePlayer,
                 Points = 0,
                 // Todo: log using logservice so you don't need to be consistant about your wording. Maybe the action itself contains all the necessary information?
-                LogText = $"{game.ActivePlayer.FactionIdentifier} took action {modalResult.Data}"
+                LogText = $"{game.ActivePlayer.FactionIdentifier} took action {gameComponent.Identifier}"
             });
 
             GameStateService.UpdateGame(game);
         }
+
     }
+
 }
