@@ -14,7 +14,8 @@ namespace Transdim.Service.Internal.Services
 
         public void Add(UiEvent uiEvent) => eventQueue.Add(uiEvent);
 
-        public void CompleteCurrent() {
+
+        public void RegisterEventTaken() {
             if (eventQueue.Any())
             {
                 eventQueue.RemoveAt(0);

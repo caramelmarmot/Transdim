@@ -1,9 +1,8 @@
 ﻿@using Transdim.DomainModel.GameComponents;
-@using Transdim.Pages.CurrentGame.ActionPanel.PowerAction.Modal;
 
-
-@inject Transdim.Service.IGameStateService GameStateService;
 @inject Blazored.Modal.Services.IModalService ModalService;
+@inject Transdim.Service.IGameStateService GameStateService;
+@inject Transdim.Service.IComponentActivationService ComponentActivationService;
 @inject Transdim.Utilities.UiQueueExecutor UiQueueExecutor;
 
 <div class="row">
@@ -12,10 +11,9 @@
 
 
 @functions {
-    private void PerformAction(IGameComponent gameComponent)
+    private void PerformAction(IGameComponent selectedComponent)
     {
-        // TODO: replace with a call to a componentActivator that does all this
-        UiQueueExecutor.Add(typeof(PowerActionModal));
+        ComponentActivationService.Activate(selectedComponent);
         UiQueueExecutor.ExecuteQueue();
     }
 }

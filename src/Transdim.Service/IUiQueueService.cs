@@ -8,6 +8,6 @@ namespace Transdim.Service
 
         void Add(UiEvent uiEvent);
 
-        void CompleteCurrent();
+        void RegisterEventTaken();
     }
 }

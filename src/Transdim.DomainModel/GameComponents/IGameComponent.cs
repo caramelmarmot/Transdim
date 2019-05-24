@@ -5,7 +5,5 @@
         GameComponentIdentifier Identifier { get; }
 
         string ImagePath { get; }
-
-        void OnActivate(Game game);
     }
 }

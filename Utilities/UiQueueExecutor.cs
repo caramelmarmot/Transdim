@@ -1,7 +1,10 @@
 ﻿using Blazored.Modal.Services;
 using System;
+using System.Collections.Generic;
 using Transdim.DomainModel;
+using Transdim.Pages.CurrentGame.ActionPanel.PowerAction.Modal;
 using Transdim.Service;
+using Transdim.Shared;
 
 namespace Transdim.Utilities
 {
@@ -12,14 +15,20 @@ namespace Transdim.Utilities
 
         private bool IsExecuting = false;
 
+        private Dictionary<Modal, Type> ModalMapping = new Dictionary<Modal, Type>()
+        {
+            // TODO: rename PointsModal
+            { Modal.AdjustablePointsScorer, typeof(PointsModal)},
+            { Modal.PowerAction, typeof(PowerActionModal)}
+        };
+
         public UiQueueExecutor(IUiQueueService uiQueueService, IModalService modalService) {
             this.uiQueueService = uiQueueService ?? throw new ArgumentNullException(nameof(uiQueueService));
             this.modalService = modalService ?? throw new ArgumentNullException(nameof(modalService));
         }
 
-        public void Add(Type type) {
-            uiQueueService.Add(new UiEvent { ModalToShow = type, Title = "foo" });
-        }
+        public void Add(UiEvent uiEventToAdd) =>
+            uiQueueService.Add(uiEventToAdd);
 
         public void ExecuteQueue()
         {
@@ -36,15 +45,21 @@ namespace Transdim.Utilities
                 return;
             }
 
+            if (!ModalMapping.TryGetValue(itemToProcess.ModalToShow, out var modalToShow))
+            {
+                throw new ArgumentNullException(nameof(itemToProcess.ModalToShow));
+            }
+
             IsExecuting = true;
             modalService.OnClose += ProcessNextItemFromQueue;
-            modalService.Show(itemToProcess.Title, itemToProcess.ModalToShow);
+
+            uiQueueService.RegisterEventTaken();
+            modalService.Show(itemToProcess.Title, modalToShow);
         }
 
         private void ProcessNextItemFromQueue(ModalResult modalResult)
         {
             IsExecuting = false;
-            uiQueueService.CompleteCurrent();
             modalService.OnClose -= ProcessNextItemFromQueue;
             ExecuteQueue();
         }
