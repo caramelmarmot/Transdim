@@ -2,7 +2,7 @@
 
 @inject IModalService ModalService;
 @inject Transdim.Service.IGameStateService GameStateService;
-@inject Transdim.Utilities.UiQueueExecutor UiQueueExecutor;
+@inject Transdim.Utilities.UiQueueUtility UiQueueUtility;
 
 <GameComponentIcon onclick="@(() => ChoosePowerAction(GameComponents.PowerActionTwoOre))" gameComponent="@GameComponents.PowerActionTwoOre"></GameComponentIcon>
 <GameComponentIcon onclick="@(() => ChoosePowerAction(GameComponents.PowerActionQicPointsForPlanets))" gameComponent="@GameComponents.PowerActionQicPointsForPlanets"></GameComponentIcon>
@@ -15,8 +15,8 @@
 
         if (gameComponent.Identifier == GameComponentIdentifier.PowerActionQicPointsForPlanets)
         {
-            UiQueueExecutor.Add(new UiEvent { Title = "foo", ModalToShow = Modal.AdjustablePointsScorer });
-            UiQueueExecutor.ExecuteQueue();
+            UiQueueUtility.Add(new UiEvent { Title = "foo", ModalToShow = Modal.AdjustablePointsScorer });
+            UiQueueUtility.Execute();
         }
         else
         {

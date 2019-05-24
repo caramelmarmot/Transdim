@@ -8,7 +8,7 @@ using Transdim.Shared;
 
 namespace Transdim.Utilities
 {
-    public class UiQueueExecutor
+    public class UiQueueUtility
     {
         private readonly IUiQueueService uiQueueService;
         private readonly IModalService modalService;
@@ -22,7 +22,7 @@ namespace Transdim.Utilities
             { Modal.PowerAction, typeof(PowerActionModal)}
         };
 
-        public UiQueueExecutor(IUiQueueService uiQueueService, IModalService modalService) {
+        public UiQueueUtility(IUiQueueService uiQueueService, IModalService modalService) {
             this.uiQueueService = uiQueueService ?? throw new ArgumentNullException(nameof(uiQueueService));
             this.modalService = modalService ?? throw new ArgumentNullException(nameof(modalService));
         }
@@ -30,7 +30,7 @@ namespace Transdim.Utilities
         public void Add(UiEvent uiEventToAdd) =>
             uiQueueService.Add(uiEventToAdd);
 
-        public void ExecuteQueue()
+        public void Execute()
         {
             if (IsExecuting)
             {
@@ -61,7 +61,7 @@ namespace Transdim.Utilities
         {
             IsExecuting = false;
             modalService.OnClose -= ProcessNextItemFromQueue;
-            ExecuteQueue();
+            Execute();
         }
     }
 }

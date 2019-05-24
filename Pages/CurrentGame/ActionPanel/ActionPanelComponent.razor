@@ -3,7 +3,7 @@
 @inject Blazored.Modal.Services.IModalService ModalService;
 @inject Transdim.Service.IGameStateService GameStateService;
 @inject Transdim.Service.IComponentActivationService ComponentActivationService;
-@inject Transdim.Utilities.UiQueueExecutor UiQueueExecutor;
+@inject Transdim.Utilities.UiQueueUtility UiQueueUtility;
 
 <div class="row">
     <GameComponentIcon onclick="@(() => PerformAction(GameComponents.ActionPowerAction))" gameComponent="@GameComponents.ActionPowerAction"></GameComponentIcon>
@@ -14,6 +14,6 @@
     private void PerformAction(IGameComponent selectedComponent)
     {
         ComponentActivationService.Activate(selectedComponent);
-        UiQueueExecutor.ExecuteQueue();
+        UiQueueUtility.Execute();
     }
 }
