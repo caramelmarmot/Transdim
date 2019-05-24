@@ -53,6 +53,33 @@
 .active {
   box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.5);
 }
+.animated {
+  position: absolute;
+  z-index: 100000;
+  left: 0;
+  top: 0;
+  -webkit-animation-name: shrink;
+  /* Safari 4.0 - 8.0 */
+  -webkit-animation-duration: 2.5s;
+  /* Safari 4.0 - 8.0 */
+}
+@-webkit-keyframes shrink {
+  from {
+    max-height: 150px;
+  }
+  to {
+    max-height: 0px;
+  }
+}
+/* Standard syntax */
+@keyframes shrink {
+  from {
+    max-height: 150px;
+  }
+  to {
+    max-height: 0px;
+  }
+}
 html,
 body {
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;

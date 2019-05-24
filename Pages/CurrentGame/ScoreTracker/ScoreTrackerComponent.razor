@@ -1,33 +1,36 @@
-﻿@inject Transdim.Service.IGameStateService GameStateService;
+﻿@using System.Timers;
+@inject Transdim.Service.IGameStateService GameStateService;
 
 <div class="row">
     @if (game.Players.Count > 0)
     {
         <div class="col-3 @GetActiveClass(game.Players[0])" style="background-color:burlywood">@GetScore(game.Players[0])</div>
     }
-    @if (game.Players.Count > 1)
-    {
-        <div class="col-3 @GetActiveClass(game.Players[1])" style="background-color:pink">@GetScore(game.Players[1])</div>
-    }
-    @if (game.Players.Count > 2)
-    {
-        <div class="col-3 @GetActiveClass(game.Players[2])" style="background-color:lightcoral">@GetScore(game.Players[2])</div>
-    }
-    @if (game.Players.Count > 3)
-    {
-        <div class="col-3 @GetActiveClass(game.Players[3])" style="background-color:lightgoldenrodyellow">@GetScore(game.Players[3])</div>
-    }
+</div>
+@if (showAnimation)
+{
+    <img class="animated" src="/Images/tech-charge-four-power.png" asp-append-version="true" />
+}
+
+<div class="row">
+    <button onclick="@StartAnimation">Score something</button>
 </div>
 
 @functions {
     private Game game;
 
+    private bool showAnimation = false;
+
+    private Timer timer;
+
     protected override void OnInit()
     {
         game = GameStateService.GetGame();
         GameStateService.OnChange += StateHasChanged;
+        timer = new Timer(2300);
     }
 
+    // TODO: This needs to be done much better
     public int GetScore(Player player)
     {
         // TODO: move to controller
@@ -45,4 +48,26 @@
 
     public string GetActiveClass(Player player) =>
         (player.IsActive) ? "active" : "";
+
+    // TODO: this is just scratch
+    public void StartAnimation()
+    {
+        showAnimation = true;
+        StateHasChanged();
+
+        timer.Elapsed += FinishAnimation;
+        timer.Enabled = true;
+    }
+
+    public event Action onAnimationFinish;
+
+    private void FinishAnimation(Object source, ElapsedEventArgs e)
+    {
+        Invoke(() =>
+        {
+            timer.Enabled = false;
+            showAnimation = false;
+            StateHasChanged();
+        });
+    }
 }
