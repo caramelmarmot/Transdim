@@ -54,10 +54,7 @@
   box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.5);
 }
 .animated {
-  position: absolute;
   z-index: 100000;
-  left: 0;
-  top: 0;
   -webkit-animation-name: shrink;
   /* Safari 4.0 - 8.0 */
   -webkit-animation-duration: 2.5s;
@@ -66,9 +63,13 @@
 @-webkit-keyframes shrink {
   from {
     max-height: 150px;
+    position: absolute;
+    left: 0;
+    top: 0;
   }
   to {
     max-height: 0px;
+    position: inherit;
   }
 }
 /* Standard syntax */
