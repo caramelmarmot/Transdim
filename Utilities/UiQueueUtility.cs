@@ -45,7 +45,8 @@ namespace Transdim.Utilities
 
             if (itemToProcess == null)
             {
-                uiComponentScoringUtility.Score(new QicPointsForPlanets(), 2);
+                // TODO: Just an example of this working. Remove.
+                // uiComponentScoringUtility.Score(new QicPointsForPlanets(), 2);
                 return;
             }
 
