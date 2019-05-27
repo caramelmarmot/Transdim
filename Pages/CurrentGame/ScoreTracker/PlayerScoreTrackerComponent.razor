@@ -1,14 +1,8 @@
-﻿@using System.Timers;
+﻿
 
 @inject Transdim.Service.IGameStateService GameStateService;
 
-<div class="col-3 @GetActiveClass(player)" onclick="@StartAnimation" style="background-color:burlywood">@GetScore(player)</div>
-@if (showAnimation)
-{
-    <div class="row">
-        <img class="animated" src="/Images/tech-charge-four-power.png" asp-append-version="true" />
-    </div>
-}
+<div class="col-3 @GetActiveClass(player)" style="background-color:burlywood">@GetScore(player)</div>
 
 @functions {
     [Parameter]
@@ -17,15 +11,10 @@
     [Parameter]
     private Player player { get; set; }
 
-    private bool showAnimation = false;
-
-    private Timer timer;
-
     protected override void OnInit()
     {
         game = GameStateService.GetGame();
         GameStateService.OnChange += StateHasChanged;
-        timer = new Timer(2300);
     }
 
     // TODO: This needs to be done much better
@@ -46,26 +35,4 @@
 
     public string GetActiveClass(Player player) =>
         (player.IsActive) ? "active" : "";
-
-    // TODO: this is just scratch
-    public void StartAnimation()
-    {
-        showAnimation = true;
-        StateHasChanged();
-
-        timer.Elapsed += FinishAnimation;
-        timer.Enabled = true;
-    }
-
-    public event Action onAnimationFinish;
-
-    private void FinishAnimation(Object source, ElapsedEventArgs e)
-    {
-        Invoke(() =>
-        {
-            timer.Enabled = false;
-            showAnimation = false;
-            StateHasChanged();
-        });
-    }
 }

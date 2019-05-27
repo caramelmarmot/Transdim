@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using Transdim.DomainModel;
+using Transdim.DomainModel.GameComponents.PowerActions;
 using Transdim.Pages.CurrentGame.ActionPanel.PowerAction.Modal;
 using Transdim.Service;
 using Transdim.Shared;
@@ -12,6 +13,7 @@ namespace Transdim.Utilities
     {
         private readonly IUiQueueService uiQueueService;
         private readonly IModalService modalService;
+        private readonly UiComponentScoringUtility uiComponentScoringUtility;
 
         private bool IsExecuting = false;
 
@@ -22,9 +24,10 @@ namespace Transdim.Utilities
             { Modal.PowerAction, typeof(PowerActionModal)}
         };
 
-        public UiQueueUtility(IUiQueueService uiQueueService, IModalService modalService) {
+        public UiQueueUtility(IUiQueueService uiQueueService, IModalService modalService, UiComponentScoringUtility uiComponentScoringUtility) {
             this.uiQueueService = uiQueueService ?? throw new ArgumentNullException(nameof(uiQueueService));
             this.modalService = modalService ?? throw new ArgumentNullException(nameof(modalService));
+            this.uiComponentScoringUtility = uiComponentScoringUtility ?? throw new ArgumentNullException(nameof(uiComponentScoringUtility));
         }
 
         public void Add(UiEvent uiEventToAdd) =>
@@ -42,6 +45,7 @@ namespace Transdim.Utilities
 
             if (itemToProcess == null)
             {
+                uiComponentScoringUtility.Score(new QicPointsForPlanets(), 2);
                 return;
             }
 

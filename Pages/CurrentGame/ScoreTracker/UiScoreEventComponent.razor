@@ -1,0 +1,48 @@
+﻿@using System.Timers;
+@using Transdim.Utilities;
+@using Transdim.DomainModel.GameComponents;
+
+@inject Transdim.Utilities.UiComponentScoringUtility uiComponentScoringUtility;
+@if (showAnimation)
+{
+    <div class="row">
+        <img class="animated" src="@imgSrc" asp-append-version="true" />
+    </div>
+}
+
+@functions {
+    private bool showAnimation = false;
+
+    private Timer timer;
+
+    private string imgSrc;
+
+    protected override void OnInit()
+    {
+        timer = new Timer(2300);
+        ((UiComponentScoringUtility)uiComponentScoringUtility).OnScore += StartAnimation;
+    }
+
+
+    public void StartAnimation(IGameComponent gameComponent, int points)
+    {
+        imgSrc = gameComponent.ImagePath;
+        showAnimation = true;
+        StateHasChanged();
+
+        timer.Elapsed += FinishAnimation;
+        timer.Enabled = true;
+    }
+
+    public event Action onAnimationFinish;
+
+    private void FinishAnimation(Object source, ElapsedEventArgs e)
+    {
+        Invoke(() =>
+        {
+            timer.Enabled = false;
+            showAnimation = false;
+            StateHasChanged();
+        });
+    }
+}
