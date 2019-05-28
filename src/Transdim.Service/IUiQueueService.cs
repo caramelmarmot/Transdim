@@ -4,9 +4,9 @@ namespace Transdim.Service
 {
     public interface IUiQueueService
     {
-        UiEvent GetNextEvent();
+        IUiEvent GetNextEvent();
 
-        void Add(UiEvent uiEvent);
+        void Add(IUiEvent uiEvent);
 
         void RegisterEventTaken();
     }

@@ -6,14 +6,13 @@ namespace Transdim.Service.Internal.Services
 {
     internal class UiQueueService : IUiQueueService
     {
-        private List<UiEvent> eventQueue = new List<UiEvent>();
+        private readonly List<IUiEvent> eventQueue = new List<IUiEvent>();
 
         public UiQueueService() { }
 
-        public UiEvent GetNextEvent() => eventQueue.FirstOrDefault();
+        public IUiEvent GetNextEvent() => eventQueue.FirstOrDefault();
 
-        public void Add(UiEvent uiEvent) => eventQueue.Add(uiEvent);
-
+        public void Add(IUiEvent uiEvent) => eventQueue.Add(uiEvent);
 
         public void RegisterEventTaken() {
             if (eventQueue.Any())

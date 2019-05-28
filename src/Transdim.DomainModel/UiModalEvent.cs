@@ -2,9 +2,9 @@
 
 namespace Transdim.DomainModel
 {
-    public class UiEvent
+    public class UiModalEvent : IUiModalEvent
     {
-        public UiEvent(string title, Modal modalToShow)
+        public UiModalEvent(string title, Modal modalToShow)
         {
             Title = title;
             ModalToShow = modalToShow;

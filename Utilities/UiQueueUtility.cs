@@ -15,7 +15,8 @@ namespace Transdim.Utilities
         private readonly IModalService modalService;
         private readonly UiComponentScoringUtility uiComponentScoringUtility;
 
-        private bool IsExecuting = false;
+        private bool IsModalOpen = false;
+        private bool IsAnimating = false;
 
         private Dictionary<Modal, Type> ModalMapping = new Dictionary<Modal, Type>()
         {
@@ -30,14 +31,22 @@ namespace Transdim.Utilities
             this.uiComponentScoringUtility = uiComponentScoringUtility ?? throw new ArgumentNullException(nameof(uiComponentScoringUtility));
         }
 
-        public void Add(UiEvent uiEventToAdd) =>
+        public void Add(IUiEvent uiEventToAdd) =>
             uiQueueService.Add(uiEventToAdd);
 
         public void Execute()
         {
-            if (IsExecuting)
+            if (IsModalOpen)
             {
+                // Close the modal. The modal's OnClose event will execute the next UI event.
                 modalService.Close(ModalResult.Ok(true));
+                return;
+            }
+
+            if (IsAnimating)
+            {
+                // Finish the animation. The OnFinishAnimation event will execute the next event.
+                uiComponentScoringUtility.FinishAnimation();
                 return;
             }
 
@@ -45,27 +54,37 @@ namespace Transdim.Utilities
 
             if (itemToProcess == null)
             {
-                // TODO: Just an example of this working. Remove.
-                // uiComponentScoringUtility.Score(new QicPointsForPlanets(), 2);
                 return;
             }
 
-            if (!ModalMapping.TryGetValue(itemToProcess.ModalToShow, out var modalToShow))
+            if (itemToProcess is IUiModalEvent modalToProcess)
             {
-                throw new ArgumentNullException(nameof(itemToProcess.ModalToShow));
+                if (!ModalMapping.TryGetValue(modalToProcess.ModalToShow, out var modalToShow))
+                {
+                    throw new ArgumentNullException(nameof(modalToProcess.ModalToShow));
+                }
+
+                IsModalOpen = true;
+                modalService.OnClose += ProcessNextItemFromQueue;
+
+                uiQueueService.RegisterEventTaken();
+                modalService.Show(modalToProcess.Title, modalToShow);
             }
-
-            IsExecuting = true;
-            modalService.OnClose += ProcessNextItemFromQueue;
-
-            uiQueueService.RegisterEventTaken();
-            modalService.Show(itemToProcess.Title, modalToShow);
+            else if (itemToProcess is IUiComponentScoringEvent componentScoringToProcess)
+            {
+                IsAnimating = true;
+                uiComponentScoringUtility.Score(componentScoringToProcess.GameComponent, componentScoringToProcess.Points);
+                uiComponentScoringUtility.OnFinishAnimation += ProcessNextItemFromQueue;
+            }
         }
 
         private void ProcessNextItemFromQueue(ModalResult modalResult)
         {
-            IsExecuting = false;
             modalService.OnClose -= ProcessNextItemFromQueue;
+            uiComponentScoringUtility.OnFinishAnimation -= ProcessNextItemFromQueue;
+
+            IsModalOpen = false;
+            IsAnimating = false;
             Execute();
         }
     }
