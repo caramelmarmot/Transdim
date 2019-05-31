@@ -35,6 +35,7 @@ namespace Transdim.Service
             services.AddScoped<IQueueManagementService, QueueManagementService>();
             services.AddScoped<IGameComponentController, GameComponentController>();
             services.AddScoped<IModalService, ModalService>();
+            services.AddScoped<IScoreAnimationService, ScoreAnimationService>();
 
             // Helpers
             services.AddScoped<IRandomizerFactory, RandomizerFactory>();

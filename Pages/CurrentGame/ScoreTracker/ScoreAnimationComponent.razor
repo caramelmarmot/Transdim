@@ -1,8 +1,7 @@
 ﻿@using System.Timers;
-@using Transdim.Utilities;
 @using Transdim.DomainModel.GameComponents;
 
-@inject Transdim.Utilities.UiComponentScoringUtility uiComponentScoringUtility;
+@inject Transdim.Service.IScoreAnimationService scoreAnimationService;
 @if (showAnimation)
 {
     <div class="row">
@@ -20,8 +19,8 @@
     protected override void OnInit()
     {
         timer = new Timer(2300);
-        ((UiComponentScoringUtility)uiComponentScoringUtility).OnScore += StartAnimation;
-        ((UiComponentScoringUtility)uiComponentScoringUtility).OnFinishAnimation += OnFinishAnimation;
+        scoreAnimationService.OnScore += StartAnimation;
+        scoreAnimationService.OnFinishAnimation += OnFinishAnimation;
     }
 
 
@@ -43,7 +42,7 @@
             timer.Elapsed -= FinishAnimation;
             timer.Enabled = false;
             showAnimation = false;
-            uiComponentScoringUtility.FinishAnimation();
+            scoreAnimationService.FinishAnimation();
         });
     }
 

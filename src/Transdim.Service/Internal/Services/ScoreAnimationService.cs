@@ -1,13 +1,13 @@
 ﻿using System;
 using Transdim.DomainModel.GameComponents;
 
-namespace Transdim.Utilities
+namespace Transdim.Service.Internal.Services
 {
-    public class UiComponentScoringUtility
+    internal class ScoreAnimationService : IScoreAnimationService
     {
-        internal event Action<IGameComponent, int> OnScore;
+        public event Action<IGameComponent, int> OnScore;
 
-        internal event Action OnFinishAnimation;
+        public event Action OnFinishAnimation;
 
         public void Score(IGameComponent component, int points)
         {

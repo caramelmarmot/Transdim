@@ -8,14 +8,14 @@ namespace Transdim.Utilities
     {
         private readonly IQueueManagementService uiQueueService;
         private readonly IModalService modalService;
-        private readonly UiComponentScoringUtility uiComponentScoringUtility;
+        private readonly IScoreAnimationService scoreAnimationService;
 
         private bool currentlyExecuting = false;
 
-        public UiQueueUtility(IQueueManagementService uiQueueService, IModalService modalService, UiComponentScoringUtility uiComponentScoringUtility) {
+        public UiQueueUtility(IQueueManagementService uiQueueService, IModalService modalService, IScoreAnimationService scoreAnimationService) {
             this.uiQueueService = uiQueueService ?? throw new ArgumentNullException(nameof(uiQueueService));
             this.modalService = modalService ?? throw new ArgumentNullException(nameof(modalService));
-            this.uiComponentScoringUtility = uiComponentScoringUtility ?? throw new ArgumentNullException(nameof(uiComponentScoringUtility));
+            this.scoreAnimationService = scoreAnimationService ?? throw new ArgumentNullException(nameof(scoreAnimationService));
         }
 
         public void Add(IUiEvent uiEventToAdd) =>
@@ -45,8 +45,8 @@ namespace Transdim.Utilities
             }
             else if (itemToProcess is IUiComponentScoringEvent componentScoringToProcess)
             {
-                uiComponentScoringUtility.OnFinishAnimation += ProcessNext;
-                uiComponentScoringUtility.Score(componentScoringToProcess.GameComponent, componentScoringToProcess.Points);
+                scoreAnimationService.OnFinishAnimation += ProcessNext;
+                scoreAnimationService.Score(componentScoringToProcess.GameComponent, componentScoringToProcess.Points);
             }
         }
 
@@ -58,7 +58,7 @@ namespace Transdim.Utilities
 
         private void ProcessNext()
         {
-            uiComponentScoringUtility.OnFinishAnimation -= ProcessNext;
+            scoreAnimationService.OnFinishAnimation -= ProcessNext;
             currentlyExecuting = false;
 
             Execute();
