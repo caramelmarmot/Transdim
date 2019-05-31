@@ -3,13 +3,13 @@ using Transdim.DomainModel;
 using Transdim.DomainModel.GameComponents;
 using Transdim.DomainModel.GameComponents.Interfaces;
 
-namespace Transdim.Service.Internal.Services
+namespace Transdim.Service.Internal.Controllers.Shared
 {
-    internal class ComponentService : IComponentService
+    internal class GameComponentController : IGameComponentController
     {
         private readonly IUiQueueService uiQueueService;
 
-        public ComponentService(IUiQueueService uiQueueService)
+        public GameComponentController(IUiQueueService uiQueueService)
         {
             this.uiQueueService = uiQueueService ?? throw new ArgumentNullException(nameof(uiQueueService));
         }

@@ -1,0 +1,16 @@
+﻿@using Transdim.DomainModel.GameComponents;
+@inject Transdim.Service.IGameComponentController ComponentService;
+@inject Transdim.Utilities.UiQueueUtility UiQueueUtility;
+
+<img class="tech-tile" onclick="@PerformAction" src="@component.ImagePath" asp-append-version="true" />
+
+@functions {
+    [Parameter]
+    private IGameComponent component { get; set; }
+
+    private void PerformAction()
+    {
+        ComponentService.Activate(component);
+        UiQueueUtility.Execute();
+    }
+}

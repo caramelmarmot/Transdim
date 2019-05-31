@@ -7,6 +7,7 @@ using Transdim.Service.Internal.Helpers;
 using Transdim.Service.Internal.Services;
 using Transdim.Service.Internal.Controllers.NewGame;
 using Transdim.Service.Internal.Controllers.CurrentGame;
+using Transdim.Service.Internal.Controllers.Shared;
 
 namespace Transdim.Service
 {
@@ -31,7 +32,7 @@ namespace Transdim.Service
             services.AddScoped<IGameStateService, GameStateService>();
             services.AddScoped<IFactionService, FactionService>();
             services.AddScoped<IUiQueueService, UiQueueService>();
-            services.AddScoped<IComponentService, ComponentService>();
+            services.AddScoped<IGameComponentController, GameComponentController>();
 
             // Helpers
             services.AddScoped<IRandomizerFactory, RandomizerFactory>();

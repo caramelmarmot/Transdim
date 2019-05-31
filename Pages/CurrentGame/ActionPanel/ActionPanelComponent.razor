@@ -2,11 +2,11 @@
 
 @inject Blazored.Modal.Services.IModalService ModalService;
 @inject Transdim.Service.IGameStateService GameStateService;
-@inject Transdim.Service.IComponentService ComponentService;
+@inject Transdim.Service.IGameComponentController ComponentService;
 @inject Transdim.Utilities.UiQueueUtility UiQueueUtility;
 
 <div class="row">
-    <GameComponentIcon onclick="@(() => PerformAction(GameComponents.ActionPowerAction))" gameComponent="@GameComponents.ActionPowerAction"></GameComponentIcon>
+    <GameComponent component="@GameComponents.ActionPowerAction"></GameComponent>
 </div>
 
 
