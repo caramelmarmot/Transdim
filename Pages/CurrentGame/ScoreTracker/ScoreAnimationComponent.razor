@@ -7,27 +7,26 @@
 @if (showAnimation)
 {
     <div class="row animation-container">
-        <span class="@GetColClass()">
-            <img class="animated" src="@imgSrc" asp-append-version="true" />
+        <span class="@GetColClass()" >
+            <img class="animated" hidden="@IsHidden(0)" src="@imgSrc" asp-append-version="true" />
         </span>
         <span class="@GetColClass()">
-            <img class="animated" src="@imgSrc" asp-append-version="true" />
+            <img class="animated" hidden="@IsHidden(1)" src="@imgSrc" asp-append-version="true" />
         </span>
         @if (game.Players.Count > 2)
         {
             <span class="@GetColClass()">
-                <img class="animated" src="@imgSrc" asp-append-version="true" />
+                <img class="animated" hidden="@IsHidden(2)" src="@imgSrc" asp-append-version="true" />
             </span>
         }
         @if (game.Players.Count > 3)
         {
             <span class="@GetColClass()">
-                <img class="animated" src="@imgSrc" asp-append-version="true" />
+                <img class="animated" hidden="@IsHidden(3)" src="@imgSrc" asp-append-version="true" />
             </span>
         }
     </div>
 }
-<button onclick="@Toggle">toggle</button>
 
 @functions {
     private bool showAnimation = false;
@@ -38,23 +37,14 @@
 
     private Game game;
 
-    public void Toggle() { showAnimation = !showAnimation;  }
     protected override void OnInit()
     {
         timer = new Timer(1550);
         scoreAnimationService.OnScore += StartAnimation;
         scoreAnimationService.OnFinishAnimation += OnFinishAnimation;
+
+        GameStateService.OnChange += StateHasChanged;
         game = GameStateService.GetGame();
-    }
-
-    public void StartAnimation(IGameComponent gameComponent, int points)
-    {
-        imgSrc = gameComponent.ImagePath;
-        showAnimation = true;
-        StateHasChanged();
-
-        timer.Elapsed += FinishAnimation;
-        timer.Enabled = true;
     }
 
     public string GetColClass() {
@@ -75,6 +65,19 @@
 
         throw new InvalidOperationException("Must have between 2 and 4 players");
     }
+
+    public bool IsHidden(int playerIndex) => !game.Players[playerIndex].IsActive;
+
+    public void StartAnimation(IGameComponent gameComponent, int points)
+    {
+        imgSrc = gameComponent.ImagePath;
+        showAnimation = true;
+        StateHasChanged();
+
+        timer.Elapsed += FinishAnimation;
+        timer.Enabled = true;
+    }
+
 
     private void FinishAnimation(Object source, ElapsedEventArgs e)
     {
