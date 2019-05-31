@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using Transdim.DomainModel;
-using Transdim.DomainModel.GameComponents.PowerActions;
 using Transdim.Pages.CurrentGame.ActionPanel.PowerAction.Modal;
 using Transdim.Service;
 using Transdim.Shared;
@@ -16,13 +15,6 @@ namespace Transdim.Utilities
 
         private bool IsModalOpen = false;
         private bool IsAnimating = false;
-
-        private Dictionary<ModalIdentifier, Type> ModalMapping = new Dictionary<ModalIdentifier, Type>()
-        {
-            // TODO: rename PointsModal
-            { ModalIdentifier.AdjustablePointsScorer, typeof(PointsModal)},
-            { ModalIdentifier.PowerAction, typeof(PowerActionModal)}
-        };
 
         public UiQueueUtility(IUiQueueService uiQueueService, IModalService modalService, UiComponentScoringUtility uiComponentScoringUtility) {
             this.uiQueueService = uiQueueService ?? throw new ArgumentNullException(nameof(uiQueueService));
@@ -58,16 +50,12 @@ namespace Transdim.Utilities
 
             if (itemToProcess is IUiModalEvent modalToProcess)
             {
-                if (!ModalMapping.TryGetValue(modalToProcess.ModalToShow, out var modalToShow))
-                {
-                    throw new ArgumentNullException(nameof(modalToProcess.ModalToShow));
-                }
-
+                
                 IsModalOpen = true;
                 modalService.OnClose += ProcessNextItemFromQueue;
 
                 uiQueueService.RegisterEventTaken();
-                modalService.Show(modalToProcess.Title, modalToShow);
+                modalService.Show(modalToProcess.Title, modalToProcess.ModalIdentifier);
             }
             else if (itemToProcess is IUiComponentScoringEvent componentScoringToProcess)
             {

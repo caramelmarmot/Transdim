@@ -1,4 +1,5 @@
 ﻿@using  Transdim.Service;
+@using  Transdim.Pages.CurrentGame.ActionPanel.PowerAction.Modal;
 
 @inject Transdim.Service.IModalService ModalService;
 
@@ -9,7 +10,7 @@
     <div class="transdim-modal">
         <div class="transdim-modal-header">
             <h3 class="transdim-modal-title">@Title</h3>
-            <button type="button" class="transdim-modal-close"  onclick="@Cancel">
+            <button type="button" class="transdim-modal-close" onclick="@Cancel">
                 <span>&times;</span>
             </button>
         </div>
@@ -28,14 +29,28 @@
     private RenderFragment Content { get; set; }
     private ModalParameters Parameters { get; set; }
 
+    private Dictionary<ModalIdentifier, Type> ModalMapping = new Dictionary<ModalIdentifier, Type>()
+    {
+        // TODO: rename PointsModal
+        { ModalIdentifier.AdjustablePointsScorer, typeof(PointsModal)},
+        { ModalIdentifier.PowerAction, typeof(PowerActionModal)}
+    };
+
     protected override void OnInit()
     {
         ModalService.OnShow += ShowModal;
         ModalService.OnClose += CloseModal;
     }
 
-    private void ShowModal(string title, RenderFragment content, ModalParameters parameters)
+    private void ShowModal(string title, ModalIdentifier modalIdentifier, ModalParameters parameters)
     {
+        if (!ModalMapping.TryGetValue(modalIdentifier, out var modalType))
+        {
+            throw new ArgumentNullException(nameof(modalType));
+        }
+
+        var content = new RenderFragment(x => { x.OpenComponent(1, modalType); x.CloseComponent(); });
+
         Title = title;
         Content = content;
         Parameters = parameters;
@@ -44,7 +59,7 @@
         StateHasChanged();
     }
 
-    
+
     internal void CloseModal(ModalResult modalResult)
     {
         IsVisible = false;

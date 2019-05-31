@@ -1,6 +1,5 @@
-﻿using Microsoft.AspNetCore.Components;
-using System;
-using Transdim.Service.Internal.Services.Modal;
+﻿using System;
+using Transdim.DomainModel;
 
 namespace Transdim.Service
 {
@@ -8,11 +7,11 @@ namespace Transdim.Service
         {
             event Action<ModalResult> OnClose;
 
-            event Action<string, RenderFragment, ModalParameters> OnShow;
+            event Action<string, ModalIdentifier, ModalParameters> OnShow;
 
-            void Show(string title, Type contentType);
+            void Show(string title, ModalIdentifier modalIdentifier);
 
-            void Show(string title, Type contentType, ModalParameters parameters);
+            void Show(string title, ModalIdentifier modalIdentifier, ModalParameters parameters);
 
             void Cancel();
 

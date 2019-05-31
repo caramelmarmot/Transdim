@@ -1,5 +1,5 @@
-﻿using Microsoft.AspNetCore.Components;
-using System;
+﻿using System;
+using Transdim.DomainModel;
 
 namespace Transdim.Service.Internal.Services.Modal
 {
@@ -7,23 +7,16 @@ namespace Transdim.Service.Internal.Services.Modal
     {
         public event Action<ModalResult> OnClose;
 
-        public event Action<string, RenderFragment, ModalParameters> OnShow;
+        public event Action<string, ModalIdentifier, ModalParameters> OnShow;
 
-        public void Show(string title, Type componentType)
+        public void Show(string title, ModalIdentifier modalIdentifier)
         {
-            Show(title, componentType, new ModalParameters());
+            Show(title, modalIdentifier, new ModalParameters());
         }
 
-        public void Show(string title, Type componentType, ModalParameters parameters)
+        public void Show(string title, ModalIdentifier modalIdentifier, ModalParameters parameters)
         {
-            if (!typeof(ComponentBase).IsAssignableFrom(componentType))
-            {
-                throw new ArgumentException($"{componentType.FullName} must be a Blazor Component");
-            }
-
-            var content = new RenderFragment(x => { x.OpenComponent(1, componentType); x.CloseComponent(); });
-
-            OnShow?.Invoke(title, content, parameters);
+            OnShow?.Invoke(title, modalIdentifier, parameters);
         }
 
         public void Cancel()

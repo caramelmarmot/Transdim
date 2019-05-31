@@ -4,6 +4,6 @@
     {
         string Title { get; set; }
 
-        ModalIdentifier ModalToShow { get; set; }
+        ModalIdentifier ModalIdentifier { get; set; }
     }
 }
