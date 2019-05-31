@@ -3,14 +3,26 @@
 @inject Transdim.Service.IGameStateService GameStateService;
 
 <div class="row">
-    @if (game.Players.Count > 0)
-    {
+    <span class="@GetColClass()">
         <PlayerScoreTrackerComponent Game="@game" Player="@game.Players[0]"></PlayerScoreTrackerComponent>
+    </span>
+    <span class="@GetColClass()">
+        <PlayerScoreTrackerComponent Game="@game" Player="@game.Players[1]"></PlayerScoreTrackerComponent>
+    </span>
+    @if (game.Players.Count > 2)
+    {
+        <span class="@GetColClass()">
+            <PlayerScoreTrackerComponent Game="@game" Player="@game.Players[2]"></PlayerScoreTrackerComponent>
+        </span>
+    }
+    @if (game.Players.Count > 3)
+    {
+        <span class="@GetColClass()">
+            <PlayerScoreTrackerComponent Game="@game" Player="@game.Players[3]"></PlayerScoreTrackerComponent>
+        </span>
     }
 </div>
-<div class="row">
-    <ScoreAnimationComponent></ScoreAnimationComponent>
-</div>
+<ScoreAnimationComponent></ScoreAnimationComponent>
 
 @functions {
     private Game game;
@@ -18,5 +30,24 @@
     protected override void OnInit()
     {
         game = GameStateService.GetGame();
+    }
+
+    public string GetColClass() {
+        if (game.Players.Count == 2)
+        {
+            return "col-6";
+        }
+
+        if (game.Players.Count == 3)
+        {
+            return "col-4";
+        }
+
+        if (game.Players.Count == 4)
+        {
+            return "col-3";
+        }
+
+        throw new InvalidOperationException("Must have between 2 and 4 players");
     }
 }

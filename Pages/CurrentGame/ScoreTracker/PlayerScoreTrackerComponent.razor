@@ -1,8 +1,6 @@
-﻿
+﻿@inject Transdim.Service.IGameStateService GameStateService;
 
-@inject Transdim.Service.IGameStateService GameStateService;
-
-<div class="col-3 @GetActiveClass(player)" style="background-color:burlywood">@GetScore(player)</div>
+<div class="@GetActiveClass(player)" style="background-color:burlywood">@GetScore(player)</div>
 
 @functions {
     [Parameter]
