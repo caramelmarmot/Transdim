@@ -4,8 +4,11 @@
 @inject Transdim.Service.IScoreAnimationService scoreAnimationService;
 @if (showAnimation)
 {
-    <div class="row">
-        <img class="animated" src="@imgSrc" asp-append-version="true" />
+    <div class="row animation-container">
+        <img class="col-3 animated" src="@imgSrc" asp-append-version="true" />
+        <img class="col-3 animated" src="@imgSrc" asp-append-version="true" />
+        <img class="col-3 animated" src="@imgSrc" asp-append-version="true" />
+        <img class="col-3 animated" src="@imgSrc" asp-append-version="true" />
     </div>
 }
 
@@ -18,11 +21,10 @@
 
     protected override void OnInit()
     {
-        timer = new Timer(2300);
+        timer = new Timer(1550);
         scoreAnimationService.OnScore += StartAnimation;
         scoreAnimationService.OnFinishAnimation += OnFinishAnimation;
     }
-
 
     public void StartAnimation(IGameComponent gameComponent, int points)
     {
