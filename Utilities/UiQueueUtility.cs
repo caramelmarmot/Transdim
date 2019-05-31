@@ -1,22 +1,19 @@
 ﻿using System;
-using System.Collections.Generic;
 using Transdim.DomainModel;
-using Transdim.Pages.CurrentGame.ActionPanel.PowerAction.Modal;
 using Transdim.Service;
-using Transdim.Shared;
 
 namespace Transdim.Utilities
 {
     public class UiQueueUtility
     {
-        private readonly IUiQueueService uiQueueService;
+        private readonly IQueueManagementService uiQueueService;
         private readonly IModalService modalService;
         private readonly UiComponentScoringUtility uiComponentScoringUtility;
 
         private bool IsModalOpen = false;
         private bool IsAnimating = false;
 
-        public UiQueueUtility(IUiQueueService uiQueueService, IModalService modalService, UiComponentScoringUtility uiComponentScoringUtility) {
+        public UiQueueUtility(IQueueManagementService uiQueueService, IModalService modalService, UiComponentScoringUtility uiComponentScoringUtility) {
             this.uiQueueService = uiQueueService ?? throw new ArgumentNullException(nameof(uiQueueService));
             this.modalService = modalService ?? throw new ArgumentNullException(nameof(modalService));
             this.uiComponentScoringUtility = uiComponentScoringUtility ?? throw new ArgumentNullException(nameof(uiComponentScoringUtility));
@@ -54,7 +51,6 @@ namespace Transdim.Utilities
                 IsModalOpen = true;
                 modalService.OnClose += ProcessNextItemFromQueue;
 
-                uiQueueService.RegisterEventTaken();
                 modalService.Show(modalToProcess.Title, modalToProcess.ModalIdentifier);
             }
             else if (itemToProcess is IUiComponentScoringEvent componentScoringToProcess)

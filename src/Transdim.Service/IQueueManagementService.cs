@@ -2,12 +2,9 @@
 
 namespace Transdim.Service
 {
-    public interface IUiQueueService
+    public interface IQueueManagementService
     {
-        IUiEvent GetNextEvent();
-
         void Add(IUiEvent uiEvent);
-
-        void RegisterEventTaken();
+        IUiEvent GetNextEvent();
     }
 }

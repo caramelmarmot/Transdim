@@ -7,11 +7,11 @@ namespace Transdim.Service.Internal.Controllers.Shared
 {
     internal class GameComponentController : IGameComponentController
     {
-        private readonly IUiQueueService uiQueueService;
+        private readonly IQueueManagementService queueManagementService;
 
-        public GameComponentController(IUiQueueService uiQueueService)
+        public GameComponentController(IQueueManagementService queueManagementService)
         {
-            this.uiQueueService = uiQueueService ?? throw new ArgumentNullException(nameof(uiQueueService));
+            this.queueManagementService = queueManagementService ?? throw new ArgumentNullException(nameof(queueManagementService));
         }
 
         public void Activate(IGameComponent component)
@@ -19,13 +19,13 @@ namespace Transdim.Service.Internal.Controllers.Shared
             // TODO: Extract these into injected classes. Or a composite?
             if (component is IPowerActionTaker)
             {
-                uiQueueService.Add(new UiModalEvent("Power action", ModalIdentifier.PowerAction));
+                queueManagementService.Add(new UiModalEvent("Power action", ModalIdentifier.PowerAction));
             }
             if (component is IAdjustablePointsScorer)
             {
-                uiQueueService.Add(new UiModalEvent("Choose number of points", ModalIdentifier.AdjustablePointsScorer));
-                uiQueueService.Add(new UiComponentScoringEvent(GameComponents.PowerActionQicPointsForPlanets, 0));
-                uiQueueService.Add(new UiComponentScoringEvent(GameComponents.ActionPowerAction, 0));
+                queueManagementService.Add(new UiModalEvent("Choose number of points", ModalIdentifier.AdjustablePointsScorer));
+                queueManagementService.Add(new UiComponentScoringEvent(GameComponents.PowerActionQicPointsForPlanets, 0));
+                queueManagementService.Add(new UiComponentScoringEvent(GameComponents.ActionPowerAction, 0));
             }
         }
     }
