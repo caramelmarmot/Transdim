@@ -33,6 +33,7 @@ namespace Transdim.Service
             services.AddScoped<IGameStateService, GameStateService>();
             services.AddScoped<IFactionService, FactionService>();
             services.AddScoped<IQueueManagementService, QueueManagementService>();
+            services.AddScoped<IQueueExecutionService, QueueExecutionService>();
             services.AddScoped<IGameComponentController, GameComponentController>();
             services.AddScoped<IModalService, ModalService>();
             services.AddScoped<IScoreAnimationService, ScoreAnimationService>();
