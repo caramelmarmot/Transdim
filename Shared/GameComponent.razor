@@ -1,6 +1,7 @@
 ﻿@using Transdim.DomainModel.GameComponents;
-@inject Transdim.Service.IGameComponentController ComponentService;
+@inject Transdim.Service.IGameComponentController GameComponentController;
 @inject Transdim.Utilities.UiQueueUtility UiQueueUtility;
+
 
 <img class="tech-tile" onclick="@PerformAction" src="@component.ImagePath" asp-append-version="true" />
 
@@ -8,9 +9,13 @@
     [Parameter]
     private IGameComponent component { get; set; }
 
+    [Parameter]
+    private Action OnClickAddition { get; set; }
+
     private void PerformAction()
     {
-        ComponentService.Activate(component);
+        OnClickAddition?.Invoke();
+        GameComponentController.Activate(component);
         UiQueueUtility.Execute();
     }
 }

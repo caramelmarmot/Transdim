@@ -10,8 +10,7 @@ namespace Transdim.Utilities
         private readonly IModalService modalService;
         private readonly UiComponentScoringUtility uiComponentScoringUtility;
 
-        private bool IsModalOpen = false;
-        private bool IsAnimating = false;
+        private bool currentlyExecuting = false;
 
         public UiQueueUtility(IQueueManagementService uiQueueService, IModalService modalService, UiComponentScoringUtility uiComponentScoringUtility) {
             this.uiQueueService = uiQueueService ?? throw new ArgumentNullException(nameof(uiQueueService));
@@ -24,17 +23,8 @@ namespace Transdim.Utilities
 
         public void Execute()
         {
-            if (IsModalOpen)
+            if (currentlyExecuting)
             {
-                // Close the modal. The modal's OnClose event will execute the next UI event.
-                modalService.Close(ModalResult.Ok(true));
-                return;
-            }
-
-            if (IsAnimating)
-            {
-                // Finish the animation. The OnFinishAnimation event will execute the next event.
-                uiComponentScoringUtility.FinishAnimation();
                 return;
             }
 
@@ -45,29 +35,32 @@ namespace Transdim.Utilities
                 return;
             }
 
+            currentlyExecuting = true;
+
             if (itemToProcess is IUiModalEvent modalToProcess)
             {
-                
-                IsModalOpen = true;
-                modalService.OnClose += ProcessNextItemFromQueue;
+                modalService.OnClose += ProcessNext;
 
                 modalService.Show(modalToProcess.Title, modalToProcess.ModalIdentifier);
             }
             else if (itemToProcess is IUiComponentScoringEvent componentScoringToProcess)
             {
-                IsAnimating = true;
+                uiComponentScoringUtility.OnFinishAnimation += ProcessNext;
                 uiComponentScoringUtility.Score(componentScoringToProcess.GameComponent, componentScoringToProcess.Points);
-                uiComponentScoringUtility.OnFinishAnimation += ProcessNextItemFromQueue;
             }
         }
 
-        private void ProcessNextItemFromQueue(ModalResult modalResult)
+        private void ProcessNext(ModalResult modalResult)
         {
-            modalService.OnClose -= ProcessNextItemFromQueue;
-            uiComponentScoringUtility.OnFinishAnimation -= ProcessNextItemFromQueue;
+            modalService.OnClose -= ProcessNext;
+            ProcessNext();
+        }
 
-            IsModalOpen = false;
-            IsAnimating = false;
+        private void ProcessNext()
+        {
+            uiComponentScoringUtility.OnFinishAnimation -= ProcessNext;
+            currentlyExecuting = false;
+
             Execute();
         }
     }

@@ -1,3 +1,13 @@
 ﻿@using Transdim.DomainModel.GameComponents;
+@using Transdim.Service;
 
-<GameComponent component="@GameComponents.PowerActionQicPointsForPlanets"></GameComponent>
+@inject Transdim.Service.IModalService ModalService;
+
+<GameComponent OnClickAddition="@(() => CloseModal())" component="@GameComponents.PowerActionQicPointsForPlanets"></GameComponent>
+
+@functions {
+    public void CloseModal()
+    {
+        ModalService.Close(ModalResult.Ok(true));
+    }
+}

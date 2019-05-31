@@ -5,9 +5,9 @@ namespace Transdim.Service.Internal.Services.Modal
 {
     internal class ModalService : IModalService
     {
-        public event Action<ModalResult> OnClose;
-
         public event Action<string, ModalIdentifier, ModalParameters> OnShow;
+
+        public event Action<ModalResult> OnClose;
 
         public void Show(string title, ModalIdentifier modalIdentifier)
         {

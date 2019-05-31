@@ -21,6 +21,7 @@
     {
         timer = new Timer(2300);
         ((UiComponentScoringUtility)uiComponentScoringUtility).OnScore += StartAnimation;
+        ((UiComponentScoringUtility)uiComponentScoringUtility).OnFinishAnimation += OnFinishAnimation;
     }
 
 
@@ -34,16 +35,20 @@
         timer.Enabled = true;
     }
 
-    public event Action onAnimationFinish;
 
     private void FinishAnimation(Object source, ElapsedEventArgs e)
     {
         Invoke(() =>
         {
+            timer.Elapsed -= FinishAnimation;
             timer.Enabled = false;
             showAnimation = false;
             uiComponentScoringUtility.FinishAnimation();
-            StateHasChanged();
         });
+    }
+
+    private void OnFinishAnimation()
+    {
+        StateHasChanged();
     }
 }
