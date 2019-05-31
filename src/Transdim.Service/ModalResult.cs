@@ -15,6 +15,8 @@ namespace Transdim.Service
             Cancelled = cancelled;
         }
 
+        public static ModalResult Ok() => new ModalResult(null, null, false);
+
         public static ModalResult Ok<T>(T result) => new ModalResult(result, typeof(T), false);
 
         public static ModalResult Cancel() => new ModalResult(default, typeof(object), true);

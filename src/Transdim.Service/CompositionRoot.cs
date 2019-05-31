@@ -9,6 +9,10 @@ using Transdim.Service.Internal.Controllers.NewGame;
 using Transdim.Service.Internal.Controllers.CurrentGame;
 using Transdim.Service.Internal.Controllers.Shared;
 using Transdim.Service.Internal.Services.Modal;
+using Transdim.Service.Internal.ComponentActivators;
+using System.Collections.Generic;
+using Transdim.Service.Internal.ComponentActivators.Actions;
+using Transdim.Service.Internal.ComponentActivators.Scorers;
 
 namespace Transdim.Service
 {
@@ -40,6 +44,32 @@ namespace Transdim.Service
 
             // Helpers
             services.AddScoped<IRandomizerFactory, RandomizerFactory>();
+
+            // ComponentActivators
+            AddComponentActivators(services);
+        }
+
+        private static void AddComponentActivators(IServiceCollection services)
+        {
+            var componentList = new List<IComponentActivator> { };
+
+            // Actions
+            services.AddScoped<PowerActionTaker>();
+
+            // Scorers
+            services.AddScoped<AdjustiblePointScorer>();
+
+            // Ordering matters! They'll execute in the order they're registered.
+            services.AddScoped<IComponentActivator>(sc =>
+                new CompositeComponentActivator(
+                    new List<IComponentActivator>
+                    {
+                        // Actions
+                        sc.GetRequiredService<PowerActionTaker>(),
+
+                        // Scorers
+                        sc.GetRequiredService<AdjustiblePointScorer>(),
+                    }));
         }
     }
 }
