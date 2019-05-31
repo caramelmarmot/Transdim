@@ -71,7 +71,7 @@ namespace Transdim.Service.Internal.Services
             }
 
             gameToStart.Rounds = new List<Round> {
-                new Round { OrderedPlayerIds = orderedPlayerIdList }
+                new Round { OrderedPlayerIds = orderedPlayerIdList, State = RoundState.InProgress }
             };
         }
 

@@ -14,5 +14,7 @@ namespace Transdim.Service
         Game GetGame();
 
         void UpdateGame(Game game);
+
+        void EndTurn();
     }
 }

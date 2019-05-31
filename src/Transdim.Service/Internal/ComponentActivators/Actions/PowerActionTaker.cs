@@ -26,6 +26,7 @@ namespace Transdim.Service.Internal.ComponentActivators.Actions
             }
 
             queueManagementService.Add(new UiModalEvent("Power action", ModalIdentifier.PowerAction));
+            queueManagementService.AddFinal(new GameUpdateEvent { EventToPerform = () => { gameStateService.EndTurn(); } });
             queueExecutionService.Execute();
             
             // TODO: manage game state

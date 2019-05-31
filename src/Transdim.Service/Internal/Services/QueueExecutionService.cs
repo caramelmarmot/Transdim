@@ -45,6 +45,12 @@ namespace Transdim.Service.Internal.Services
                 scoreAnimationService.OnFinishAnimation += ProcessNext;
                 scoreAnimationService.Score(componentScoringToProcess.GameComponent, componentScoringToProcess.Points);
             }
+            else if (itemToProcess is IGameUpdateEvent gameUpdateEvent)
+            {
+                gameUpdateEvent.EventToPerform.Invoke();
+                currentlyExecuting = false;
+                Execute();
+            }
         }
 
         private void ProcessNext(ModalResult modalResult)
