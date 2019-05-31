@@ -1,6 +1,6 @@
-﻿using Blazored.Modal.Services;
-using System;
+﻿using System;
 using Transdim.DomainModel.GameComponents;
+using Transdim.Service;
 
 namespace Transdim.Utilities
 {

@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Transdim.DomainModel
 {
-    public enum Modal
+    public enum ModalIdentifier
     {
         AdjustablePointsScorer,
         PowerAction,

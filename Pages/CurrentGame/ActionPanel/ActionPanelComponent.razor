@@ -1,19 +1,5 @@
 ﻿@using Transdim.DomainModel.GameComponents;
 
-@inject Blazored.Modal.Services.IModalService ModalService;
-@inject Transdim.Service.IGameStateService GameStateService;
-@inject Transdim.Service.IGameComponentController ComponentService;
-@inject Transdim.Utilities.UiQueueUtility UiQueueUtility;
-
 <div class="row">
     <GameComponent component="@GameComponents.ActionPowerAction"></GameComponent>
 </div>
-
-
-@functions {
-    private void PerformAction(IGameComponent selectedComponent)
-    {
-        ComponentService.Activate(selectedComponent);
-        UiQueueUtility.Execute();
-    }
-}

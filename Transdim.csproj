@@ -24,7 +24,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Modal\src\Blazored.Modal\Blazored.Modal.csproj" />
     <ProjectReference Include="src\Transdim.DomainModel\Transdim.DomainModel.csproj" />
     <ProjectReference Include="src\Transdim.Service\Transdim.Service.csproj" />
   </ItemGroup>

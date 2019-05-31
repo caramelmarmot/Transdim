@@ -1,5 +1,4 @@
-﻿using Blazored.Modal.Services;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using Transdim.DomainModel;
 using Transdim.DomainModel.GameComponents.PowerActions;
@@ -18,11 +17,11 @@ namespace Transdim.Utilities
         private bool IsModalOpen = false;
         private bool IsAnimating = false;
 
-        private Dictionary<Modal, Type> ModalMapping = new Dictionary<Modal, Type>()
+        private Dictionary<ModalIdentifier, Type> ModalMapping = new Dictionary<ModalIdentifier, Type>()
         {
             // TODO: rename PointsModal
-            { Modal.AdjustablePointsScorer, typeof(PointsModal)},
-            { Modal.PowerAction, typeof(PowerActionModal)}
+            { ModalIdentifier.AdjustablePointsScorer, typeof(PointsModal)},
+            { ModalIdentifier.PowerAction, typeof(PowerActionModal)}
         };
 
         public UiQueueUtility(IUiQueueService uiQueueService, IModalService modalService, UiComponentScoringUtility uiComponentScoringUtility) {

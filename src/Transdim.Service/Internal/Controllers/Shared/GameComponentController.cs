@@ -19,11 +19,11 @@ namespace Transdim.Service.Internal.Controllers.Shared
             // TODO: Extract these into injected classes. Or a composite?
             if (component is IPowerActionTaker)
             {
-                uiQueueService.Add(new UiModalEvent("Power action", Modal.PowerAction));
+                uiQueueService.Add(new UiModalEvent("Power action", ModalIdentifier.PowerAction));
             }
             if (component is IAdjustablePointsScorer)
             {
-                uiQueueService.Add(new UiModalEvent("Choose number of points", Modal.AdjustablePointsScorer));
+                uiQueueService.Add(new UiModalEvent("Choose number of points", ModalIdentifier.AdjustablePointsScorer));
                 uiQueueService.Add(new UiComponentScoringEvent(GameComponents.PowerActionQicPointsForPlanets, 0));
                 uiQueueService.Add(new UiComponentScoringEvent(GameComponents.ActionPowerAction, 0));
             }

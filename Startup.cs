@@ -1,4 +1,3 @@
-using Blazored.Modal;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
@@ -24,9 +23,6 @@ namespace Transdim
             services.AddScoped<UiComponentScoringUtility>();
             services.AddTransdimService();
             services.AddTransdimPersistence();
-
-            // 3rd party
-            services.AddBlazoredModal();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

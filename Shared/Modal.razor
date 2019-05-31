@@ -1,0 +1,61 @@
+﻿@using  Transdim.Service;
+
+@inject Transdim.Service.IModalService ModalService;
+
+<div class="transdim-modal-container @(IsVisible ? "transdim-modal-active" : string.Empty)">
+
+    <div class="transdim-modal-overlay"></div>
+
+    <div class="transdim-modal">
+        <div class="transdim-modal-header">
+            <h3 class="transdim-modal-title">@Title</h3>
+            <button type="button" class="transdim-modal-close"  onclick="@Cancel">
+                <span>&times;</span>
+            </button>
+        </div>
+        <div class="transdim-modal-content">
+            <CascadingValue Value="@Parameters">
+                @Content
+            </CascadingValue>
+        </div>
+    </div>
+</div>
+
+@functions {
+    private bool IsVisible;
+
+    private string Title { get; set; }
+    private RenderFragment Content { get; set; }
+    private ModalParameters Parameters { get; set; }
+
+    protected override void OnInit()
+    {
+        ModalService.OnShow += ShowModal;
+        ModalService.OnClose += CloseModal;
+    }
+
+    private void ShowModal(string title, RenderFragment content, ModalParameters parameters)
+    {
+        Title = title;
+        Content = content;
+        Parameters = parameters;
+
+        IsVisible = true;
+        StateHasChanged();
+    }
+
+    
+    internal void CloseModal(ModalResult modalResult)
+    {
+        IsVisible = false;
+        Title = "";
+        Content = null;
+
+        StateHasChanged();
+    }
+
+    private void Cancel()
+    {
+        ModalService.Cancel();
+    }
+}

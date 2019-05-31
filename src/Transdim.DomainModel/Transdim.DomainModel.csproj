@@ -4,8 +4,4 @@
     <TargetFramework>netstandard2.0</TargetFramework>
   </PropertyGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\..\..\Modal\src\Blazored.Modal\Blazored.Modal.csproj" />
-  </ItemGroup>
-
 </Project>

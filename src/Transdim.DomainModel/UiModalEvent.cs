@@ -4,7 +4,7 @@ namespace Transdim.DomainModel
 {
     public class UiModalEvent : IUiModalEvent
     {
-        public UiModalEvent(string title, Modal modalToShow)
+        public UiModalEvent(string title, ModalIdentifier modalToShow)
         {
             Title = title;
             ModalToShow = modalToShow;
@@ -12,6 +12,6 @@ namespace Transdim.DomainModel
 
         public string Title { get; set; }
 
-        public Modal ModalToShow { get; set; } 
+        public ModalIdentifier ModalToShow { get; set; } 
     }
 }
