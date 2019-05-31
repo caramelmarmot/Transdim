@@ -2,10 +2,10 @@
 
 <div class="form-row">
     <div class="col-8 col-lg-3">
-        <select class="form-control " bind=Player.FactionIdentifier>
-            @foreach (var factionIdentifier in NewGameController.GetAvailableFactions())
+        <select class="form-control " onchange=@ChangeFaction>
+            @foreach (var faction in NewGameController.GetUnusedFactions(Game))
             {
-                <option value=@factionIdentifier>@NewGameController.GetFactionByIdentifier(factionIdentifier).FriendlyName</option>
+                <option value=@faction>@faction.FriendlyName</option>
             }
         </select>
     </div>
@@ -23,4 +23,15 @@
 
     [Parameter]
     private Game Game { get; set; }
+
+
+
+    public void ChangeFaction(UIChangeEventArgs e)
+    {
+        Enum.TryParse(e.Value.ToString(), out FactionIdentifier factionIdentifier);
+
+        var faction = NewGameController.GetFactionByIdentifier(factionIdentifier);
+
+        Player.Faction = faction;
+    }
 }

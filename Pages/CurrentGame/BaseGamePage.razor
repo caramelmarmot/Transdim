@@ -48,7 +48,7 @@
         game.GameActions.Add(new GameAction {
             Player = player,
             Points = randomNumber,
-            LogText = $"Player {player.FactionIdentifier} did a thing and got {randomNumber} points" });
+            LogText = $"Player {player.Faction.FriendlyName} did a thing and got {randomNumber} points" });
 
         // TODO: Encapsulate active player selection and keep it from always being 
         var nextPlayerIndex = game.Players.IndexOf(player) + 1;

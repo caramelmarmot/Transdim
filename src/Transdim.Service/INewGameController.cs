@@ -19,9 +19,9 @@ namespace Transdim.Service
 
         void RemovePlayer(Game game);
 
-        List<FactionIdentifier> GetAvailableFactions();
+        List<Faction> GetAvailableFactions();
 
-        List<FactionIdentifier> GetUnusedFactions(Game game);
+        List<Faction> GetUnusedFactions(Game game);
 
         Faction GetFactionByIdentifier(FactionIdentifier factionIdentifier);
     }

@@ -29,7 +29,7 @@ namespace Transdim.Service.Internal.Controllers.NewGame
         }
 
         public void AddPlayer(Game game) =>
-            game.Players.Add(new Player { FactionIdentifier = GetUnusedFactions(game).First(), Id = Guid.NewGuid() });
+            game.Players.Add(new Player { Faction = GetUnusedFactions(game).First(), Id = Guid.NewGuid() });
 
         public void RemovePlayer(Game game) =>
             game.Players.RemoveAt(game.Players.Count - 1);
@@ -44,21 +44,20 @@ namespace Transdim.Service.Internal.Controllers.NewGame
         {
             var moreThanOneAutoma = game.Players.Where(p => p.IsAutoma).Count() > 1;
 
-            var duplicatePlayers = game.Players.GroupBy(p => p.FactionIdentifier).Where(group => group.Count() > 1).Any();
+            var duplicatePlayers = game.Players.GroupBy(p => p.Faction).Where(group => group.Count() > 1).Any();
 
             return moreThanOneAutoma | duplicatePlayers;
         }
 
-        public List<FactionIdentifier> GetAvailableFactions()
+        public List<Faction> GetAvailableFactions()
         {
-            var factionIdentifiers = Enum.GetValues(typeof(FactionIdentifier)).Cast<FactionIdentifier>();
-            return factionIdentifiers.OrderBy(f => f.ToString()).ToList();
+            return Factions.AllFactions;
         }
 
-        public List<FactionIdentifier> GetUnusedFactions(Game game)
+        public List<Faction> GetUnusedFactions(Game game)
         {
-            var factionIdentifiers = Enum.GetValues(typeof(FactionIdentifier)).Cast<FactionIdentifier>();
-            return factionIdentifiers.Where(factionIdentifier => !game.Players.Any(player => player.FactionIdentifier == factionIdentifier)).OrderBy(f => f.ToString()).ToList();
+            
+            return Factions.AllFactions.Where(faction => !game.Players.Any(player => player.Faction.FactionIdentifier == faction.FactionIdentifier)).OrderBy(f => f.FriendlyName).ToList();
         }
 
         public Faction GetFactionByIdentifier(FactionIdentifier factionIdentifier) =>

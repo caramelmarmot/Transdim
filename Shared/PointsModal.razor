@@ -43,7 +43,7 @@
             Player = game.ActivePlayer,
             Points = (int)modalResult.Data,
             // Todo: log using logservice so you don't need to be consistant about your wording. Maybe the action itself contains all the necessary information?
-            LogText = $"{game.ActivePlayer.FactionIdentifier} took points action and got {modalResult.Data} points"
+            LogText = $"{game.ActivePlayer.Faction.FriendlyName} took points action and got {modalResult.Data} points"
         });
 
         GameStateService.UpdateGame(game);
