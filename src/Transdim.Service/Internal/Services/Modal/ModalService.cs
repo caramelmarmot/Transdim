@@ -19,11 +19,6 @@ namespace Transdim.Service.Internal.Services.Modal
             OnShow?.Invoke(title, modalIdentifier, parameters);
         }
 
-        public void Cancel()
-        {
-            OnClose?.Invoke(ModalResult.Cancel());
-        }
-
         public void Close(ModalResult modalResult)
         {
             OnClose?.Invoke(modalResult);

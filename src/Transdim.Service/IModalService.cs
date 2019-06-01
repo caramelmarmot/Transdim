@@ -13,8 +13,6 @@ namespace Transdim.Service
 
             void Show(string title, ModalIdentifier modalIdentifier, ModalParameters parameters);
 
-            void Cancel();
-
             void Close(ModalResult modalResult);
         }
 }

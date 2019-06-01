@@ -8,10 +8,6 @@
 
     <div class="container">
         <ScoreTrackerComponent></ScoreTrackerComponent>
-
-        <div class="row">
-            <button class="btn btn-primary" onclick="@DoAnAction">Do an action</button>
-        </div>  
         <ActionPanelComponent></ActionPanelComponent>
     </div>
     <footer class="footer">
@@ -25,41 +21,9 @@
     private string GameId { get; set; }
 
     private Game game { get; set; }
+
     protected override void OnInit()
     {
         game = BaseGameController.GetGame(new Guid(GameId));
-
-        SetActivePlayerInACrappyWay();
-    }
-
-    // TODO: Less crappy!
-    void SetActivePlayerInACrappyWay() {
-        game.Players.First(p => p.Id == game.Rounds[0].OrderedPlayerIds[0]).IsActive = true;
-
-    }
-
-    void DoAnAction()
-    {
-        var player = game.Players.First(p => p.IsActive == true);
-
-        var random = new Random();
-        int randomNumber = random.Next(1, 4);
-
-        game.GameActions.Add(new GameAction {
-            Player = player,
-            Points = randomNumber,
-            LogText = $"Player {player.Faction.FriendlyName} did a thing and got {randomNumber} points" });
-
-        // TODO: Encapsulate active player selection and keep it from always being 
-        var nextPlayerIndex = game.Players.IndexOf(player) + 1;
-        if (nextPlayerIndex > game.Players.Count - 1)
-        {
-            nextPlayerIndex = 0;
-        }
-
-        player.IsActive = false;
-        game.Players[nextPlayerIndex].IsActive = true;
-
-        GameStateService.UpdateGame(game);
     }
 }

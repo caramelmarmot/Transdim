@@ -60,12 +60,15 @@ namespace Transdim.Service.Internal.Services
 
             var orderedPlayerIdList = new List<Guid>();
 
-            for (int i = 0; i < nonAutomaPlayers.Count; i++)
+            var nonAutomaCount = nonAutomaPlayers.Count;
+            var automaCount = automaPlayers.Count;
+
+            for (int i = 0; i < nonAutomaCount; i++)
             {
                 orderedPlayerIdList.Add(nonAutomaRandomizer.PluckRandomItem().Id);
             }
 
-            for (int i = 0; i < automaPlayers.Count; i++)
+            for (int i = 0; i < automaCount; i++)
             {
                 orderedPlayerIdList.Add(automaRandomizer.PluckRandomItem().Id);
             }
@@ -73,6 +76,8 @@ namespace Transdim.Service.Internal.Services
             gameToStart.Rounds = new List<Round> {
                 new Round { OrderedPlayerIds = orderedPlayerIdList, State = RoundState.InProgress }
             };
+
+            gameToStart.Players.First(p => p.Id == orderedPlayerIdList.First()).IsActive = true;
         }
 
         public List<TechTrack> GetInitializedTechTrack()

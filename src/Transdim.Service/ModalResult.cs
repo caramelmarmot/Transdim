@@ -6,19 +6,15 @@ namespace Transdim.Service
     {
         public object Data { get; }
         public Type DataType { get; }
-        public bool Cancelled { get; }
 
-        protected ModalResult(object data, Type resultType, bool cancelled)
+        protected ModalResult(object data, Type resultType)
         {
             Data = data;
             DataType = resultType;
-            Cancelled = cancelled;
         }
 
-        public static ModalResult Ok() => new ModalResult(null, null, false);
+        public static ModalResult Ok() => new ModalResult(null, null);
 
-        public static ModalResult Ok<T>(T result) => new ModalResult(result, typeof(T), false);
-
-        public static ModalResult Cancel() => new ModalResult(default, typeof(object), true);
+        public static ModalResult Ok<T>(T result) => new ModalResult(result, typeof(T));
     }
 }

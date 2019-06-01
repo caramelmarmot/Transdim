@@ -15,6 +15,10 @@ namespace Transdim.Service
 
         void UpdateGame(Game game);
 
+        void AddAction(GameAction action);
+
+        Player GetActivePlayer();
+
         void EndTurn();
     }
 }

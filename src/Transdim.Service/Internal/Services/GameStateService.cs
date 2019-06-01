@@ -45,10 +45,18 @@ namespace Transdim.Service.Internal.Services
             NotifyStateChanged();
         }
 
+        public Player GetActivePlayer() => CurrentGame.Players.First(p => p.IsActive);
+
+        public void AddAction(GameAction action)
+        {
+            CurrentGame.GameActions.Add(action);
+            NotifyStateChanged();
+        }
+
         public void EndTurn() {
             var orderedPlayerIds = CurrentGame.Rounds.First(r => r.State == RoundState.InProgress).OrderedPlayerIds;
 
-            var currentPlayer = CurrentGame.Players.First(p => p.IsActive);
+            var currentPlayer = GetActivePlayer();
             var currentPlayerIndex = orderedPlayerIds.IndexOf(currentPlayer.Id);
 
             CurrentGame.GameActions.Add(new GameAction
