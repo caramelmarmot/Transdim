@@ -4,21 +4,21 @@
 
 <div class="row">
     <span class="@GetColClass()">
-        <PlayerScoreTrackerComponent Game="@game" Player="@game.Players[0]"></PlayerScoreTrackerComponent>
+        <PlayerScoreTrackerComponent Game="@game" Player="@GetPlayerByTurnOrder(0)"></PlayerScoreTrackerComponent>
     </span>
     <span class="@GetColClass()">
-        <PlayerScoreTrackerComponent Game="@game" Player="@game.Players[1]"></PlayerScoreTrackerComponent>
+        <PlayerScoreTrackerComponent Game="@game" Player="@GetPlayerByTurnOrder(1)"></PlayerScoreTrackerComponent>
     </span>
     @if (game.Players.Count > 2)
     {
         <span class="@GetColClass()">
-            <PlayerScoreTrackerComponent Game="@game" Player="@game.Players[2]"></PlayerScoreTrackerComponent>
+            <PlayerScoreTrackerComponent Game="@game" Player="@GetPlayerByTurnOrder(2)"></PlayerScoreTrackerComponent>
         </span>
     }
     @if (game.Players.Count > 3)
     {
         <span class="@GetColClass()">
-            <PlayerScoreTrackerComponent Game="@game" Player="@game.Players[3]"></PlayerScoreTrackerComponent>
+            <PlayerScoreTrackerComponent Game="@game" Player="@GetPlayerByTurnOrder(3)"></PlayerScoreTrackerComponent>
         </span>
     }
 </div>
@@ -49,5 +49,12 @@
         }
 
         throw new InvalidOperationException("Must have between 2 and 4 players");
+    }
+
+    public Player GetPlayerByTurnOrder(int playerIndex)
+    {
+        var playersInOrder = GameStateService.GetCurrentRoundPlayersInOrder();
+
+        return playersInOrder[playerIndex];
     }
 }

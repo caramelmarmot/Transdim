@@ -1,6 +1,6 @@
 ﻿@inject Transdim.Service.IGameStateService GameStateService;
 
-<div class="@GetActiveClass(player)" style="background-color:burlywood">@GetScore(player)</div>
+<div class="@GetActiveClass(player)" style="background-color:@GetColor()">@GetScore(player)</div>
 
 @functions {
     [Parameter]
@@ -13,6 +13,11 @@
     {
         game = GameStateService.GetGame();
         GameStateService.OnChange += StateHasChanged;
+    }
+
+    public string GetColor()
+    {
+        return player.Faction.Color.ToString();
     }
 
     // TODO: This needs to be done much better

@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using Transdim.DomainModel;
 using Transdim.DomainModel.Exceptions;
@@ -47,6 +48,21 @@ namespace Transdim.Service.Internal.Services
 
         public Player GetActivePlayer() => CurrentGame.Players.First(p => p.IsActive);
 
+        public Round GetCurrentRound() => CurrentGame.Rounds.First(r => r.State == RoundState.InProgress);
+
+        public List<Player> GetCurrentRoundPlayersInOrder()
+        {
+            var orderedPlayerIds = GetCurrentRound().OrderedPlayerIds;
+
+            var playerList = new List<Player>();
+
+            foreach (var id in orderedPlayerIds)
+            {
+                playerList.Add(CurrentGame.Players.First(p => p.Id == id));
+            }
+
+            return playerList;
+        }
         public void AddAction(GameAction action)
         {
             CurrentGame.GameActions.Add(action);
@@ -54,7 +70,7 @@ namespace Transdim.Service.Internal.Services
         }
 
         public void EndTurn() {
-            var orderedPlayerIds = CurrentGame.Rounds.First(r => r.State == RoundState.InProgress).OrderedPlayerIds;
+            var orderedPlayerIds = GetCurrentRound().OrderedPlayerIds;
 
             var currentPlayer = GetActivePlayer();
             var currentPlayerIndex = orderedPlayerIds.IndexOf(currentPlayer.Id);

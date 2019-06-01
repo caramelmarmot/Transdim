@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Transdim.DomainModel;
 
 namespace Transdim.Service
@@ -18,6 +19,10 @@ namespace Transdim.Service
         void AddAction(GameAction action);
 
         Player GetActivePlayer();
+
+        Round GetCurrentRound();
+
+        List<Player> GetCurrentRoundPlayersInOrder();
 
         void EndTurn();
     }
