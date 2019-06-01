@@ -7,7 +7,7 @@
 @if (showAnimation)
 {
     <div class="row animation-container">
-        <span class="@GetColClass()" >
+        <span class="@GetColClass()">
             <img class="animated" hidden="@IsHidden(0)" src="@imgSrc" asp-append-version="true" />
         </span>
         <span class="@GetColClass()">
@@ -47,7 +47,8 @@
         game = GameStateService.GetGame();
     }
 
-    public string GetColClass() {
+    public string GetColClass()
+    {
         if (game.Players.Count == 2)
         {
             return "col-6";
@@ -66,7 +67,11 @@
         throw new InvalidOperationException("Must have between 2 and 4 players");
     }
 
-    public bool IsHidden(int playerIndex) => !game.Players[playerIndex].IsActive;
+    public bool IsHidden(int playerIndex)
+    {
+        var players = GameStateService.GetCurrentRoundPlayersInOrder();
+        return !players[playerIndex].IsActive;
+    }
 
     public void StartAnimation(IGameComponent gameComponent, int points)
     {
