@@ -2,10 +2,10 @@
 
 <div class="form-row">
     <div class="col-8 col-lg-3">
-        <select class="form-control " onchange=@ChangeFaction>
-            @foreach (var faction in NewGameController.GetUnusedFactions(Game))
+        <select class="form-control " onchange="@ChangeFaction">
+            @foreach (var faction in NewGameController.GetAvailableFactions())
             {
-                <option value=@faction>@faction.FriendlyName</option>
+                <option value=@faction.FriendlyName selected="@(IsSelected(faction.FriendlyName))">@faction.FriendlyName</option>
             }
         </select>
     </div>
@@ -24,13 +24,21 @@
     [Parameter]
     private Game Game { get; set; }
 
+    private string SelectedFriendlyName;
 
+    protected override void OnInit()
+    {
+        SelectedFriendlyName = Player.Faction.FriendlyName;
+    }
+
+    public bool IsSelected(string friendlyName)
+    {
+        return SelectedFriendlyName == friendlyName;
+    }
 
     public void ChangeFaction(UIChangeEventArgs e)
     {
-        Enum.TryParse(e.Value.ToString(), out FactionIdentifier factionIdentifier);
-
-        var faction = NewGameController.GetFactionByIdentifier(factionIdentifier);
+        var faction = Factions.AllFactions.First(f => f.FriendlyName == e.Value.ToString());
 
         Player.Faction = faction;
     }
