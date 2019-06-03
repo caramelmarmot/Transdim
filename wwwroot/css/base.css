@@ -29,6 +29,39 @@
 .tech-setup .tech-tile {
   margin-left: 5px;
 }
+.action-card {
+  max-width: 280px;
+}
+.col-6-action-left {
+  padding-left: 15px;
+  max-height: 80px;
+  max-width: 140px;
+}
+.col-6-action-right {
+  padding-right: 15px;
+  max-height: 80px;
+  max-width: 140px;
+}
+.col-12-action {
+  padding-left: 15px;
+  padding-right: 15px;
+  max-height: 122px;
+}
+.col-7-action-left {
+  padding-left: 15px;
+  max-height: 80px;
+  max-width: 160px;
+}
+.col-5-action-right {
+  padding-right: 15px;
+  max-height: 80px;
+  max-width: 116px;
+}
+.col-12-action-offset {
+  max-width: 290px;
+  padding-left: 35px;
+  padding-right: 35px;
+}
 .game-log-container {
   border-style: hidden;
   border-radius: 15px;
@@ -70,6 +103,9 @@
   top: 0;
   width: 100%;
 }
+.score-tracker {
+  margin-bottom: 15px;
+}
 @-webkit-keyframes shrink {
   0% {
     max-height: 100px;
@@ -110,6 +146,9 @@
     left: 50%;
     top: -30%;
   }
+}
+.game-component {
+  filter: drop-shadow(4px 3px 5px #475159);
 }
 .transdim-modal-container {
   display: none;

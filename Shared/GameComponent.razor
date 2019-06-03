@@ -1,7 +1,7 @@
 ﻿@using Transdim.DomainModel.GameComponents;
 @inject Transdim.Service.IGameComponentController GameComponentController;
 
-<img class="tech-tile" onclick="@PerformAction" src="@component.ImagePath" asp-append-version="true" />
+<img class="game-component @Class" onclick="@PerformAction" src="@component.ImagePath" asp-append-version="true" />
 
 @functions {
     [Parameter]
@@ -9,6 +9,9 @@
 
     [Parameter]
     private Action OnClickAddition { get; set; }
+
+    [Parameter]
+    private string Class { get; set; }
 
     private void PerformAction()
     {

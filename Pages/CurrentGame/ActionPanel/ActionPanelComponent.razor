@@ -1,22 +1,25 @@
 ﻿@using Transdim.DomainModel.GameComponents;
 
-<div class="row">
-    <img class="tech-tile" style="padding-left:15px" src="/Images/action-build.png" />
-    <img class="tech-tile" style="padding-right:15px" src="/Images/action-gaiaform.png" />
-</div>
-<div class="row">
-    <img class="tech-tile" style="padding-left:15px; padding-right:15px; min-height:94px;" src="/Images/action-upgrade.png" />
-</div>
-<div class="row">
-    <img class="tech-tile" style="padding-left:15px" src="/Images/action-formfederation.png" />
-    <img class="tech-tile" style="padding-right:15px" src="/Images/action-research.png" />
-</div>
-<div class="row">
-    <span style="padding-left:15px">
-        <GameComponent component="@GameComponents.ActionPowerAction"></GameComponent>
-    </span>
-    <img class="tech-tile" style="padding-right:15px" src="/Images/action-componentaction.png" />
-</div>
-<div class="row">
-    <img class="tech-tile" style="padding-left:15px; padding-right:15px" src="/Images/action-pass.png" />
+<div class="row d-flex justify-content-center">
+    <div class="col-12 action-card">
+        <div class="row">
+            <img class="game-component col-6-action-left" src="/Images/action-build.png" />
+            <img class="game-component col-6-action-right" src="/Images/action-gaiaform.png" />
+        </div>
+        <div class="row">
+            <img class="game-component col-12-action" src="/Images/action-upgrade.png" />
+        </div>
+        <div class="row">
+            <img class="game-component col-6-action-left" src="/Images/action-formfederation.png" />
+
+            <img class="game-component col-6-action-right" src="/Images/action-research.png" />
+        </div>
+        <div class="row">
+            <GameComponent class="col-7-action-left" component="@GameComponents.ActionPowerAction"></GameComponent>
+            <img class="game-component col-5-action-right" style="padding-right:15px" src="/Images/action-componentaction.png" />
+        </div>
+        <div class="row">
+            <img class="game-component col-12-action-offset" src="/Images/action-pass.png" />
+        </div>
+    </div>
 </div>

@@ -2,7 +2,7 @@
 
 @inject Transdim.Service.IGameStateService GameStateService;
 
-<div class="row">
+<div class="row score-tracker">
     <span class="@GetColClass()">
         <PlayerScoreTrackerComponent Game="@game" Player="@GetPlayerByTurnOrder(0)"></PlayerScoreTrackerComponent>
     </span>
