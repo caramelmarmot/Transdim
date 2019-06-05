@@ -1,0 +1,20 @@
+﻿<span class="col-12 text-center">
+    <img class="scored-component @(IsAnimated ? "animated-component" : string.Empty)" hidden="@(IsHidden)" src="@ImgSrc" asp-append-version="true" />
+</span>
+<span class="col-12 text-center">
+    <img class="scored-points points-image @(IsAnimated ? "animated-points" : string.Empty)" hidden="@(IsHidden)" src="@PointsImgSrc" asp-append-version="true" />
+</span>
+
+@functions {
+    [Parameter]
+    private bool IsHidden { get; set; }
+
+    [Parameter]
+    private bool IsAnimated { get; set; }
+
+    [Parameter]
+    private string ImgSrc { get; set; }
+
+    [Parameter]
+    private string PointsImgSrc { get; set; }
+}

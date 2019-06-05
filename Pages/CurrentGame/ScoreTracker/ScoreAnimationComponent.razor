@@ -5,44 +5,49 @@
 @inject Transdim.Service.IGameStateService GameStateService;
 @inject Transdim.Service.IQueueManagementService QueueManagementService;
 
-@if (showAnimation)
+@if (showStatic)
 {
-    <div class="transdim-modal-container transdim-modal-active">
+    <div class="transdim-modal-container transdim-modal-active" onclick="@StartAnimation">
 
-        <div class="points-modal-overlay @(fadeOutAfterDisplay ? "animated-overlay" : string.Empty)"></div>
+        <div class="points-modal-overlay"></div>
         <div class="row animation-container">
-            <span class="col-12 text-center">
-                <img class="animated-component" hidden="@(IsHidden(0))" src="@imgSrc" asp-append-version="true" />
-            </span>
-            <span class="col-12 text-center">
-                <img class="animated-points points-image" hidden="@(IsHidden(0))" src="@pointsImgSrc" asp-append-version="true" />
-            </span>
-            <span class="col-12 text-center">
-                <img class="animated-component" hidden="@(IsHidden(1))" src="@imgSrc" asp-append-version="true" />
-            </span>
-            <span class="col-12 text-center">
-                <img class="animated-points points-image" hidden="@(IsHidden(1))" src="@pointsImgSrc" asp-append-version="true" />
-            </span>
+            <ScoredItemDisplayComponent IsHidden="@IsHidden(0)" ImgSrc="@imgSrc" PointsImgSrc="@pointsImgSrc" IsAnimated="false"></ScoredItemDisplayComponent>
+            <ScoredItemDisplayComponent IsHidden="@IsHidden(1)" ImgSrc="@imgSrc" PointsImgSrc="@pointsImgSrc" IsAnimated="false"></ScoredItemDisplayComponent>
             @if (game != null && game.Players.Count > 2)
             {
-                <span class="col-12">
-                    <img class="animated" hidden="@(IsHidden(2))" src="@imgSrc" asp-append-version="true" />
-                    <img class="animated points-image" hidden="@(IsHidden(2))" src="@pointsImgSrc" asp-append-version="true" />
-                </span>
+                <ScoredItemDisplayComponent IsHidden="@IsHidden(2)" ImgSrc="@imgSrc" PointsImgSrc="@pointsImgSrc" IsAnimated="false"></ScoredItemDisplayComponent>
             }
             @if (game != null && game.Players.Count > 3)
             {
-                <span class="col-12">
-                    <img class="animated" hidden="@(IsHidden(3))" src="@imgSrc" asp-append-version="true" />
-                    <img class="animated points-image" hidden="@(IsHidden(3))" src="@pointsImgSrc" asp-append-version="true" />
-                </span>
+                <ScoredItemDisplayComponent IsHidden="@IsHidden(3)" ImgSrc="@imgSrc" PointsImgSrc="@pointsImgSrc" IsAnimated="false"></ScoredItemDisplayComponent>
+            }
+        </div>
+    </div>
+}
+@if (showAnimated)
+{
+    <div class="transdim-modal-container transdim-modal-active" onclick="@StartAnimation">
+
+        <div class="points-modal-overlay @(fadeOutAfterDisplay ? "animated-overlay" : string.Empty)"></div>
+        <div class="row animation-container">
+            <ScoredItemDisplayComponent IsHidden="@IsHidden(0)" ImgSrc="@imgSrc" PointsImgSrc="@pointsImgSrc" IsAnimated="true"></ScoredItemDisplayComponent>
+            <ScoredItemDisplayComponent IsHidden="@IsHidden(1)" ImgSrc="@imgSrc" PointsImgSrc="@pointsImgSrc" IsAnimated="true"></ScoredItemDisplayComponent>
+            @if (game != null && game.Players.Count > 2)
+            {
+                <ScoredItemDisplayComponent IsHidden="@IsHidden(2)" ImgSrc="@imgSrc" PointsImgSrc="@pointsImgSrc" IsAnimated="true"></ScoredItemDisplayComponent>
+            }
+            @if (game != null && game.Players.Count > 3)
+            {
+                <ScoredItemDisplayComponent IsHidden="@IsHidden(3)" ImgSrc="@imgSrc" PointsImgSrc="@pointsImgSrc" IsAnimated="true"></ScoredItemDisplayComponent>
             }
         </div>
     </div>
 }
 
 @functions {
-    private bool showAnimation = false;
+    private bool showStatic = false;
+
+    private bool showAnimated = false;
 
     private bool fadeOutAfterDisplay = true;
 
@@ -54,15 +59,10 @@
 
     private Game game;
 
-    public void Foo()
-    {
-        showAnimation = !showAnimation;
-    }
-
     protected override void OnInit()
     {
-        timer = new Timer(3400);
-        scoreAnimationService.OnScore += StartAnimation;
+        timer = new Timer(600);
+        scoreAnimationService.OnScore += ShowScoredComponent;
         scoreAnimationService.OnFinishAnimation += OnFinishAnimation;
         GameStateService.OnChange += StateHasChanged;
     }
@@ -80,21 +80,30 @@
         return !players[playerIndex].IsActive;
     }
 
-    public void StartAnimation(IGameComponent gameComponent, int points)
+    public void ShowScoredComponent(IGameComponent gameComponent, int points)
     {
         imgSrc = gameComponent.ImagePath;
 
         var pointsString = (points < 10) ? "0" + points.ToString() : points.ToString();
         pointsImgSrc = $"/Images/points-{pointsString}.png";
 
-        showAnimation = true;
-        fadeOutAfterDisplay = !(QueueManagementService.PreviewNextEvent() is IUiComponentScoringEvent);
+        showStatic = true;
+        showAnimated = false;
         StateHasChanged();
+    }
+
+    private void StartAnimation()
+    {
+        fadeOutAfterDisplay = !(QueueManagementService.PreviewNextEvent() is IUiComponentScoringEvent);
+
+        showStatic = false;
+        showAnimated = true;
 
         timer.Elapsed += FinishAnimation;
         timer.Enabled = true;
-    }
 
+        StateHasChanged();
+    }
 
     private void FinishAnimation(Object source, ElapsedEventArgs e)
     {
@@ -102,7 +111,9 @@
         {
             timer.Elapsed -= FinishAnimation;
             timer.Enabled = false;
-            showAnimation = false;
+
+            showStatic = false;
+            showAnimated = false;
             fadeOutAfterDisplay = false;
             scoreAnimationService.FinishAnimation();
         });

@@ -3,7 +3,7 @@
 @max-height: 400px;
 @points-max-height: 80px;
 @max-width: 290px;
-@animation-duration: 3.5s;
+@animation-duration: 0.7s;
 .active {
     box-shadow: 4px 4px 4px rgba(0, 0, 0, .5);
 }
@@ -22,21 +22,27 @@
     -webkit-animation-duration: @animation-duration; /* Safari 4.0 - 8.0 */
 }
 
-.animated-component {
+.scored-component {
     filter: drop-shadow(4px 3px 5px @drop-shadow);
     z-index: 100000;
     max-height: @max-height;
     max-width: @max-width;
+}
+
+.animated-component {
     -webkit-animation-name: shrink; /* Safari 4.0 - 8.0 */
     -webkit-animation-duration: @animation-duration; /* Safari 4.0 - 8.0 */
 }
 
-.animated-points {
+.scored-points {
     filter: drop-shadow(4px 3px 5px @drop-shadow);
     z-index: 100000;
     margin-top: 10px;
     max-height: @max-height;
     max-width: @max-width;
+}
+
+.animated-points {
     -webkit-animation-name: shrink-points; /* Safari 4.0 - 8.0 */
     -webkit-animation-duration: @animation-duration; /* Safari 4.0 - 8.0 */
 }
@@ -53,15 +59,11 @@
 
 @-webkit-keyframes vanish { 
     0% { opacity: 100; }
-    65% { opacity: 100; }
-    90% { opacity: 100;}
     100% { opacity: 0;}
 }
 
 @keyframes vanish { 
     0% { opacity: 100; }
-    65% { opacity: 100; }
-    90% { opacity: 100;}
     100% { opacity: 0;}
 }
 
@@ -70,12 +72,6 @@
         max-height: @max-height;
         max-width: @max-width;
     }
-
-    70% {
-        max-height: @max-height;
-        max-width: @max-width;
-    }
-
     100% {
         max-height: 0px;
         max-width: 0px;
@@ -88,12 +84,6 @@
         max-height: @max-height;
         max-width: @max-width;
     }
-
-    70% {
-        max-height: @max-height;
-        max-width: @max-width;
-    }
-
     100% {
         max-height: 0px;
         max-width: 0px;
@@ -102,12 +92,12 @@
 
 @-webkit-keyframes shrink-points {
     0% { max-height: @points-max-height; }
-    75% { max-height: @points-max-height; }
+    12% { max-height: @points-max-height; }
     100% { max-height: 0px; }
 }
 
 @keyframes shrink-points {
     0% { max-height: @points-max-height; }
-    75% { max-height: @points-max-height; }
+    12% { max-height: @points-max-height; }
     100% { max-height: 0px; }
 }
