@@ -16,7 +16,7 @@ namespace Transdim.Service.Internal.Services
 
         public void AddFinal(IUiEvent uiEvent) => FinalEventQueue.Add(uiEvent);
 
-        public IUiEvent GetNextEvent()
+        public IUiEvent TakeNextEvent()
         {
             var immediateEvent = ImmediateEventQueue.FirstOrDefault();
             if (immediateEvent != null)
@@ -41,5 +41,10 @@ namespace Transdim.Service.Internal.Services
 
             return null;
         }
+
+        public IUiEvent PreviewNextEvent() =>
+            ImmediateEventQueue.FirstOrDefault() ??
+            EventualEventQueue.FirstOrDefault() ??
+            FinalEventQueue.FirstOrDefault();
     }
 }

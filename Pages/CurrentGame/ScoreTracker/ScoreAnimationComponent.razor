@@ -3,13 +3,14 @@
 
 @inject Transdim.Service.IScoreAnimationService scoreAnimationService;
 @inject Transdim.Service.IGameStateService GameStateService;
+@inject Transdim.Service.IQueueManagementService QueueManagementService;
 
 <button onclick="@Foo">do it rockapella</button>
 @if (showAnimation)
 {
     <div class="transdim-modal-container transdim-modal-active">
 
-        <div class="transdim-modal-overlay animated-overlay"></div>
+        <div class="transdim-modal-overlay @(fadeOutAfterDisplay ? "animated-overlay" : string.Empty)"></div>
         <div class="row animation-container">
             <span class="col-12">
                 <img class="animated" hidden="@IsHidden(0)" src="@imgSrc" asp-append-version="true" />
@@ -35,6 +36,8 @@
 
 @functions {
     private bool showAnimation = false;
+
+    private bool fadeOutAfterDisplay = true;
 
     private Timer timer;
 
@@ -72,6 +75,7 @@
     {
         imgSrc = gameComponent.ImagePath;
         showAnimation = true;
+        fadeOutAfterDisplay = !(QueueManagementService.PreviewNextEvent() is IUiComponentScoringEvent);
         StateHasChanged();
 
         timer.Elapsed += FinishAnimation;
@@ -86,6 +90,7 @@
             timer.Elapsed -= FinishAnimation;
             timer.Enabled = false;
             showAnimation = false;
+            fadeOutAfterDisplay = false;
             scoreAnimationService.FinishAnimation();
         });
     }

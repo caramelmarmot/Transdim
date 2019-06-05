@@ -10,6 +10,8 @@ namespace Transdim.Service
 
         void AddFinal(IUiEvent uiEvent);
 
-        IUiEvent GetNextEvent();
+        IUiEvent TakeNextEvent();
+
+        IUiEvent PreviewNextEvent();
     }
 }

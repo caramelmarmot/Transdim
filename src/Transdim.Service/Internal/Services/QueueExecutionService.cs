@@ -25,7 +25,7 @@ namespace Transdim.Service.Internal.Services
                 return;
             }
 
-            var itemToProcess = queueManagementService.GetNextEvent();
+            var itemToProcess = queueManagementService.TakeNextEvent();
 
             if (itemToProcess == null)
             {
