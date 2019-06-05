@@ -4,27 +4,32 @@
 @inject Transdim.Service.IScoreAnimationService scoreAnimationService;
 @inject Transdim.Service.IGameStateService GameStateService;
 
+<button onclick="@Foo">do it rockapella</button>
 @if (showAnimation)
 {
-    <div class="row animation-container">
-        <span class="@GetColClass()">
-            <img class="animated" hidden="@IsHidden(0)" src="@imgSrc" asp-append-version="true" />
-        </span>
-        <span class="@GetColClass()">
-            <img class="animated" hidden="@IsHidden(1)" src="@imgSrc" asp-append-version="true" />
-        </span>
-        @if (game.Players.Count > 2)
-        {
-            <span class="@GetColClass()">
-                <img class="animated" hidden="@IsHidden(2)" src="@imgSrc" asp-append-version="true" />
+    <div class="transdim-modal-container transdim-modal-active">
+
+        <div class="transdim-modal-overlay animated-overlay"></div>
+        <div class="row animation-container">
+            <span class="col-12">
+                <img class="animated" hidden="@IsHidden(0)" src="@imgSrc" asp-append-version="true" />
             </span>
-        }
-        @if (game.Players.Count > 3)
-        {
-            <span class="@GetColClass()">
-                <img class="animated" hidden="@IsHidden(3)" src="@imgSrc" asp-append-version="true" />
+            <span class="col-12">
+                <img class="animated" hidden="@IsHidden(1)" src="@imgSrc" asp-append-version="true" />
             </span>
-        }
+            @if (game != null && game.Players.Count > 2)
+            {
+                <span class="col-12">
+                    <img class="animated" hidden="@IsHidden(2)" src="@imgSrc" asp-append-version="true" />
+                </span>
+            }
+            @if (game != null && game.Players.Count > 3)
+            {
+                <span class="col-12">
+                    <img class="animated" hidden="@IsHidden(3)" src="@imgSrc" asp-append-version="true" />
+                </span>
+            }
+        </div>
     </div>
 }
 
@@ -37,38 +42,28 @@
 
     private Game game;
 
+    public void Foo()
+    {
+        showAnimation = !showAnimation;
+    }
+
     protected override void OnInit()
     {
         timer = new Timer(1550);
         scoreAnimationService.OnScore += StartAnimation;
         scoreAnimationService.OnFinishAnimation += OnFinishAnimation;
-
         GameStateService.OnChange += StateHasChanged;
-        game = GameStateService.GetGame();
-    }
-
-    public string GetColClass()
-    {
-        if (game.Players.Count == 2)
-        {
-            return "col-6";
-        }
-
-        if (game.Players.Count == 3)
-        {
-            return "col-4";
-        }
-
-        if (game.Players.Count == 4)
-        {
-            return "col-3";
-        }
-
-        throw new InvalidOperationException("Must have between 2 and 4 players");
     }
 
     public bool IsHidden(int playerIndex)
     {
+        game = GameStateService.GetGame();
+
+        if (game == null)
+        {
+            return true;
+        }
+
         var players = GameStateService.GetCurrentRoundPlayersInOrder();
         return !players[playerIndex].IsActive;
     }

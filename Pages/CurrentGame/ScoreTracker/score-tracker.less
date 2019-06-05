@@ -1,39 +1,85 @@
 ﻿@import "../../../wwwroot/css/colors.less";
 
+@max-height: 400px;
+@max-width: 290px;
+
 .active {
     box-shadow: 4px 4px 4px rgba(0, 0, 0, .5);
 }
 
+.animated-overlay {
+    -webkit-animation-name: vanish; /* Safari 4.0 - 8.0 */
+    -webkit-animation-duration: 1.75s; /* Safari 4.0 - 8.0 */
+}
+
 .animated {
-    position: relative;
-    margin: auto;
+    display: flex;
+    flex-direction: column;
     filter: drop-shadow(4px 3px 5px @drop-shadow);
     z-index: 100000;
-    max-height: 100px;
-    max-width: 100px;
+    max-height: @max-height;
+    max-width: @max-width;
     -webkit-animation-name: shrink; /* Safari 4.0 - 8.0 */
     -webkit-animation-duration: 1.75s; /* Safari 4.0 - 8.0 */
 }
 
 .animation-container {
-    position: absolute;
-    top: 0;
-    width: 100%;
+    z-index: 4;
+    margin-bottom: 200px;
+    filter: drop-shadow(0px 0px 20px #D1A358);
 }
 
 .score-tracker {
     margin-bottom: 15px;
 }
 
+@-webkit-keyframes vanish { 
+    0% { opacity: 100; }
+    70% { opacity: 100; }
+    100% { opacity: 0;}
+}
+
+@keyframes vanish { 
+    0% { opacity: 100; }
+    70% { opacity: 100; }
+    100% { opacity: 0;}
+}
+
 @-webkit-keyframes shrink {
-    0% { max-height: 100px; max-width: 100px; left: 18%; top: 30%}
-    50% { max-height: 100px; max-width: 100px; left: 18%; top: 30%}
-    100% { max-height: 0px; max-width: 0px; left: 50%; top: -30%}
+    0% {
+        max-height: @max-height;
+        max-width: @max-width;
+    }
+
+    50% {
+        max-height: @max-height;
+        max-width: @max-width;
+    }
+
+    100% {
+        max-height: 0px;
+        max-width: 0px;
+        left: 50%;
+        top: -30%
+    }
 }
 
 /* Standard syntax */
 @keyframes shrink {
-    0% { max-height: 100px; max-width: 100px; left: 18%; top: 30%}
-    50% { max-height: 100px; max-width: 100px; left: 18%; top: 30%}
-    100% { max-height: 0px; max-width: 0px; left: 50%; top: -30%}
+    0% {
+        max-height: @max-height;
+        max-width: @max-width;
+    }
+
+    50% {
+        max-height: @max-height;
+        max-width: @max-width;
+    }
+
+    100% {
+        max-height: 0px;
+        max-width: 0px;
+        left: 50%;
+        top: -30%
+    }
 }
