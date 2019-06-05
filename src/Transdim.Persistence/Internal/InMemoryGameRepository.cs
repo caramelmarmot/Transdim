@@ -7,6 +7,7 @@ namespace Transdim.Persistence.Internal
     {
         public InMemoryGameRepository() { }
 
+        // TODO: better caching? https://michaelscodingspot.com/cache-implementations-in-csharp-net/?utm_source=csharpdigest&utm_medium=email&utm_campaign=featured
         private Game inMemoryGame;
 
         public Game CreateGame(Game gameToCreate)

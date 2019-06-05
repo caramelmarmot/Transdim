@@ -11,6 +11,7 @@ namespace Transdim.Service.Internal.Services
     {
         private readonly IGameRepository gameRepository;
 
+        // TODO: better caching? https://michaelscodingspot.com/cache-implementations-in-csharp-net/?utm_source=csharpdigest&utm_medium=email&utm_campaign=featured
         public Game CurrentGame { get; set; }
 
         public event Action OnChange;
