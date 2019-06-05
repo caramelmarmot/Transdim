@@ -5,29 +5,36 @@
 @inject Transdim.Service.IGameStateService GameStateService;
 @inject Transdim.Service.IQueueManagementService QueueManagementService;
 
-<button onclick="@Foo">do it rockapella</button>
 @if (showAnimation)
 {
     <div class="transdim-modal-container transdim-modal-active">
 
-        <div class="transdim-modal-overlay @(fadeOutAfterDisplay ? "animated-overlay" : string.Empty)"></div>
+        <div class="points-modal-overlay @(fadeOutAfterDisplay ? "animated-overlay" : string.Empty)"></div>
         <div class="row animation-container">
-            <span class="col-12">
-                <img class="animated" hidden="@IsHidden(0)" src="@imgSrc" asp-append-version="true" />
+            <span class="col-12 text-center">
+                <img class="animated-component" hidden="@(IsHidden(0))" src="@imgSrc" asp-append-version="true" />
             </span>
-            <span class="col-12">
-                <img class="animated" hidden="@IsHidden(1)" src="@imgSrc" asp-append-version="true" />
+            <span class="col-12 text-center">
+                <img class="animated-points points-image" hidden="@(IsHidden(0))" src="@pointsImgSrc" asp-append-version="true" />
+            </span>
+            <span class="col-12 text-center">
+                <img class="animated-component" hidden="@(IsHidden(1))" src="@imgSrc" asp-append-version="true" />
+            </span>
+            <span class="col-12 text-center">
+                <img class="animated-points points-image" hidden="@(IsHidden(1))" src="@pointsImgSrc" asp-append-version="true" />
             </span>
             @if (game != null && game.Players.Count > 2)
             {
                 <span class="col-12">
-                    <img class="animated" hidden="@IsHidden(2)" src="@imgSrc" asp-append-version="true" />
+                    <img class="animated" hidden="@(IsHidden(2))" src="@imgSrc" asp-append-version="true" />
+                    <img class="animated points-image" hidden="@(IsHidden(2))" src="@pointsImgSrc" asp-append-version="true" />
                 </span>
             }
             @if (game != null && game.Players.Count > 3)
             {
                 <span class="col-12">
-                    <img class="animated" hidden="@IsHidden(3)" src="@imgSrc" asp-append-version="true" />
+                    <img class="animated" hidden="@(IsHidden(3))" src="@imgSrc" asp-append-version="true" />
+                    <img class="animated points-image" hidden="@(IsHidden(3))" src="@pointsImgSrc" asp-append-version="true" />
                 </span>
             }
         </div>
@@ -43,6 +50,8 @@
 
     private string imgSrc;
 
+    private string pointsImgSrc;
+
     private Game game;
 
     public void Foo()
@@ -52,7 +61,7 @@
 
     protected override void OnInit()
     {
-        timer = new Timer(1550);
+        timer = new Timer(3400);
         scoreAnimationService.OnScore += StartAnimation;
         scoreAnimationService.OnFinishAnimation += OnFinishAnimation;
         GameStateService.OnChange += StateHasChanged;
@@ -74,6 +83,10 @@
     public void StartAnimation(IGameComponent gameComponent, int points)
     {
         imgSrc = gameComponent.ImagePath;
+
+        var pointsString = (points < 10) ? "0" + points.ToString() : points.ToString();
+        pointsImgSrc = $"/Images/points-{pointsString}.png";
+
         showAnimation = true;
         fadeOutAfterDisplay = !(QueueManagementService.PreviewNextEvent() is IUiComponentScoringEvent);
         StateHasChanged();

@@ -26,8 +26,8 @@ namespace Transdim.Service.Internal.ComponentActivators.Scorers
             }
 
             queueManagementService.Add(new UiModalEvent("Choose number of points", ModalIdentifier.AdjustablePointsScorer));
-            queueManagementService.Add(new UiComponentScoringEvent(GameComponents.PowerActionQicPointsForPlanets, 0));
-            queueManagementService.Add(new UiComponentScoringEvent(GameComponents.ActionPowerAction, 0));
+            queueManagementService.Add(new UiComponentScoringEvent(GameComponents.PowerActionQicPointsForPlanets, 3));
+            queueManagementService.Add(new UiComponentScoringEvent(GameComponents.ActionPowerAction, 5));
             queueExecutionService.Execute();
 
             // TODO: manage game state
