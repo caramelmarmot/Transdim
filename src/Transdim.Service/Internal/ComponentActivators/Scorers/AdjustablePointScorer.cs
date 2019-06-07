@@ -25,7 +25,7 @@ namespace Transdim.Service.Internal.ComponentActivators.Scorers
 
             var adjustiblePoiontScorerParameters = new ModalParameters();
             adjustiblePoiontScorerParameters.Add(nameof(IGameComponent), component);
-            queueManagementService.Add(new UiModalEvent("Choose number of points", ModalIdentifier.AdjustablePointsScorer, adjustiblePoiontScorerParameters));
+            queueManagementService.Add(new UiModalEvent(string.Empty, ModalIdentifier.AdjustablePointsScorer, adjustiblePoiontScorerParameters));
             queueExecutionService.Execute();
 
             // TODO: manage game state

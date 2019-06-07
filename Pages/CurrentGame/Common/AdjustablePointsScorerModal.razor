@@ -1,0 +1,84 @@
+﻿@using Transdim.Service;
+@using Transdim.DomainModel.GameComponents;
+
+@inject Transdim.Service.IModalService ModalService;
+@inject Transdim.Service.IGameStateService GameStateService;
+@inject Transdim.Service.IQueueManagementService QueueManagementService;
+@inject Transdim.Service.IQueueExecutionService QueueExecutionService;
+
+<div class="row d-flex justify-content-center">
+    <img class="game-component adjustable-points-reference-component" src="@gameComponent.ImagePath" asp-append-version="true" />
+</div>
+<div class="score">
+    <div class="row d-flex justify-content-center">
+        <span class="oi oi- oi-caret-top arrow" onclick="@(() => AdjustPoints(true))"></span>
+    </div>
+    <div class="row d-flex justify-content-center">
+        <img class="adjustable-points-points-box game-component" src="@pointsImgSrc" onclick="@(() => AdjustPoints(true))" asp-append-version="true" />
+    </div>
+    <div class="row d-flex justify-content-center">
+        <span class="oi oi-caret-bottom arrow" onclick="@(() => AdjustPoints(false))"></span>
+    </div>
+</div>
+<div class="row d-flex justify-content-center">
+    <button class="btn btn-primary" onclick="@Close">Score</button>
+</div>
+
+@functions {
+    [CascadingParameter]
+    public ModalParameters Parameters { get; set; }
+
+    private IGameComponent gameComponent;
+
+    private int points = 1;
+
+    private string pointsImgSrc;
+
+    protected override void OnInit()
+    {
+        gameComponent = Parameters.Get<IGameComponent>(nameof(IGameComponent));
+
+        ModalService.BeforeClose += ScorePoints;
+
+        SetPointsImgSrc();
+    }
+
+    public void AdjustPoints(bool up)
+    {
+        if (up && points < 35)
+        {
+            points++;
+            SetPointsImgSrc();
+            StateHasChanged();
+        }
+        else if (points > 1)
+        {
+            points--;
+            SetPointsImgSrc();
+            StateHasChanged();
+        }
+    }
+
+    public void Close()
+    {
+        ModalService.Close(ModalResult.Ok(points));
+    }
+
+    private void SetPointsImgSrc()
+    {
+        var pointsString = (points < 10) ? "0" + points.ToString() : points.ToString();
+        pointsImgSrc = $"/Images/points-{pointsString}.png";
+    }
+
+    private void ScorePoints(ModalResult modalResult)
+    {
+        var pointsScored = (int)modalResult.Data;
+        ModalService.BeforeClose -= ScorePoints;
+
+        GameStateService.AddAction($"scoring {pointsScored} points!", (int)modalResult.Data, true);
+
+        QueueManagementService.AddImmediate(new UiComponentScoringEvent(gameComponent, pointsScored));
+        QueueExecutionService.Execute();
+    }
+
+}

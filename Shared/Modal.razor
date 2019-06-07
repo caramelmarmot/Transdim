@@ -1,5 +1,6 @@
 ﻿@using  Transdim.Service;
 @using  Transdim.Pages.CurrentGame.ActionPanel.PowerAction.Modal;
+@using  Transdim.Pages.CurrentGame.Common;
 
 @inject Transdim.Service.IModalService ModalService;
 
@@ -8,9 +9,12 @@
     <div class="transdim-modal-overlay"></div>
 
     <div class="transdim-modal">
-        <div class="transdim-modal-header">
-            <h3 class="transdim-modal-title">@Title</h3>
-        </div>
+        @if (!String.IsNullOrEmpty(@Title))
+        {
+            <div class="transdim-modal-header">
+                <h3 class="transdim-modal-title">@Title</h3>
+            </div>
+        }
         <div class="transdim-modal-content">
             <CascadingValue Value="@Parameters">
                 @Content
@@ -27,9 +31,9 @@
     private ModalParameters Parameters { get; set; }
 
     private Dictionary<ModalIdentifier, Type> ModalMapping = new Dictionary<ModalIdentifier, Type>()
-    {
+{
         // TODO: rename PointsModal
-        { ModalIdentifier.AdjustablePointsScorer, typeof(PointsModal)},
+        { ModalIdentifier.AdjustablePointsScorer, typeof(AdjustablePointsScorerModal)},
         { ModalIdentifier.PowerAction, typeof(PowerActionModal)}
     };
 
