@@ -16,7 +16,7 @@ namespace Transdim.Service
 
         void UpdateGame(Game game);
 
-        void AddAction(GameAction action);
+        void AddAction(string logText, int points = 0, bool omitPlayerNameFromLog = false, bool isUndoCheckpoint = false);
 
         Player GetActivePlayer();
 

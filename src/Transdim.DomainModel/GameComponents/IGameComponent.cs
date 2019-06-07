@@ -5,5 +5,7 @@
         GameComponentIdentifier Identifier { get; }
 
         string ImagePath { get; }
+
+        string FriendlyName { get; }
     }
 }

@@ -7,6 +7,8 @@ namespace Transdim.Service.Internal.Services.Modal
     {
         public event Action<string, ModalIdentifier, ModalParameters> OnShow;
 
+        public event Action<ModalResult> BeforeClose;
+
         public event Action<ModalResult> OnClose;
 
         public void Show(string title, ModalIdentifier modalIdentifier)
@@ -21,6 +23,7 @@ namespace Transdim.Service.Internal.Services.Modal
 
         public void Close(ModalResult modalResult)
         {
+            BeforeClose?.Invoke(modalResult);
             OnClose?.Invoke(modalResult);
         }
     }

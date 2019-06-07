@@ -9,13 +9,11 @@ namespace Transdim.Service.Internal.ComponentActivators.Scorers
     {
         private readonly IQueueManagementService queueManagementService;
         private readonly IQueueExecutionService queueExecutionService;
-        private readonly IGameStateService gameStateService;
 
-        public AdjustiblePointScorer(IQueueManagementService queueManagementService, IQueueExecutionService queueExecutionService, IGameStateService gameStateService)
+        public AdjustiblePointScorer(IQueueManagementService queueManagementService, IQueueExecutionService queueExecutionService)
         {
             this.queueManagementService = queueManagementService ?? throw new ArgumentNullException(nameof(queueManagementService));
             this.queueExecutionService = queueExecutionService ?? throw new ArgumentNullException(nameof(queueExecutionService));
-            this.gameStateService = gameStateService ?? throw new ArgumentNullException(nameof(gameStateService));
         }
 
         public void Activate(IGameComponent component)
@@ -25,9 +23,9 @@ namespace Transdim.Service.Internal.ComponentActivators.Scorers
                 return;
             }
 
-            queueManagementService.Add(new UiModalEvent("Choose number of points", ModalIdentifier.AdjustablePointsScorer));
-            queueManagementService.Add(new UiComponentScoringEvent(GameComponents.PowerActionQicPointsForPlanets, 3));
-            queueManagementService.Add(new UiComponentScoringEvent(GameComponents.ActionPowerAction, 5));
+            var adjustiblePoiontScorerParameters = new ModalParameters();
+            adjustiblePoiontScorerParameters.Add(nameof(IGameComponent), component);
+            queueManagementService.Add(new UiModalEvent("Choose number of points", ModalIdentifier.AdjustablePointsScorer, adjustiblePoiontScorerParameters));
             queueExecutionService.Execute();
 
             // TODO: manage game state

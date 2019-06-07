@@ -25,20 +25,8 @@ namespace Transdim.Service.Internal.ComponentActivators.Actions
                 return;
             }
 
-            var activePlayer = gameStateService.GetActivePlayer();
-
-            var actionPerformed = new GameAction
-            {
-                IsUndoCheckpoint = true,
-                Player = activePlayer,
-                LogText = $"{activePlayer.Faction.FriendlyName} took a power action...",
-                Points = 0
-            };
-
-            queueManagementService.AddImmediate(new GameUpdateEvent { EventToPerform = () => { gameStateService.AddAction(actionPerformed); } });
-
+            queueManagementService.AddImmediate(new GameUpdateEvent { EventToPerform = () => { gameStateService.AddAction("took a power action", default, default, true); } });
             queueManagementService.Add(new UiModalEvent("Power action", ModalIdentifier.PowerAction));
-
             queueManagementService.AddFinal(new GameUpdateEvent { EventToPerform = () => { gameStateService.EndTurn(); } });
 
             queueExecutionService.Execute();

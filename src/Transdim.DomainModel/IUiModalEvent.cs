@@ -5,5 +5,7 @@
         string Title { get; set; }
 
         ModalIdentifier ModalIdentifier { get; set; }
+
+        ModalParameters ModalParameters { get; set; }
     }
 }

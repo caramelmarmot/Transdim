@@ -11,6 +11,8 @@ namespace Transdim.DomainModel.GameComponents.Techs.Advanced
 
         internal const bool IsAdvancedTechValue = false;
 
+        internal const string _FriendlyName = "";
+
         public TechIdentifier Identifier => TechIdentifier.ThreeVpOnBuildOnGaia;
 
         public string TechImagePath => ImagePath;

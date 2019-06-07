@@ -5,6 +5,8 @@ namespace Transdim.Service
 {
         public interface IModalService
         {
+            event Action<ModalResult> BeforeClose;
+
             event Action<ModalResult> OnClose;
 
             event Action<string, ModalIdentifier, ModalParameters> OnShow;

@@ -11,6 +11,8 @@ namespace Transdim.DomainModel.GameComponents.Techs.Standard
 
         internal const bool IsAdvancedTechValue = false;
 
+        internal const string _FriendlyName = "";
+
         public TechIdentifier Identifier => TechIdentifier.SevenPointsOnAcquireTechTile;
 
         public string TechImagePath => ImagePath;

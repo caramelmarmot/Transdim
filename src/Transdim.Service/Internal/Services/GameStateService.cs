@@ -64,8 +64,20 @@ namespace Transdim.Service.Internal.Services
 
             return playerList;
         }
-        public void AddAction(GameAction action)
+        public void AddAction(string logText, int points = 0, bool omitPlayerNameFromLog = false, bool isUndoCheckpoint = false)
         {
+            var activePlayer = GetActivePlayer();
+
+            var optionalPlayerName = (omitPlayerNameFromLog) ? string.Empty : $"{activePlayer.Faction.FriendlyName} ";
+
+            var action = new GameAction
+            {
+                IsUndoCheckpoint = isUndoCheckpoint,
+                Player = activePlayer,
+                LogText = $"{optionalPlayerName}{logText}",
+                Points = points
+            };
+
             CurrentGame.GameActions.Add(action);
             NotifyStateChanged();
         }
@@ -79,7 +91,7 @@ namespace Transdim.Service.Internal.Services
             CurrentGame.GameActions.Add(new GameAction
             {
                 Player = currentPlayer,
-                LogText = $"{currentPlayer.Faction.FriendlyName} turn complete!"
+                LogText = $"{currentPlayer.Faction.FriendlyName} turn complete"
             });
 
             var maxIndex = orderedPlayerIds.Count - 1;

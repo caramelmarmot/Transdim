@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Transdim.Service
+namespace Transdim.DomainModel
 {
     public class ModalParameters
     {

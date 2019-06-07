@@ -38,7 +38,7 @@ namespace Transdim.Service.Internal.Services
             {
                 modalService.OnClose += ProcessNext;
 
-                modalService.Show(modalToProcess.Title, modalToProcess.ModalIdentifier);
+                modalService.Show(modalToProcess.Title, modalToProcess.ModalIdentifier, modalToProcess.ModalParameters);
             }
             else if (itemToProcess is IUiComponentScoringEvent componentScoringToProcess)
             {
