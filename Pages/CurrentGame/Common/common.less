@@ -1,16 +1,21 @@
-﻿.adjustable-points-reference-component {
+﻿@points-height: 90px;
+
+.adjustable-points-reference-component {
     max-height: 75px;
     margin-bottom: 30px;
 }
 
 .adjustable-points-points-box {
-    max-height: 80px;
+    max-height: @points-height;
 }
 
 .arrow {
     font-size: xx-large;
+    color: lightgrey;
+    line-height: @points-height;
+    margin: 0px 5px;
 }
 
 .score {
-    margin-bottom: 30px;
+    margin-bottom: 20px;
 }

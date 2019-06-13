@@ -67,13 +67,16 @@
   margin-bottom: 30px;
 }
 .adjustable-points-points-box {
-  max-height: 80px;
+  max-height: 90px;
 }
 .arrow {
   font-size: xx-large;
+  color: lightgrey;
+  line-height: 90px;
+  margin: 0px 5px;
 }
 .score {
-  margin-bottom: 30px;
+  margin-bottom: 20px;
 }
 .game-log-container {
   border-style: hidden;
@@ -232,6 +235,8 @@
   display: flex;
 }
 .transdim-modal {
+  position: absolute;
+  top: 50px;
   display: flex;
   flex-direction: column;
   width: 50rem;
@@ -241,6 +246,11 @@
   padding: 1.5rem;
   z-index: 4;
   box-shadow: 0 2px 2px rgba(0, 0, 0, 0.25);
+}
+.transdim-modal-transparent {
+  background-color: rgba(0, 0, 0, 0);
+  border: none;
+  box-shadow: none;
 }
 .transdim-modal-header {
   display: flex;

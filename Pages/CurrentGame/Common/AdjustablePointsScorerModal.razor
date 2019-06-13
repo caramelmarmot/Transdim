@@ -11,13 +11,9 @@
 </div>
 <div class="score">
     <div class="row d-flex justify-content-center">
-        <span class="oi oi- oi-caret-top arrow" onclick="@(() => AdjustPoints(true))"></span>
-    </div>
-    <div class="row d-flex justify-content-center">
+        <span class="oi oi- oi-caret-left arrow" onclick="@(() => AdjustPoints(true))"></span>
         <img class="adjustable-points-points-box game-component" src="@pointsImgSrc" onclick="@(() => AdjustPoints(true))" asp-append-version="true" />
-    </div>
-    <div class="row d-flex justify-content-center">
-        <span class="oi oi-caret-bottom arrow" onclick="@(() => AdjustPoints(false))"></span>
+        <span class="oi oi- oi-caret-right arrow" onclick="@(() => AdjustPoints(true))"></span>
     </div>
 </div>
 <div class="row d-flex justify-content-center">

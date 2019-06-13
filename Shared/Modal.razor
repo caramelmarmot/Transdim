@@ -8,7 +8,7 @@
 
     <div class="transdim-modal-overlay"></div>
 
-    <div class="transdim-modal">
+    <div class="transdim-modal @(IsTransparent ? "transdim-modal-transparent" : string.Empty)">
         @if (!String.IsNullOrEmpty(@Title))
         {
             <div class="transdim-modal-header">
@@ -25,6 +25,8 @@
 
 @functions {
     private bool IsVisible;
+
+    private bool IsTransparent = true;
 
     private string Title { get; set; }
     private RenderFragment Content { get; set; }
