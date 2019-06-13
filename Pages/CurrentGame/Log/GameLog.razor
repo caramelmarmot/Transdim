@@ -1,4 +1,4 @@
-﻿@inject Transdim.Service.Services.IGameStateService GameStateService;
+﻿@inject Transdim.Service.Controllers.CurrentGame.Log.ILogController controller;
 
 <div class="container">
     <div class="row game-log-container">
@@ -15,22 +15,7 @@
 @functions {
     private Game game;
 
-    protected override void OnInit()
-    {
-        game = GameStateService.GetGame();
-        GameStateService.OnChange += StateHasChanged;
-    }
+    protected override void OnInit() => controller.OnInit(StateHasChanged);
 
-    public string GetLogText(int distanceFromEnd)
-    {
-        // TODO: use controller
-        if (game == null || game.GameActions.Count <= distanceFromEnd)
-        {
-            return string.Empty;
-        }
-
-        var indexToReport = game.GameActions.Count - distanceFromEnd - 1;
-
-        return game.GameActions[indexToReport].LogText;
-    }
+    public string GetLogText(int distanceFromEnd) => controller.GetLogText(distanceFromEnd);
 }

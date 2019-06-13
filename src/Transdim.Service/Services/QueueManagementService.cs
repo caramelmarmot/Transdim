@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Transdim.DomainModel;
+using Transdim.Service.Services.Modal;
 
 namespace Transdim.Service.Services
 {
@@ -11,19 +12,22 @@ namespace Transdim.Service.Services
         private readonly List<IUiEvent> EventualEventQueue = new List<IUiEvent>();
         private readonly List<IUiEvent> FinalEventQueue = new List<IUiEvent>();
 
-        private readonly IQueueExecutionService queueExecutionService;
+        private readonly IModalService modalService;
+        private readonly IScoreAnimationService scoreAnimationService;
 
-        public QueueManagementService(IQueueExecutionService queueExecutionService)
+        private bool currentlyExecuting = false;
+
+        public QueueManagementService(IModalService modalService, IScoreAnimationService scoreAnimationService)
         {
-            this.queueExecutionService = queueExecutionService ?? throw new ArgumentNullException(nameof(queueExecutionService));
+            this.modalService = modalService ?? throw new ArgumentNullException(nameof(modalService));
+            this.scoreAnimationService = scoreAnimationService ?? throw new ArgumentNullException(nameof(scoreAnimationService));
         }
+
         public void Add(IUiEvent uiEvent) => EventualEventQueue.Add(uiEvent);
 
         public void AddImmediate(IUiEvent uiEvent) => ImmediateEventQueue.Add(uiEvent);
 
         public void AddFinal(IUiEvent uiEvent) => FinalEventQueue.Add(uiEvent);
-
-        public void Execute() => queueExecutionService.Execute();
 
         public IUiEvent TakeNextEvent()
         {
@@ -55,5 +59,54 @@ namespace Transdim.Service.Services
             ImmediateEventQueue.FirstOrDefault() ??
             EventualEventQueue.FirstOrDefault() ??
             FinalEventQueue.FirstOrDefault();
+
+        public void Execute()
+        {
+            if (currentlyExecuting)
+            {
+                return;
+            }
+
+            var itemToProcess = TakeNextEvent();
+
+            if (itemToProcess == null)
+            {
+                return;
+            }
+
+            currentlyExecuting = true;
+
+            if (itemToProcess is IUiModalEvent modalToProcess)
+            {
+                modalService.OnClose += ProcessNext;
+
+                modalService.Show(modalToProcess.Title, modalToProcess.ModalIdentifier, modalToProcess.ModalParameters);
+            }
+            else if (itemToProcess is IUiComponentScoringEvent componentScoringToProcess)
+            {
+                scoreAnimationService.OnFinishAnimation += ProcessNext;
+                scoreAnimationService.Score(componentScoringToProcess.GameComponent, componentScoringToProcess.Points);
+            }
+            else if (itemToProcess is IGameUpdateEvent gameUpdateEvent)
+            {
+                gameUpdateEvent.EventToPerform.Invoke();
+                currentlyExecuting = false;
+                Execute();
+            }
+        }
+
+        private void ProcessNext(ModalResult modalResult)
+        {
+            modalService.OnClose -= ProcessNext;
+            ProcessNext();
+        }
+
+        private void ProcessNext()
+        {
+            scoreAnimationService.OnFinishAnimation -= ProcessNext;
+            currentlyExecuting = false;
+
+            Execute();
+        }
     }
 }

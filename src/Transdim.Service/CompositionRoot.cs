@@ -13,6 +13,8 @@ using Transdim.Service.Helpers;
 using Transdim.Service.Services.Modal;
 using Transdim.Service.Services;
 using Transdim.Service.Controllers.CurrentGame.ActionPanel.PowerAction;
+using Transdim.Service.Controllers.CurrentGame.Common;
+using Transdim.Service.Controllers.CurrentGame.Log;
 
 namespace Transdim.Service
 {
@@ -26,8 +28,10 @@ namespace Transdim.Service
             }
 
             // Controllers
+            services.AddScoped<IAdjustablePointsScorerModalController, AdjustablePointsScorerModalController>();
             services.AddScoped<IBaseGameController, BaseGameController>();
             services.AddScoped<IBoardSetupController, BoardSetupController>();
+            services.AddScoped<ILogController, LogController>();
             services.AddScoped<INewGameController, NewGameController>();
             services.AddScoped<IPowerActionModalController, PowerActionModalController>();
             services.AddScoped<ITechSetupController, TechSetupController>();
@@ -37,7 +41,6 @@ namespace Transdim.Service
             services.AddScoped<IGameStateService, GameStateService>();
             services.AddScoped<IFactionService, FactionService>();
             services.AddScoped<IQueueManagementService, QueueManagementService>();
-            services.AddScoped<IQueueExecutionService, QueueExecutionService>();
             services.AddScoped<IGameComponentController, GameComponentController>();
             services.AddScoped<IModalService, ModalService>();
             services.AddScoped<IScoreAnimationService, ScoreAnimationService>();

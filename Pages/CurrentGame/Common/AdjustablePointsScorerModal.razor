@@ -1,17 +1,14 @@
-﻿@using Transdim.Service;
-@using Transdim.DomainModel.GameComponents;
+﻿@using Transdim.DomainModel.GameComponents;
 
-@inject Transdim.Service.Services.Modal.IModalService ModalService;
-@inject Transdim.Service.Services.IGameStateService GameStateService;
-@inject Transdim.Service.Services.IQueueManagementService QueueManagementService;
+@inject Transdim.Service.Controllers.CurrentGame.Common.IAdjustablePointsScorerModalController controller;
 
 <div class="row d-flex justify-content-center">
     <img class="game-component adjustable-points-reference-component" src="@gameComponent.ImagePath" asp-append-version="true" />
 </div>
 <div class="score">
     <div class="row d-flex justify-content-center">
-        <span class="oi oi- oi-caret-left arrow" onclick="@(() => AdjustPoints(true))"></span>
-        <img class="adjustable-points-points-box game-component" src="@pointsImgSrc" onclick="@(() => AdjustPoints(true))" asp-append-version="true" />
+        <span class="oi oi- oi-caret-left arrow" onclick="@(() => AdjustPoints(false))"></span>
+        <img class="adjustable-points-points-box game-component" src="@pointsImageSource" onclick="@(() => AdjustPoints(true))" asp-append-version="true" />
         <span class="oi oi- oi-caret-right arrow" onclick="@(() => AdjustPoints(true))"></span>
     </div>
 </div>
@@ -23,57 +20,16 @@
     [CascadingParameter]
     public ModalParameters Parameters { get; set; }
 
-    private IGameComponent gameComponent;
+    private IGameComponent gameComponent => controller.GameComponent;
 
-    private int points = 1;
+    private string pointsImageSource => controller.PointsImageSource;
 
-    private string pointsImgSrc;
+    protected override void OnInit() => controller.OnInit(Parameters);
 
-    protected override void OnInit()
+    public void AdjustPoints(bool isUp)
     {
-        gameComponent = Parameters.Get<IGameComponent>(nameof(IGameComponent));
-
-        ModalService.BeforeClose += ScorePoints;
-
-        SetPointsImgSrc();
+        controller.AdjustPoints(isUp, () => StateHasChanged());
     }
 
-    public void AdjustPoints(bool up)
-    {
-        if (up && points < 35)
-        {
-            points++;
-            SetPointsImgSrc();
-            StateHasChanged();
-        }
-        else if (points > 1)
-        {
-            points--;
-            SetPointsImgSrc();
-            StateHasChanged();
-        }
-    }
-
-    public void Close()
-    {
-        ModalService.Close(ModalResult.Ok(points));
-    }
-
-    private void SetPointsImgSrc()
-    {
-        var pointsString = (points < 10) ? "0" + points.ToString() : points.ToString();
-        pointsImgSrc = $"/Images/points-{pointsString}.png";
-    }
-
-    private void ScorePoints(ModalResult modalResult)
-    {
-        var pointsScored = (int)modalResult.Data;
-        ModalService.BeforeClose -= ScorePoints;
-
-        GameStateService.AddAction($"scoring {pointsScored} points!", (int)modalResult.Data, true);
-
-        QueueManagementService.AddImmediate(new UiComponentScoringEvent(gameComponent, pointsScored));
-        QueueManagementService.Execute();
-    }
-
+    public void Close() => controller.Close();
 }
