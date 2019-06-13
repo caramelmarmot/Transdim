@@ -11,16 +11,12 @@
 
         <div class="points-modal-overlay"></div>
         <div class="row animation-container">
-            <ScoredItemDisplayComponent IsHidden="@IsHidden(0)" ImgSrc="@imgSrc" PointsImgSrc="@pointsImgSrc" IsAnimated="false"></ScoredItemDisplayComponent>
-            <ScoredItemDisplayComponent IsHidden="@IsHidden(1)" ImgSrc="@imgSrc" PointsImgSrc="@pointsImgSrc" IsAnimated="false"></ScoredItemDisplayComponent>
-            @if (game != null && game.Players.Count > 2)
-            {
-                <ScoredItemDisplayComponent IsHidden="@IsHidden(2)" ImgSrc="@imgSrc" PointsImgSrc="@pointsImgSrc" IsAnimated="false"></ScoredItemDisplayComponent>
-            }
-            @if (game != null && game.Players.Count > 3)
-            {
-                <ScoredItemDisplayComponent IsHidden="@IsHidden(3)" ImgSrc="@imgSrc" PointsImgSrc="@pointsImgSrc" IsAnimated="false"></ScoredItemDisplayComponent>
-            }
+            <span class="col-12 text-center">
+                <img class="scored-component" src="@imgSrc" asp-append-version="true" />
+            </span>
+            <span class="col-12 text-center">
+                <img class="scored-points points-image" src="@pointsImgSrc" asp-append-version="true" />
+            </span>
         </div>
     </div>
 }
@@ -30,16 +26,13 @@
 
         <div class="points-modal-overlay @(fadeOutAfterDisplay ? "animated-overlay" : string.Empty)"></div>
         <div class="row animation-container">
-            <ScoredItemDisplayComponent IsHidden="@IsHidden(0)" ImgSrc="@imgSrc" PointsImgSrc="@pointsImgSrc" IsAnimated="true"></ScoredItemDisplayComponent>
-            <ScoredItemDisplayComponent IsHidden="@IsHidden(1)" ImgSrc="@imgSrc" PointsImgSrc="@pointsImgSrc" IsAnimated="true"></ScoredItemDisplayComponent>
-            @if (game != null && game.Players.Count > 2)
-            {
-                <ScoredItemDisplayComponent IsHidden="@IsHidden(2)" ImgSrc="@imgSrc" PointsImgSrc="@pointsImgSrc" IsAnimated="true"></ScoredItemDisplayComponent>
-            }
-            @if (game != null && game.Players.Count > 3)
-            {
-                <ScoredItemDisplayComponent IsHidden="@IsHidden(3)" ImgSrc="@imgSrc" PointsImgSrc="@pointsImgSrc" IsAnimated="true"></ScoredItemDisplayComponent>
-            }
+            <span class="col-12 text-center">
+                <img class="scored-component animated-component" src="@imgSrc" asp-append-version="true" />
+            </span>
+            <span class="col-12 text-center">
+                <img class="scored-points points-image animated-points" src="@pointsImgSrc" asp-append-version="true" />
+            </span>
+
         </div>
     </div>
 }
@@ -65,19 +58,6 @@
         scoreAnimationService.OnScore += ShowScoredComponent;
         scoreAnimationService.OnFinishAnimation += OnFinishAnimation;
         GameStateService.OnChange += StateHasChanged;
-    }
-
-    public bool IsHidden(int playerIndex)
-    {
-        game = GameStateService.GetGame();
-
-        if (game == null)
-        {
-            return true;
-        }
-
-        var players = GameStateService.GetCurrentRoundPlayersInOrder();
-        return !players[playerIndex].IsActive;
     }
 
     public void ShowScoredComponent(IGameComponent gameComponent, int points)
