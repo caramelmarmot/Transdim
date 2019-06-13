@@ -23,12 +23,8 @@ namespace Transdim.Service.Internal.ComponentActivators.Scorers
                 return;
             }
 
-            var adjustiblePoiontScorerParameters = new ModalParameters();
-            adjustiblePoiontScorerParameters.Add(nameof(IGameComponent), component);
-            queueManagementService.Add(new UiModalEvent(string.Empty, ModalIdentifier.AdjustablePointsScorer, adjustiblePoiontScorerParameters));
+            queueManagementService.Add(new UiModalEvent(string.Empty, ModalIdentifier.AdjustablePointsScorer, new ModalParameters(nameof(IGameComponent), component)));
             queueExecutionService.Execute();
-
-            // TODO: manage game state
         }
     }
 }
