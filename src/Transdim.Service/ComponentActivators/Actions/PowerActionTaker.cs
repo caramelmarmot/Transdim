@@ -9,13 +9,11 @@ namespace Transdim.Service.ComponentActivators.Actions
     internal class PowerActionTaker : IComponentActivator
     {
         private readonly IQueueManagementService queueManagementService;
-        private readonly IQueueExecutionService queueExecutionService;
         private readonly IGameStateService gameStateService;
 
-        public PowerActionTaker(IQueueManagementService queueManagementService, IQueueExecutionService queueExecutionService, IGameStateService gameStateService)
+        public PowerActionTaker(IQueueManagementService queueManagementService, IGameStateService gameStateService)
         {
             this.queueManagementService = queueManagementService ?? throw new ArgumentNullException(nameof(queueManagementService));
-            this.queueExecutionService = queueExecutionService ?? throw new ArgumentNullException(nameof(queueExecutionService));
             this.gameStateService = gameStateService ?? throw new ArgumentNullException(nameof(gameStateService));
         }
 
@@ -30,7 +28,7 @@ namespace Transdim.Service.ComponentActivators.Actions
             queueManagementService.Add(new UiModalEvent("Power action", ModalIdentifier.PowerAction));
             queueManagementService.AddFinal(new GameUpdateEvent { EventToPerform = () => { gameStateService.EndTurn(); } });
 
-            queueExecutionService.Execute();
+            queueManagementService.Execute();
         }
     }
 }

@@ -4,7 +4,6 @@
 @inject Transdim.Service.Services.Modal.IModalService ModalService;
 @inject Transdim.Service.Services.IGameStateService GameStateService;
 @inject Transdim.Service.Services.IQueueManagementService QueueManagementService;
-@inject Transdim.Service.Services.IQueueExecutionService QueueExecutionService;
 
 <div class="row d-flex justify-content-center">
     <img class="game-component adjustable-points-reference-component" src="@gameComponent.ImagePath" asp-append-version="true" />
@@ -74,7 +73,7 @@
         GameStateService.AddAction($"scoring {pointsScored} points!", (int)modalResult.Data, true);
 
         QueueManagementService.AddImmediate(new UiComponentScoringEvent(gameComponent, pointsScored));
-        QueueExecutionService.Execute();
+        QueueManagementService.Execute();
     }
 
 }

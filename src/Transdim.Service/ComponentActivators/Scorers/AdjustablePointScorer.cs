@@ -9,12 +9,10 @@ namespace Transdim.Service.ComponentActivators.Scorers
     internal class AdjustiblePointScorer : IComponentActivator
     {
         private readonly IQueueManagementService queueManagementService;
-        private readonly IQueueExecutionService queueExecutionService;
 
-        public AdjustiblePointScorer(IQueueManagementService queueManagementService, IQueueExecutionService queueExecutionService)
+        public AdjustiblePointScorer(IQueueManagementService queueManagementService)
         {
             this.queueManagementService = queueManagementService ?? throw new ArgumentNullException(nameof(queueManagementService));
-            this.queueExecutionService = queueExecutionService ?? throw new ArgumentNullException(nameof(queueExecutionService));
         }
 
         public void Activate(IGameComponent component)
@@ -25,7 +23,7 @@ namespace Transdim.Service.ComponentActivators.Scorers
             }
 
             queueManagementService.Add(new UiModalEvent(string.Empty, ModalIdentifier.AdjustablePointsScorer, new ModalParameters(nameof(IGameComponent), component)));
-            queueExecutionService.Execute();
+            queueManagementService.Execute();
         }
     }
 }

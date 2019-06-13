@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Transdim.DomainModel;
 
@@ -10,11 +11,19 @@ namespace Transdim.Service.Services
         private readonly List<IUiEvent> EventualEventQueue = new List<IUiEvent>();
         private readonly List<IUiEvent> FinalEventQueue = new List<IUiEvent>();
 
+        private readonly IQueueExecutionService queueExecutionService;
+
+        public QueueManagementService(IQueueExecutionService queueExecutionService)
+        {
+            this.queueExecutionService = queueExecutionService ?? throw new ArgumentNullException(nameof(queueExecutionService));
+        }
         public void Add(IUiEvent uiEvent) => EventualEventQueue.Add(uiEvent);
 
         public void AddImmediate(IUiEvent uiEvent) => ImmediateEventQueue.Add(uiEvent);
 
         public void AddFinal(IUiEvent uiEvent) => FinalEventQueue.Add(uiEvent);
+
+        public void Execute() => queueExecutionService.Execute();
 
         public IUiEvent TakeNextEvent()
         {

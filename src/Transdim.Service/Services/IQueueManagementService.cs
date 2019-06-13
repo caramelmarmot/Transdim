@@ -13,5 +13,7 @@ namespace Transdim.Service.Services
         IUiEvent TakeNextEvent();
 
         IUiEvent PreviewNextEvent();
+
+        void Execute();
     }
 }
