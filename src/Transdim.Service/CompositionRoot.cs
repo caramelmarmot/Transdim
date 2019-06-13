@@ -15,6 +15,7 @@ using Transdim.Service.Services;
 using Transdim.Service.Controllers.CurrentGame.ActionPanel.PowerAction;
 using Transdim.Service.Controllers.CurrentGame.Common;
 using Transdim.Service.Controllers.CurrentGame.Log;
+using Transdim.Service.Controllers.CurrentGame.ScoreTracker;
 
 namespace Transdim.Service
 {
@@ -33,6 +34,7 @@ namespace Transdim.Service
             services.AddScoped<IBoardSetupController, BoardSetupController>();
             services.AddScoped<ILogController, LogController>();
             services.AddScoped<INewGameController, NewGameController>();
+            services.AddScoped<IPlayerScoreTrackerComponentController, PlayerScoreTrackerComponentController>();
             services.AddScoped<IPowerActionModalController, PowerActionModalController>();
             services.AddScoped<ITechSetupController, TechSetupController>();
 

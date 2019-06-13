@@ -4,21 +4,21 @@
 
 <div class="row score-tracker">
     <span class="@GetColClass()">
-        <PlayerScoreTrackerComponent Game="@game" Player="@GetPlayerByTurnOrder(0)"></PlayerScoreTrackerComponent>
+        <PlayerScoreTrackerComponent Player="@GetPlayerByTurnOrder(0)"></PlayerScoreTrackerComponent>
     </span>
     <span class="@GetColClass()">
-        <PlayerScoreTrackerComponent Game="@game" Player="@GetPlayerByTurnOrder(1)"></PlayerScoreTrackerComponent>
+        <PlayerScoreTrackerComponent Player="@GetPlayerByTurnOrder(1)"></PlayerScoreTrackerComponent>
     </span>
     @if (game.Players.Count > 2)
     {
         <span class="@GetColClass()">
-            <PlayerScoreTrackerComponent Game="@game" Player="@GetPlayerByTurnOrder(2)"></PlayerScoreTrackerComponent>
+            <PlayerScoreTrackerComponent Player="@GetPlayerByTurnOrder(2)"></PlayerScoreTrackerComponent>
         </span>
     }
     @if (game.Players.Count > 3)
     {
         <span class="@GetColClass()">
-            <PlayerScoreTrackerComponent Game="@game" Player="@GetPlayerByTurnOrder(3)"></PlayerScoreTrackerComponent>
+            <PlayerScoreTrackerComponent Player="@GetPlayerByTurnOrder(3)"></PlayerScoreTrackerComponent>
         </span>
     }
 </div>

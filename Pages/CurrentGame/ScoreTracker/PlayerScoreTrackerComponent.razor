@@ -1,41 +1,17 @@
-﻿@inject Transdim.Service.Services.IGameStateService GameStateService;
+﻿@inject Transdim.Service.Controllers.CurrentGame.ScoreTracker.IPlayerScoreTrackerComponentController controller;
 
-<div class="@GetActiveClass(player)" style="background-color:@GetColor()">@GetScore(player)</div>
+<div class="@GetActiveClass(player)" style="background-color:@GetColor(player)">@GetScore(player)</div>
 
 @functions {
     [Parameter]
-    private Game game { get; set; }
-
-    [Parameter]
     private Player player { get; set; }
 
-    protected override void OnInit()
-    {
-        game = GameStateService.GetGame();
-        GameStateService.OnChange += StateHasChanged;
-    }
+    protected override void OnInit() => controller.OnInit(StateHasChanged, player);
 
-    public string GetColor()
-    {
-        return player.Faction.Color.ToString();
-    }
+    public string GetColor(Player player) => controller.GetColor(player);
 
-    // TODO: This needs to be done much better
-    public int GetScore(Player player)
-    {
-        // TODO: move to controller
-        var actions = game.GameActions.Where(action => action.Player.Id == player.Id);
+    public int GetScore(Player player) => controller.GetScore(player);
 
-        var score = 0;
 
-        foreach (var action in actions)
-        {
-            score = score + action.Points;
-        }
-
-        return score;
-    }
-
-    public string GetActiveClass(Player player) =>
-        (player.IsActive) ? "active" : "";
+    public string GetActiveClass(Player player) => controller.GetActiveClass(player);
 }
