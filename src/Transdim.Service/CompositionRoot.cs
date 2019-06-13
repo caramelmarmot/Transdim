@@ -9,10 +9,10 @@ using Transdim.Service.Controllers.NewGame;
 using Transdim.Service.Controllers.Setup.Board;
 using Transdim.Service.Controllers.Setup.Tech;
 using Transdim.Service.Controllers.Shared;
-using Transdim.Service.Controllers;
 using Transdim.Service.Helpers;
 using Transdim.Service.Services.Modal;
 using Transdim.Service.Services;
+using Transdim.Service.Controllers.CurrentGame.ActionPanel.PowerAction;
 
 namespace Transdim.Service
 {
@@ -26,10 +26,11 @@ namespace Transdim.Service
             }
 
             // Controllers
-            services.AddTransient<INewGameController, NewGameController>();
-            services.AddTransient<IBoardSetupController, BoardSetupController>();
-            services.AddTransient<ITechSetupController, TechSetupController>();
-            services.AddTransient<IBaseGameController, BaseGameController>();
+            services.AddScoped<IBaseGameController, BaseGameController>();
+            services.AddScoped<IBoardSetupController, BoardSetupController>();
+            services.AddScoped<INewGameController, NewGameController>();
+            services.AddScoped<IPowerActionModalController, PowerActionModalController>();
+            services.AddScoped<ITechSetupController, TechSetupController>();
 
             // Services
             services.AddScoped<IGameInitializationService, GameInitializationService>();

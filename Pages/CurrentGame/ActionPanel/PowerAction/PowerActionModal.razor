@@ -1,18 +1,9 @@
 ﻿@using Transdim.DomainModel.GameComponents;
-@using Transdim.Service;
-@using Transdim.DomainModel.GameComponents.Interfaces;
 
-@inject Transdim.Service.Services.Modal.IModalService ModalService;
-@inject Transdim.Service.Services.IGameStateService GameStateService;
+@inject Transdim.Service.Controllers.CurrentGame.ActionPanel.PowerAction.IPowerActionModalController controller;
 
 <GameComponent OnClickAddition="@(() => CloseModal(GameComponents.PowerActionQicPointsForPlanets))" component="@GameComponents.PowerActionQicPointsForPlanets"></GameComponent>
 
 @functions {
-    public void CloseModal(IGameComponent gameComponent)
-    {
-        var optionalEllipses = (gameComponent is IAdjustablePointsScorer) ? "..." : string.Empty;
-
-        GameStateService.AddAction($"chose the {gameComponent.FriendlyName}{optionalEllipses}");
-        ModalService.Close(ModalResult.Ok());
-    }
+    public void CloseModal(IGameComponent gameComponent) => controller.CloseModal(gameComponent);
 }
