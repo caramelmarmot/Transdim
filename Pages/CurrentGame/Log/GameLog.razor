@@ -13,8 +13,6 @@
 </div>
 
 @functions {
-    private Game game;
-
     protected override void OnInit() => controller.OnInit(StateHasChanged);
 
     public string GetLogText(int distanceFromEnd) => controller.GetLogText(distanceFromEnd);

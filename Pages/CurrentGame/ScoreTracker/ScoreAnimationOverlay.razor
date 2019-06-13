@@ -1,9 +1,7 @@
 ﻿@using System.Timers;
 @using Transdim.DomainModel.GameComponents;
 
-@inject Transdim.Service.Services.IScoreAnimationService scoreAnimationService;
-@inject Transdim.Service.Services.IGameStateService GameStateService;
-@inject Transdim.Service.Services.IQueueManagementService QueueManagementService;
+@inject Transdim.Service.Controllers.CurrentGame.ScoreTracker.IScoreAnimationOverlayController controller;
 
 @if (showStatic)
 {
@@ -38,69 +36,21 @@
 }
 
 @functions {
-    private bool showStatic = false;
+    private bool showStatic => controller.ShowStatic;
 
-    private bool showAnimated = false;
+    private bool showAnimated => controller.ShowAnimated;
 
-    private bool fadeOutAfterDisplay = true;
+    private bool fadeOutAfterDisplay => controller.FadeOutAfterDisplay;
+
+    private string imgSrc => controller.ImgSrc;
+
+    private string pointsImgSrc => controller.PointsImgSrc;
 
     private Timer timer;
 
-    private string imgSrc;
+    protected override void OnInit() => controller.OnInit(StateHasChanged, Invoke);
 
-    private string pointsImgSrc;
+    public void ShowScoredComponent(IGameComponent gameComponent, int points) => controller.ShowScoredComponent(gameComponent, points);
 
-    private Game game;
-
-    protected override void OnInit()
-    {
-        timer = new Timer(600);
-        scoreAnimationService.OnScore += ShowScoredComponent;
-        scoreAnimationService.OnFinishAnimation += OnFinishAnimation;
-        GameStateService.OnChange += StateHasChanged;
-    }
-
-    public void ShowScoredComponent(IGameComponent gameComponent, int points)
-    {
-        imgSrc = gameComponent.ImagePath;
-
-        var pointsString = (points < 10) ? "0" + points.ToString() : points.ToString();
-        pointsImgSrc = $"/Images/points-{pointsString}.png";
-
-        showStatic = true;
-        showAnimated = false;
-        StateHasChanged();
-    }
-
-    private void StartAnimation()
-    {
-        fadeOutAfterDisplay = !(QueueManagementService.PreviewNextEvent() is IUiComponentScoringEvent);
-
-        showStatic = false;
-        showAnimated = true;
-
-        timer.Elapsed += FinishAnimation;
-        timer.Enabled = true;
-
-        StateHasChanged();
-    }
-
-    private void FinishAnimation(Object source, ElapsedEventArgs e)
-    {
-        Invoke(() =>
-        {
-            timer.Elapsed -= FinishAnimation;
-            timer.Enabled = false;
-
-            showStatic = false;
-            showAnimated = false;
-            fadeOutAfterDisplay = false;
-            scoreAnimationService.FinishAnimation();
-        });
-    }
-
-    private void OnFinishAnimation()
-    {
-        StateHasChanged();
-    }
+    public void StartAnimation() => controller.StartAnimation();
 }
