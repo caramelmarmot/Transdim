@@ -1,5 +1,5 @@
 ﻿@using Transdim.DomainModel.GameComponents;
-@inject Transdim.Service.IGameComponentController GameComponentController;
+@inject Transdim.Service.Controllers.Shared.IGameComponentController GameComponentController;
 
 <img class="game-component @Class" onclick="@PerformAction" src="@component.ImagePath" asp-append-version="true" />
 

@@ -2,8 +2,8 @@
 @using Transdim.Service;
 @using Transdim.DomainModel.GameComponents.Interfaces;
 
-@inject Transdim.Service.IModalService ModalService;
-@inject Transdim.Service.IGameStateService GameStateService;
+@inject Transdim.Service.Services.Modal.IModalService ModalService;
+@inject Transdim.Service.Services.IGameStateService GameStateService;
 
 <GameComponent OnClickAddition="@(() => CloseModal(GameComponents.PowerActionQicPointsForPlanets))" component="@GameComponents.PowerActionQicPointsForPlanets"></GameComponent>
 

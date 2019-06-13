@@ -1,10 +1,10 @@
 ﻿@using Transdim.Service;
 @using Transdim.DomainModel.GameComponents;
 
-@inject Transdim.Service.IModalService ModalService;
-@inject Transdim.Service.IGameStateService GameStateService;
-@inject Transdim.Service.IQueueManagementService QueueManagementService;
-@inject Transdim.Service.IQueueExecutionService QueueExecutionService;
+@inject Transdim.Service.Services.Modal.IModalService ModalService;
+@inject Transdim.Service.Services.IGameStateService GameStateService;
+@inject Transdim.Service.Services.IQueueManagementService QueueManagementService;
+@inject Transdim.Service.Services.IQueueExecutionService QueueExecutionService;
 
 <div class="row d-flex justify-content-center">
     <img class="game-component adjustable-points-reference-component" src="@gameComponent.ImagePath" asp-append-version="true" />

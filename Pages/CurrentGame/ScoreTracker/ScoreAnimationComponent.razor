@@ -1,9 +1,9 @@
 ﻿@using System.Timers;
 @using Transdim.DomainModel.GameComponents;
 
-@inject Transdim.Service.IScoreAnimationService scoreAnimationService;
-@inject Transdim.Service.IGameStateService GameStateService;
-@inject Transdim.Service.IQueueManagementService QueueManagementService;
+@inject Transdim.Service.Services.IScoreAnimationService scoreAnimationService;
+@inject Transdim.Service.Services.IGameStateService GameStateService;
+@inject Transdim.Service.Services.IQueueManagementService QueueManagementService;
 
 @if (showStatic)
 {

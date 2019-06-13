@@ -1,6 +1,6 @@
 @page "/game/{GameId}"
-@inject Transdim.Service.IBaseGameController BaseGameController
-@inject Transdim.Service.IGameStateService GameStateService
+@inject Transdim.Service.Controllers.CurrentGame.IBaseGameController BaseGameController
+@inject Transdim.Service.Services.IGameStateService GameStateService
 
 @using Transdim.Pages.CurrentGame.Log;
 @using Transdim.Pages.CurrentGame.ScoreTracker;

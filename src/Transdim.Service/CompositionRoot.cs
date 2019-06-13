@@ -1,18 +1,18 @@
 using System;
 using Microsoft.Extensions.DependencyInjection;
-using Transdim.Service.Internal.Controllers;
-using Transdim.Service.Internal.Controllers.Setup.Tech;
-using Transdim.Service.Internal.Controllers.Setup.Board;
-using Transdim.Service.Internal.Helpers;
-using Transdim.Service.Internal.Services;
-using Transdim.Service.Internal.Controllers.NewGame;
-using Transdim.Service.Internal.Controllers.CurrentGame;
-using Transdim.Service.Internal.Controllers.Shared;
-using Transdim.Service.Internal.Services.Modal;
-using Transdim.Service.Internal.ComponentActivators;
 using System.Collections.Generic;
-using Transdim.Service.Internal.ComponentActivators.Actions;
-using Transdim.Service.Internal.ComponentActivators.Scorers;
+using Transdim.Service.ComponentActivators.Actions;
+using Transdim.Service.ComponentActivators.Scorers;
+using Transdim.Service.ComponentActivators;
+using Transdim.Service.Controllers.CurrentGame;
+using Transdim.Service.Controllers.NewGame;
+using Transdim.Service.Controllers.Setup.Board;
+using Transdim.Service.Controllers.Setup.Tech;
+using Transdim.Service.Controllers.Shared;
+using Transdim.Service.Controllers;
+using Transdim.Service.Helpers;
+using Transdim.Service.Services.Modal;
+using Transdim.Service.Services;
 
 namespace Transdim.Service
 {
@@ -30,7 +30,6 @@ namespace Transdim.Service
             services.AddTransient<IBoardSetupController, BoardSetupController>();
             services.AddTransient<ITechSetupController, TechSetupController>();
             services.AddTransient<IBaseGameController, BaseGameController>();
-            services.AddTransient<IGameLogController, GameLogController>();
 
             // Services
             services.AddScoped<IGameInitializationService, GameInitializationService>();

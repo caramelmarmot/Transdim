@@ -1,6 +1,6 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
-using Transdim.Service.Internal.Helpers;
+using Transdim.Service.Helpers;
 
 namespace Transdim.Service.UnitTests.Internal.Helpers
 {
