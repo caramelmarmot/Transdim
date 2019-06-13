@@ -5,6 +5,6 @@ namespace Transdim.Service.Controllers.CurrentGame
 {
     public interface IBaseGameController
     {
-        Game GetGame(Guid gameId);
+        void OnInit(Guid gameId);
     }
 }

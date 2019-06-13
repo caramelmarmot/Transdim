@@ -1,6 +1,5 @@
 @page "/game/{GameId}"
-@inject Transdim.Service.Controllers.CurrentGame.IBaseGameController BaseGameController
-@inject Transdim.Service.Services.IGameStateService GameStateService
+@inject Transdim.Service.Controllers.CurrentGame.IBaseGameController controller
 
 @using Transdim.Pages.CurrentGame.Log;
 @using Transdim.Pages.CurrentGame.ScoreTracker;
@@ -20,10 +19,5 @@
     [Parameter]
     private string GameId { get; set; }
 
-    private Game game { get; set; }
-
-    protected override void OnInit()
-    {
-        game = BaseGameController.GetGame(new Guid(GameId));
-    }
+    protected override void OnInit() => controller.OnInit(new Guid(GameId));
 }

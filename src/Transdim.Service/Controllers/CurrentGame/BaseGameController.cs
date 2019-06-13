@@ -13,9 +13,9 @@ namespace Transdim.Service.Controllers.CurrentGame
             this.gameStateService = gameStateService ?? throw new ArgumentNullException(nameof(gameStateService));
         }
 
-        public Game GetGame(Guid gameId)
+        public void OnInit(Guid gameId)
         {
-            return gameStateService.LoadGame(gameId);
+            gameStateService.LoadGame(gameId);
         }
     }
 }
