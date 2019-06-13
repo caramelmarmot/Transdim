@@ -1,5 +1,4 @@
-﻿@using System.Timers;
-@using Transdim.DomainModel.GameComponents;
+﻿@using Transdim.DomainModel.GameComponents;
 
 @inject Transdim.Service.Controllers.CurrentGame.ScoreTracker.IScoreAnimationOverlayController controller;
 
@@ -45,8 +44,6 @@
     private string imgSrc => controller.ImgSrc;
 
     private string pointsImgSrc => controller.PointsImgSrc;
-
-    private Timer timer;
 
     protected override void OnInit() => controller.OnInit(StateHasChanged, Invoke);
 

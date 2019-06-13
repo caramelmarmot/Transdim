@@ -37,6 +37,7 @@ namespace Transdim.Service
             services.AddScoped<IPlayerScoreTrackerComponentController, PlayerScoreTrackerComponentController>();
             services.AddScoped<IPowerActionModalController, PowerActionModalController>();
             services.AddScoped<IScoreAnimationOverlayController, ScoreAnimationOverlayController>();
+            services.AddScoped<IScoreTrackerComponentController, ScoreTrackerComponentController>();
             services.AddScoped<ITechSetupController, TechSetupController>();
 
             // Services

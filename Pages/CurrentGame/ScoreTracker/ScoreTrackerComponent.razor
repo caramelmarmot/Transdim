@@ -1,6 +1,4 @@
-﻿@using System.Timers;
-
-@inject Transdim.Service.Services.IGameStateService GameStateService;
+﻿@inject Transdim.Service.Controllers.CurrentGame.ScoreTracker.IScoreTrackerComponentController controller;
 
 <div class="row score-tracker">
     <span class="@GetColClass()">
@@ -24,36 +22,11 @@
 </div>
 
 @functions {
-    private Game game;
+    private Game game => controller.Game;
 
-    protected override void OnInit()
-    {
-        game = GameStateService.GetGame();
-    }
+    protected override void OnInit() => controller.OnInit();
 
-    public string GetColClass() {
-        if (game.Players.Count == 2)
-        {
-            return "col-6";
-        }
+    public string GetColClass() => controller.GetColClass();
 
-        if (game.Players.Count == 3)
-        {
-            return "col-4";
-        }
-
-        if (game.Players.Count == 4)
-        {
-            return "col-3";
-        }
-
-        throw new InvalidOperationException("Must have between 2 and 4 players");
-    }
-
-    public Player GetPlayerByTurnOrder(int playerIndex)
-    {
-        var playersInOrder = GameStateService.GetCurrentRoundPlayersInOrder();
-
-        return playersInOrder[playerIndex];
-    }
+    public Player GetPlayerByTurnOrder(int playerIndex) => controller.GetPlayerByTurnOrder(playerIndex);
 }
