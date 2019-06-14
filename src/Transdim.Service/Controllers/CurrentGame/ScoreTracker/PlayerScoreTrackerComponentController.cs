@@ -24,7 +24,7 @@ namespace Transdim.Service.Controllers.CurrentGame.ScoreTracker
 
         public string GetColor(Player player)
         {
-            return player.Faction.Color.ToString();
+            return player.Faction.Color.ToString().ToLower();
         }
 
         // TODO: This needs to be done much better

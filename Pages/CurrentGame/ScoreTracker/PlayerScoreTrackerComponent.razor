@@ -1,6 +1,8 @@
 ﻿@inject Transdim.Service.Controllers.CurrentGame.ScoreTracker.IPlayerScoreTrackerComponentController controller;
 
-<div class="@GetActiveClass(player)" style="background-color:@GetColor(player)">@GetScore(player)</div>
+<div class="player-score-tracker player-score-tracker-@GetColor(player) @GetActiveClass(player)">
+    <span class="player-score">@GetScore(player)</span>
+</div>
 
 @functions {
     [Parameter]
