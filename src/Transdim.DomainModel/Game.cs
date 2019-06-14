@@ -1,6 +1,7 @@
     using System;
 using System.Collections.Generic;
 using System.Linq;
+using Transdim.DomainModel.GameComponents;
 
 namespace Transdim.DomainModel
 {
@@ -15,6 +16,8 @@ namespace Transdim.DomainModel
         public List<GameAction> GameActions { get; set; }
 
         public List<Round> Rounds { get; set; }
+
+        public List<IGameComponent> RoundBoosters { get; set; }
 
         public string MapLink { get; set; }
 

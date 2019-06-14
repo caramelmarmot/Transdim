@@ -4,7 +4,7 @@ namespace Transdim.DomainModel.GameComponents.RoundBoosters
 {
     public class AcademyFourPower : IGameComponent, IAdjustablePointsOnPasser
     {
-        internal const GameComponentIdentifier _Identifier = GameComponentIdentifier.PowerActionTwoOre;
+        internal const GameComponentIdentifier _Identifier = GameComponentIdentifier.AcademyFourPower;
 
         internal const string _ImagePath = "/Images/booster-academy-four-power.png";
 

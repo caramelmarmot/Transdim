@@ -15,5 +15,9 @@ namespace Transdim.DomainModel.GameComponents
 
         // Round Boosters
         public static IGameComponent AcademyFourPower { get => new AcademyFourPower(); }
+        public static IGameComponent GaiaFourCredit { get => new GaiaFourCredit(); }
+        public static IGameComponent MineOneOre { get => new MineOneOre(); }
+        public static IGameComponent ResearchLabOneKnowledge { get => new ResearchLabOneKnowledge(); }
+        public static IGameComponent TradingStationOneOre { get => new TradingStationOneOre(); }
     }
 }

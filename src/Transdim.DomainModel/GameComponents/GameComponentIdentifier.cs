@@ -10,6 +10,10 @@
         PowerActionTwoOre,
 
         // RoundBoosters
-        AcademyFourPower
+        AcademyFourPower,
+        GaiaFourCredit,
+        MineOneOre,
+        ResearchLabOneKnowledge,
+        TradingStationOneOre
     }
 }

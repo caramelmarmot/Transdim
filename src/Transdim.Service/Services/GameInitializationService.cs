@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Transdim.DomainModel;
+using Transdim.DomainModel.GameComponents;
 using Transdim.DomainModel.GameComponents.Techs;
 using Transdim.DomainModel.GameComponents.Techs.Advanced;
 using Transdim.Persistence;
@@ -46,10 +47,35 @@ namespace Transdim.Service.Services
                 });
             }
 
+            // TODO: Make this better
+            SetUpDummyRoundBoosters(gameToStart) {
+
+            }
+
             // TODO: Make rounds bettera
             SetUpDummyRound(gameToStart);
 
             gameRepository.CreateGame(gameToStart);
+        }
+
+        public void SetUpDummyRoundBoosters(Game gameToStart)
+        {
+            gameToStart.RoundBoosters = new List<IGameComponent>
+            {
+                GameComponents.AcademyFourPower,
+                GameComponents.GaiaFourCredit,
+                GameComponents.MineOneOre,
+            };
+
+            if (gameToStart.Players.Count > 2)
+            {
+                gameToStart.RoundBoosters.Add(GameComponents.ResearchLabOneKnowledge);
+            };
+
+            if (gameToStart.Players.Count > 3)
+            {
+                gameToStart.RoundBoosters.Add(GameComponents.TradingStationOneOre);
+            };
         }
 
         public void SetUpDummyRound(Game gameToStart)
