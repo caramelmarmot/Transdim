@@ -1,7 +1,7 @@
 ﻿@inject Transdim.Service.Controllers.CurrentGame.ScoreTracker.IScoreTrackerComponentController controller;
 
-<div class="row score-tracker">
-    <span class="col-12">
+
+    <span>
         <PlayerScoreTrackerComponent Player="@GetPlayerByTurnOrder(0)"></PlayerScoreTrackerComponent>
         <PlayerScoreTrackerComponent Player="@GetPlayerByTurnOrder(1)"></PlayerScoreTrackerComponent>
         @if (game.Players.Count > 2)
@@ -13,7 +13,6 @@
             <PlayerScoreTrackerComponent Player="@GetPlayerByTurnOrder(3)"></PlayerScoreTrackerComponent>
         }
     </span>
-</div>
 
 @functions {
     private Game game => controller.Game;

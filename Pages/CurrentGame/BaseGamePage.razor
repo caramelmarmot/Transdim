@@ -6,7 +6,15 @@
 @using Transdim.Pages.CurrentGame.ActionPanel;
 
     <div class="container">
-        <ScoreTrackerComponent></ScoreTrackerComponent>
+        <div class="row header-row d-flex justify-content-center">
+            <span class="col-xs-7">
+                <ScoreTrackerComponent></ScoreTrackerComponent>
+            </span>
+            <span class="col-1 float-right text-right">
+                <button class="btn-secondary" style="margin-top: 2px;"><span class="oi oi-menu" aria-hidden="true"></span></button>
+            </span>
+            
+        </div>
         <ActionPanelComponent></ActionPanelComponent>
     </div>
     <footer class="footer">
