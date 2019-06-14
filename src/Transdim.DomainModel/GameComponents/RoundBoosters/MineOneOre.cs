@@ -2,7 +2,7 @@
 
 namespace Transdim.DomainModel.GameComponents.RoundBoosters
 {
-    public class MineOneOre : IGameComponent, IAdjustablePointsOnPasser
+    public class MineOneOre : IGameComponent, IRoundBooster, IAdjustablePointsOnPasser
     {
         internal const GameComponentIdentifier _Identifier = GameComponentIdentifier.MineOneOre;
 

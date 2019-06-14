@@ -2,7 +2,7 @@
 
 namespace Transdim.DomainModel.GameComponents.RoundBoosters
 {
-    public class AcademyFourPower : IGameComponent, IAdjustablePointsOnPasser
+    public class AcademyFourPower : IGameComponent, IRoundBooster, IAdjustablePointsOnPasser
     {
         internal const GameComponentIdentifier _Identifier = GameComponentIdentifier.AcademyFourPower;
 

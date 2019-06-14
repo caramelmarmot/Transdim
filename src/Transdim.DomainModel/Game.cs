@@ -17,7 +17,9 @@ namespace Transdim.DomainModel
 
         public List<Round> Rounds { get; set; }
 
-        public List<IGameComponent> RoundBoosters { get; set; }
+        public List<IGameComponent> RoundBoosters { get; set; } = new List<IGameComponent>();
+
+        public List<IGameComponent> AvailableRoundBoosters { get; set; } = new List<IGameComponent>();
 
         public string MapLink { get; set; }
 

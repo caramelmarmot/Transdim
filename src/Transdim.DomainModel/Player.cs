@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using Transdim.DomainModel.GameComponents;
 
 namespace Transdim.DomainModel
 {
@@ -13,5 +15,7 @@ namespace Transdim.DomainModel
         public Faction Faction { get; set; }
 
         public bool Passed { get; set; }
+
+        public List<IGameComponent> GameComponents { get; set; } = new List<IGameComponent>();
     }
 }

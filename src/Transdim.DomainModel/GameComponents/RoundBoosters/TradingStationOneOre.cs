@@ -2,7 +2,7 @@
 
 namespace Transdim.DomainModel.GameComponents.RoundBoosters
 {
-    public class TradingStationOneOre : IGameComponent, IAdjustablePointsOnPasser
+    public class TradingStationOneOre : IGameComponent, IRoundBooster, IAdjustablePointsOnPasser
     {
         internal const GameComponentIdentifier _Identifier = GameComponentIdentifier.TradingStationOneOre;
 

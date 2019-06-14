@@ -2,7 +2,7 @@
 
 namespace Transdim.DomainModel.GameComponents.RoundBoosters
 {
-    public class ResearchLabOneKnowledge : IGameComponent, IAdjustablePointsOnPasser
+    public class ResearchLabOneKnowledge : IGameComponent, IRoundBooster, IAdjustablePointsOnPasser
     {
         internal const GameComponentIdentifier _Identifier = GameComponentIdentifier.ResearchLabOneKnowledge;
 

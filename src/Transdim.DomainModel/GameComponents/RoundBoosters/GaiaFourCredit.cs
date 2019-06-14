@@ -2,7 +2,7 @@
 
 namespace Transdim.DomainModel.GameComponents.RoundBoosters
 {
-    public class GaiaFourCredit : IGameComponent, IAdjustablePointsOnPasser
+    public class GaiaFourCredit : IGameComponent, IRoundBooster, IAdjustablePointsOnPasser
     {
         internal const GameComponentIdentifier _Identifier = GameComponentIdentifier.GaiaFourCredit;
 

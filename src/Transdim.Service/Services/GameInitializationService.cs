@@ -48,9 +48,7 @@ namespace Transdim.Service.Services
             }
 
             // TODO: Make this better
-            SetUpDummyRoundBoosters(gameToStart) {
-
-            }
+            SetUpDummyRoundBoosters(gameToStart);
 
             // TODO: Make rounds bettera
             SetUpDummyRound(gameToStart);
@@ -60,22 +58,40 @@ namespace Transdim.Service.Services
 
         public void SetUpDummyRoundBoosters(Game gameToStart)
         {
-            gameToStart.RoundBoosters = new List<IGameComponent>
+            // should have number of players plus three
+            if (gameToStart.Players.Count > 0)
             {
-                GameComponents.AcademyFourPower,
-                GameComponents.GaiaFourCredit,
-                GameComponents.MineOneOre,
+                gameToStart.RoundBoosters.Add(GameComponents.AcademyFourPower);
+                gameToStart.Players[0].GameComponents.Add(GameComponents.AcademyFourPower);
             };
+
+            if (gameToStart.Players.Count > 1)
+            {
+                gameToStart.RoundBoosters.Add(GameComponents.GaiaFourCredit);
+                gameToStart.Players[1].GameComponents.Add(GameComponents.GaiaFourCredit);
+            };
+
+            gameToStart.RoundBoosters.Add(GameComponents.ResearchLabOneKnowledge);
+            gameToStart.AvailableRoundBoosters.Add(GameComponents.ResearchLabOneKnowledge);
+
+            gameToStart.RoundBoosters.Add(GameComponents.TradingStationOneOre);
+            gameToStart.AvailableRoundBoosters.Add(GameComponents.TradingStationOneOre);
+
+            gameToStart.RoundBoosters.Add(GameComponents.MineOneOre);
+            gameToStart.AvailableRoundBoosters.Add(GameComponents.MineOneOre);
 
             if (gameToStart.Players.Count > 2)
             {
-                gameToStart.RoundBoosters.Add(GameComponents.ResearchLabOneKnowledge);
+                gameToStart.RoundBoosters.Add(GameComponents.MineOneOre);
+                gameToStart.Players[2].GameComponents.Add(GameComponents.MineOneOre);
             };
 
             if (gameToStart.Players.Count > 3)
             {
-                gameToStart.RoundBoosters.Add(GameComponents.TradingStationOneOre);
+                gameToStart.RoundBoosters.Add(GameComponents.MineOneOre);
+                gameToStart.Players[3].GameComponents.Add(GameComponents.MineOneOre);
             };
+
         }
 
         public void SetUpDummyRound(Game gameToStart)
