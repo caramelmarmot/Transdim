@@ -1,24 +1,18 @@
 ﻿@inject Transdim.Service.Controllers.CurrentGame.ScoreTracker.IScoreTrackerComponentController controller;
 
 <div class="row score-tracker">
-    <span class="@GetColClass()">
+    <span class="col-12">
         <PlayerScoreTrackerComponent Player="@GetPlayerByTurnOrder(0)"></PlayerScoreTrackerComponent>
-    </span>
-    <span class="@GetColClass()">
         <PlayerScoreTrackerComponent Player="@GetPlayerByTurnOrder(1)"></PlayerScoreTrackerComponent>
-    </span>
-    @if (game.Players.Count > 2)
-    {
-        <span class="@GetColClass()">
+        @if (game.Players.Count > 2)
+        {
             <PlayerScoreTrackerComponent Player="@GetPlayerByTurnOrder(2)"></PlayerScoreTrackerComponent>
-        </span>
-    }
-    @if (game.Players.Count > 3)
-    {
-        <span class="@GetColClass()">
+        }
+        @if (game.Players.Count > 3)
+        {
             <PlayerScoreTrackerComponent Player="@GetPlayerByTurnOrder(3)"></PlayerScoreTrackerComponent>
-        </span>
-    }
+        }
+    </span>
 </div>
 
 @functions {
