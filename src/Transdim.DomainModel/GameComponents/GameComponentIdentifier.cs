@@ -7,6 +7,9 @@
 
         // PowerActions
         PowerActionQicPointsForPlanets,
-        PowerActionTwoOre
+        PowerActionTwoOre,
+
+        // RoundBoosters
+        AcademyFourPower
     }
 }

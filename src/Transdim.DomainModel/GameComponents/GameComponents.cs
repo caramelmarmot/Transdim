@@ -1,5 +1,6 @@
 ﻿using Transdim.DomainModel.GameComponents.Actions;
 using Transdim.DomainModel.GameComponents.PowerActions;
+using Transdim.DomainModel.GameComponents.RoundBoosters;
 
 namespace Transdim.DomainModel.GameComponents
 {
@@ -11,5 +12,8 @@ namespace Transdim.DomainModel.GameComponents
         // Power Actions
         public static IGameComponent PowerActionQicPointsForPlanets { get => new QicPointsForPlanets(); }
         public static IGameComponent PowerActionTwoOre { get => new PowerTwoOre(); }
+
+        // Round Boosters
+        public static IGameComponent AcademyFourPower { get => new AcademyFourPower(); }
     }
 }
