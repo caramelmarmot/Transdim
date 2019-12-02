@@ -16,7 +16,7 @@ namespace Transdim.Service.Controllers.CurrentGame.ScoreTracker
 
         string PointsImgSrc { get; set; }
 
-        void OnInit(Action stateHasChanged, Func<Action, Task> invoke);
+        void OnInitialized(Action stateHasChanged, Func<Action, Task> invoke);
 
         void ShowScoredComponent(IGameComponent gameComponent, int points);
 

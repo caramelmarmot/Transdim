@@ -4,7 +4,7 @@
 
 @if (showStatic)
 {
-    <div class="transdim-modal-container transdim-modal-active" onclick="@StartAnimation">
+    <div class="transdim-modal-container transdim-modal-active" @onclick="@StartAnimation">
 
         <div class="points-modal-overlay"></div>
         <div class="row animation-container">
@@ -19,7 +19,7 @@
 }
 @if (showAnimated)
 {
-    <div class="transdim-modal-container transdim-modal-active" onclick="@StartAnimation">
+    <div class="transdim-modal-container transdim-modal-active" @onclick="@StartAnimation">
 
         <div class="points-modal-overlay @(fadeOutAfterDisplay ? "animated-overlay" : string.Empty)"></div>
         <div class="row animation-container">
@@ -45,7 +45,7 @@
 
     private string pointsImgSrc => controller.PointsImgSrc;
 
-    protected override void OnInit() => controller.OnInit(StateHasChanged, Invoke);
+    protected override void OnInitialized() => controller.OnInitialized(StateHasChanged, InvokeAsync);
 
     public void ShowScoredComponent(IGameComponent gameComponent, int points) => controller.ShowScoredComponent(gameComponent, points);
 

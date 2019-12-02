@@ -16,7 +16,7 @@ namespace Transdim.Service.Controllers.CurrentGame.ScoreTracker
             this.gameStateService = gameStateService ?? throw new ArgumentNullException(nameof(gameStateService));
         }
 
-        public void OnInit(Action stateHasChanged, Player player)
+        public void OnInitialized(Action stateHasChanged, Player player)
         {
             game = gameStateService.GetGame();
             gameStateService.OnChange += stateHasChanged;

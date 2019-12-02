@@ -12,11 +12,11 @@
         </form>
 
         <div class="button-container">
-            <button disabled=@(NewGameController.IsAddPlayerButtonDisabled(game)) class="btn btn-sm oi oi-plus" onclick="@AddPlayer"></button>
-            <button disabled=@(NewGameController.IsRemovePlayerButtonDisabled(game)) class="btn btn-sm oi oi-minus" onclick="@RemovePlayer"></button>
+            <button disabled=@(NewGameController.IsAddPlayerButtonDisabled(game)) class="btn btn-sm oi oi-plus" @onclick="@AddPlayer"></button>
+            <button disabled=@(NewGameController.IsRemovePlayerButtonDisabled(game)) class="btn btn-sm oi oi-minus" @onclick="@RemovePlayer"></button>
         </div>
         <div class="form-row">
-            <button class="btn btn-primary" onclick="@StartGame">Start game</button>
+            <button class="btn btn-primary" @onclick="@StartGame">Start game</button>
         </div>
         @if (NewGameController.IsStartGameDisabled(game))
         {
@@ -30,10 +30,10 @@
 @functions {
     private Game game;
 
-    protected override void OnInit()
+    protected override void OnInitialized()
     {
         game = NewGameController.InitializeGame();
-        base.OnInit();
+        base.OnInitialized();
     }
 
     void StartGame()

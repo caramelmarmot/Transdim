@@ -1,17 +1,17 @@
 ﻿@using Transdim.DomainModel.GameComponents;
 @inject Transdim.Service.Controllers.Shared.IGameComponentController GameComponentController;
 
-<img class="game-component @Class" onclick="@PerformAction" src="@component.ImagePath" asp-append-version="true" />
+<img class="game-component @Class" @onclick="@PerformAction" src="@component.ImagePath" asp-append-version="true" />
 
 @functions {
     [Parameter]
-    private IGameComponent component { get; set; }
+    public IGameComponent component { get; set; }
 
     [Parameter]
-    private Action OnClickAddition { get; set; }
+    public Action OnClickAddition { get; set; }
 
     [Parameter]
-    private string Class { get; set; }
+    public string Class { get; set; }
 
     private void PerformAction()
     {

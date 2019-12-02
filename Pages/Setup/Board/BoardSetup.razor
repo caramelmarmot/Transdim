@@ -7,21 +7,21 @@
             <span>Here's the board for game ID @GameId </span>
         </div>
         <div>
-            <button class="btn" onclick="@Back">Back</button>
-            <button class="btn btn-primary" onclick="@Next">Next</button>
+            <button class="btn" @onclick="@Back">Back</button>
+            <button class="btn btn-primary" @onclick="@Next">Next</button>
         </div>
     </div>
 
 @functions {
     [Parameter]
-    private string GameId { get; set; }
+    public string GameId { get; set; }
 
     private Game game;
 
-    protected override void OnInit()
+    protected override void OnInitialized()
     {
         game = BoardSetupController.GetGame(new Guid(GameId));
-        base.OnInit();
+        base.OnInitialized();
     }
 
 

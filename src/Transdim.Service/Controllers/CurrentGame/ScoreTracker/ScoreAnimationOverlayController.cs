@@ -36,7 +36,7 @@ namespace Transdim.Service.Controllers.CurrentGame.ScoreTracker
             this.queueManagementService = queueManagementService ?? throw new ArgumentNullException(nameof(queueManagementService));
         }
 
-        public void OnInit(Action stateHasChanged, Func<Action, Task> invoke)
+        public void OnInitialized(Action stateHasChanged, Func<Action, Task> invoke)
         {
             this.stateHasChanged = stateHasChanged;
             this.invoke = invoke;

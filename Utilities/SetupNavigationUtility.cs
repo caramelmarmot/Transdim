@@ -6,19 +6,19 @@ namespace Transdim.Utilities
 {
     public class SetupNavigationUtility
     {
-        private readonly IUriHelper uriHelper;
+        private readonly NavigationManager navigationManager;
 
-        public SetupNavigationUtility(IUriHelper uriHelper) => this.uriHelper = uriHelper ?? throw new ArgumentNullException(nameof(uriHelper));
+        public SetupNavigationUtility(NavigationManager navigationManager) => this.navigationManager = navigationManager ?? throw new ArgumentNullException(nameof(navigationManager));
 
         public void PreviousStep(Game game)
         {
             if (game.MapLink == null)
             {
-                uriHelper.NavigateTo($"/new-game");
+                navigationManager.NavigateTo($"/new-game");
             }
             else if (game.TechTrack == null)
             {
-                uriHelper.NavigateTo($"/setup/board/{game.Id}");
+                navigationManager.NavigateTo($"/setup/board/{game.Id}");
             }
         }
 
@@ -26,15 +26,15 @@ namespace Transdim.Utilities
         {
             if (game.MapLink == null)
             {
-                uriHelper.NavigateTo($"/setup/board/{game.Id}");
+                navigationManager.NavigateTo($"/setup/board/{game.Id}");
             }
             else if (game.TechTrack == null)
             {
-                uriHelper.NavigateTo($"/setup/tech/{game.Id}");
+                navigationManager.NavigateTo($"/setup/tech/{game.Id}");
             }
             else
             {
-                uriHelper.NavigateTo($"/game/{game.Id}");
+                navigationManager.NavigateTo($"/game/{game.Id}");
             }
         }
     }

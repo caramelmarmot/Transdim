@@ -5,13 +5,13 @@
 </div>
 <div class="score">
     <div class="row d-flex justify-content-center">
-        <span class="oi oi- oi-caret-left arrow" onclick="@(() => AdjustPoints(false))"></span>
-        <img class="adjustable-points-points-box game-component" src="@pointsImageSource" onclick="@(() => AdjustPoints(true))" asp-append-version="true" />
-        <span class="oi oi- oi-caret-right arrow" onclick="@(() => AdjustPoints(true))"></span>
+        <span class="oi oi- oi-caret-left arrow" @onclick="@(() => AdjustPoints(false))"></span>
+        <img class="adjustable-points-points-box game-component" src="@pointsImageSource" @onclick="@(() => AdjustPoints(true))" asp-append-version="true" />
+        <span class="oi oi- oi-caret-right arrow" @onclick="@(() => AdjustPoints(true))"></span>
     </div>
 </div>
 <div class="row d-flex justify-content-center">
-    <button class="btn btn-primary" onclick="@Close">Score</button>
+    <button class="btn btn-primary" @onclick="@Close">Score</button>
 </div>
 
 @functions {
@@ -22,7 +22,7 @@
 
     private string pointsImageSource => controller.PointsImageSource;
 
-    protected override void OnInit() => controller.OnInit(Parameters);
+    protected override void OnInitialized() => controller.OnInitialized(Parameters);
 
     public void AdjustPoints(bool isUp)
     {

@@ -13,7 +13,7 @@
             <span class="col-1 float-right text-right">
                 <button class="btn-secondary" style="margin-top: 2px;"><span class="oi oi-menu" aria-hidden="true"></span></button>
             </span>
-            
+
         </div>
         <ActionPanelComponent></ActionPanelComponent>
     </div>
@@ -25,7 +25,7 @@
 
 @functions {
     [Parameter]
-    private string GameId { get; set; }
+    public string GameId { get; set; }
 
-    protected override void OnInit() => controller.OnInit(new Guid(GameId));
+    protected override void OnInitialized() => controller.OnInit(new Guid(GameId));
 }

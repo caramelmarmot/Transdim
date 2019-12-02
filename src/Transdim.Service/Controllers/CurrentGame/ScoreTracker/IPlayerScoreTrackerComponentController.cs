@@ -5,7 +5,7 @@ namespace Transdim.Service.Controllers.CurrentGame.ScoreTracker
 {
     public interface IPlayerScoreTrackerComponentController
     {
-        void OnInit(Action stateHasChanged, Player player);
+        void OnInitialized(Action stateHasChanged, Player player);
 
         string GetColor(Player player);
 

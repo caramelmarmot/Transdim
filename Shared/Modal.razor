@@ -39,7 +39,7 @@
         { ModalIdentifier.PowerAction, typeof(PowerActionModal)}
     };
 
-    protected override void OnInit()
+    protected override void OnInitialized()
     {
         ModalService.OnShow += ShowModal;
         ModalService.OnClose += CloseModal;

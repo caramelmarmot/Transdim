@@ -17,22 +17,22 @@
                 }
             </div>
             <div>
-                <button class="btn" onclick="@Back">Back</button>
-                <button class="btn btn-primary" onclick="@Next">Next</button>
+                <button class="btn" @onclick="@Back">Back</button>
+                <button class="btn btn-primary" @onclick="@Next">Next</button>
             </div>
         </div>
     </div>
 
 @functions {
     [Parameter]
-    private string GameId { get; set; }
+    public string GameId { get; set; }
 
     private Game game;
 
-    protected override void OnInit()
+    protected override void OnInitialized()
     {
         game = TechSetupController.GetGameWithInitializedTech(new Guid(GameId));
-        base.OnInit();
+        base.OnInitialized();
     }
 
     void Back()

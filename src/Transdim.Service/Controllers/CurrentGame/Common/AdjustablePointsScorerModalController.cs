@@ -25,7 +25,7 @@ namespace Transdim.Service.Controllers.CurrentGame.Common
             this.queueManagementService = queueManagementService ?? throw new ArgumentNullException(nameof(queueManagementService));
         }
 
-        public void OnInit(ModalParameters parameters)
+        public void OnInitialized(ModalParameters parameters)
         {
             GameComponent = parameters.Get<IGameComponent>(nameof(IGameComponent));
             points = 1;

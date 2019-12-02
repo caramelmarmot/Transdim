@@ -10,7 +10,7 @@ namespace Transdim.Service.Controllers.CurrentGame.Common
 
         string PointsImageSource { get; set; }
 
-        void OnInit(ModalParameters parameters);
+        void OnInitialized(ModalParameters parameters);
 
         void AdjustPoints(bool up, Action stateHasChanged);
 
