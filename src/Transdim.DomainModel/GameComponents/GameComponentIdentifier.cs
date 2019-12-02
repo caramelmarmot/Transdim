@@ -3,7 +3,9 @@
     public enum GameComponentIdentifier
     {
         // Actions
+        ActionPass,
         ActionPowerAction,
+        
 
         // PowerActions
         PowerActionQicPointsForPlanets,

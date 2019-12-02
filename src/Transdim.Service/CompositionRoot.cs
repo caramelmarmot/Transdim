@@ -61,6 +61,7 @@ namespace Transdim.Service
             var componentList = new List<IComponentActivator> { };
 
             // Actions
+            services.AddScoped<Passer>();
             services.AddScoped<PowerActionTaker>();
 
             // Scorers
@@ -72,6 +73,7 @@ namespace Transdim.Service
                     new List<IComponentActivator>
                     {
                         // Actions
+                        sc.GetRequiredService<Passer>(),
                         sc.GetRequiredService<PowerActionTaker>(),
 
                         // Scorers

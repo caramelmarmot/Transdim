@@ -24,6 +24,10 @@ namespace Transdim.Service.Services
 
         List<Player> GetCurrentRoundPlayersInOrder();
 
+        void ScoreOnPass();
+
+        void Pass();
+
         void EndTurn();
     }
 }

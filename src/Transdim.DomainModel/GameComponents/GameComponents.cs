@@ -7,6 +7,7 @@ namespace Transdim.DomainModel.GameComponents
     public static class GameComponents
     {
         // Actions
+        public static IGameComponent ActionPass { get => new Pass(); }
         public static IGameComponent ActionPowerAction { get => new PowerAction(); }
 
         // Power Actions

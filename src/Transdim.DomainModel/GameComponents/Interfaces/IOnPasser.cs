@@ -1,6 +1,6 @@
 ﻿namespace Transdim.DomainModel.GameComponents.Interfaces
 {
-    public interface IAdjustablePointsOnPasser : IGameComponent
+    public interface IOnPasser : IGameComponent
     {
     }
 }

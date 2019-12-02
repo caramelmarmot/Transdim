@@ -14,7 +14,7 @@ namespace Transdim.DomainModel
 
         public Faction Faction { get; set; }
 
-        public bool Passed { get; set; }
+        public bool Passed { get; set; } = false;
 
         public List<IGameComponent> GameComponents { get; set; } = new List<IGameComponent>();
     }

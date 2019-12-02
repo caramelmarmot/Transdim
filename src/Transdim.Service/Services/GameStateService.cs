@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using Transdim.DomainModel;
 using Transdim.DomainModel.Exceptions;
+using Transdim.DomainModel.GameComponents;
+using Transdim.DomainModel.GameComponents.Interfaces;
 using Transdim.Persistence;
 
 namespace Transdim.Service.Services
@@ -10,15 +12,17 @@ namespace Transdim.Service.Services
     internal class GameStateService : IGameStateService
     {
         private readonly IGameRepository gameRepository;
+        private readonly IQueueManagementService queueManagementService;
 
         // TODO: better caching? https://michaelscodingspot.com/cache-implementations-in-csharp-net/?utm_source=csharpdigest&utm_medium=email&utm_campaign=featured
         public Game CurrentGame { get; set; }
 
         public event Action OnChange;
 
-        public GameStateService(IGameRepository gameRepository)
+        public GameStateService(IGameRepository gameRepository, IQueueManagementService queueManagementService)
         {
             this.gameRepository = gameRepository ?? throw new ArgumentNullException(nameof(gameRepository));
+            this.queueManagementService = queueManagementService ?? throw new ArgumentNullException(nameof(queueManagementService));
         }
 
         // TODO: get rid of the return
@@ -84,6 +88,25 @@ namespace Transdim.Service.Services
             NotifyStateChanged();
         }
 
+        public void ScoreOnPass()
+        {
+            var currentPlayer = GetActivePlayer();
+
+            foreach (var component in currentPlayer.GameComponents)
+            {
+                if (component is IOnPasser && component is IAdjustablePointsScorer)
+                {
+                    queueManagementService.Add(new GameUpdateEvent { EventToPerform = () => { AddAction($"The {component.FriendlyName} activated on passing...", default, true); } });
+                    queueManagementService.Add(new UiModalEvent(string.Empty, ModalIdentifier.AdjustablePointsScorer, new ModalParameters(nameof(IGameComponent), component)));
+                }
+            }
+        }
+
+        public void Pass()
+        {
+            NotifyStateChanged();
+        }
+
         public void EndTurn()
         {
             var orderedPlayerIds = GetCurrentRound().OrderedPlayerIds;
@@ -96,6 +119,12 @@ namespace Transdim.Service.Services
                 Player = currentPlayer,
                 LogText = $"{currentPlayer.Faction.FriendlyName} turn complete"
             });
+
+            // Everyone has passed
+            if (orderedPlayerIds.Count == 0)
+            {
+
+            }
 
             var maxIndex = orderedPlayerIds.Count - 1;
             var nextPlayerIndex = currentPlayerIndex == maxIndex ?

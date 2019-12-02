@@ -2,13 +2,13 @@
 
 namespace Transdim.DomainModel.GameComponents.RoundBoosters
 {
-    public class GaiaFourCredit : IGameComponent, IRoundBooster, IAdjustablePointsOnPasser
+    public class GaiaFourCredit : IGameComponent, IRoundBooster, IAdjustablePointsScorer, IOnPasser
     {
         internal const GameComponentIdentifier _Identifier = GameComponentIdentifier.GaiaFourCredit;
 
         internal const string _ImagePath = "/Images/booster-gaia-four-credit.png";
 
-        internal const string _FriendlyName = "Gaia Planets/4 Credits";
+        internal const string _FriendlyName = "Gaia Planets/4 Credits round booster";
 
         public GaiaFourCredit() { }
 
