@@ -65,7 +65,7 @@ namespace Transdim.Service.Controllers.CurrentGame.Common
             var pointsScored = (int)modalResult.Data;
             modalService.BeforeClose -= ScorePoints;
 
-            gameStateService.AddAction($"scoring {pointsScored} points!", (int)modalResult.Data, true);
+            gameStateService.LogAction($"scoring {pointsScored} points!", (int)modalResult.Data, true);
 
             queueManagementService.AddImmediate(new UiComponentScoringEvent(GameComponent, pointsScored));
             queueManagementService.Execute();

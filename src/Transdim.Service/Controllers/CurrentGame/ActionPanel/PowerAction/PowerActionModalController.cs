@@ -22,7 +22,7 @@ namespace Transdim.Service.Controllers.CurrentGame.ActionPanel.PowerAction
         {
             var optionalEllipses = (gameComponent is IAdjustablePointsScorer) ? "..." : string.Empty;
 
-            gameStateService.AddAction($"chose the {gameComponent.FriendlyName}{optionalEllipses}");
+            gameStateService.LogAction($"chose the {gameComponent.FriendlyName}{optionalEllipses}");
             modalService.Close(ModalResult.Ok());
         }
     }

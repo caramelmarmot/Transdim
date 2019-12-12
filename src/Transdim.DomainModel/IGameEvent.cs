@@ -2,7 +2,7 @@
 
 namespace Transdim.DomainModel
 {
-    public interface IGameUpdateEvent : IUiEvent
+    public interface IGameEvent : IUiEvent
     {
         Action EventToPerform { get; set; }
     }

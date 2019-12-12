@@ -2,29 +2,29 @@
 @inject Transdim.Utilities.SetupNavigationUtility SetupNavigationUtility
 @inject Transdim.Service.Controllers.NewGame.INewGameController NewGameController
 
-    <div class="container">
-        <h1>New Game</h1>
-        <form class="player-setup-form">
-            @for (int i = 0; i < game.Players.Count; i++)
-            {
-                <NewPlayerControl Player="@game.Players[i]" Game="@game"></NewPlayerControl>
-            }
-        </form>
-
-        <div class="button-container">
-            <button disabled=@(NewGameController.IsAddPlayerButtonDisabled(game)) class="btn btn-sm oi oi-plus" @onclick="@AddPlayer"></button>
-            <button disabled=@(NewGameController.IsRemovePlayerButtonDisabled(game)) class="btn btn-sm oi oi-minus" @onclick="@RemovePlayer"></button>
-        </div>
-        <div class="form-row">
-            <button class="btn btn-primary" @onclick="@StartGame">Start game</button>
-        </div>
-        @if (NewGameController.IsStartGameDisabled(game))
+<div class="container">
+    <h1>New Game</h1>
+    <form class="player-setup-form">
+        @for (int i = 0; i < game.Players.Count; i++)
         {
-            <div class="form-row">
-                <span class="alert alert-danger">Only one automa is allowed. All players must belong to different factions.</span>
-            </div>
+            <NewPlayerControl Player="@game.Players[i]" Game="@game"></NewPlayerControl>
         }
+    </form>
+
+    <div class="button-container">
+        <button disabled=@(NewGameController.IsAddPlayerButtonDisabled(game)) class="btn btn-sm oi oi-plus" @onclick="@AddPlayer"></button>
+        <button disabled=@(NewGameController.IsRemovePlayerButtonDisabled(game)) class="btn btn-sm oi oi-minus" @onclick="@RemovePlayer"></button>
     </div>
+    <div class="form-row">
+        <button class="btn btn-primary" @onclick="@StartGame">Start game</button>
+    </div>
+    @if (NewGameController.IsStartGameDisabled(game))
+    {
+        <div class="form-row">
+            <span class="alert alert-danger">Only one automa is allowed. All players must belong to different factions.</span>
+        </div>
+    }
+</div>
 
 
 @functions {
@@ -48,6 +48,4 @@
 
     void AddPlayer() => NewGameController.AddPlayer(game);
     void RemovePlayer() => NewGameController.RemovePlayer(game);
-
-
 }

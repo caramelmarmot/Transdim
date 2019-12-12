@@ -2,7 +2,7 @@
 
 namespace Transdim.DomainModel
 {
-    public class GameUpdateEvent : IGameUpdateEvent
+    public class GameEvent : IGameEvent
     {
         public Action EventToPerform { get; set; }
     }

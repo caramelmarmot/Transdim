@@ -24,9 +24,15 @@ namespace Transdim.Service.ComponentActivators.Actions
                 return;
             }
 
-            queueManagementService.AddImmediate(new GameUpdateEvent { EventToPerform = () => { gameStateService.AddAction("took a power action", default, default, true); } });
-            queueManagementService.Add(new UiModalEvent("Power action", ModalIdentifier.PowerAction));
-            queueManagementService.AddFinal(new GameUpdateEvent { EventToPerform = () => { gameStateService.EndTurn(); } });
+            queueManagementService.AddImmediate(new GameEvent
+            {
+                EventToPerform = () =>
+                {
+                    gameStateService.LogAction("took a power action", default, default, true);
+                }
+            });
+            queueManagementService.Add(new UiModalEvent("Power action", ModalIdentifier.PowerActionPicker));
+            queueManagementService.AddFinal(new GameEvent { EventToPerform = () => { gameStateService.EndTurn(); } });
 
             queueManagementService.Execute();
         }

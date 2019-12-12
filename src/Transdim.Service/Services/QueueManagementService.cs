@@ -87,7 +87,7 @@ namespace Transdim.Service.Services
                 scoreAnimationService.OnFinishAnimation += ProcessNext;
                 scoreAnimationService.Score(componentScoringToProcess.GameComponent, componentScoringToProcess.Points);
             }
-            else if (itemToProcess is IGameUpdateEvent gameUpdateEvent)
+            else if (itemToProcess is IGameEvent gameUpdateEvent)
             {
                 gameUpdateEvent.EventToPerform.Invoke();
                 currentlyExecuting = false;

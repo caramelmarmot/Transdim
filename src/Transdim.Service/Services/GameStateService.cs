@@ -70,7 +70,7 @@ namespace Transdim.Service.Services
 
             return playerList;
         }
-        public void AddAction(string logText, int points = 0, bool omitPlayerNameFromLog = false, bool isUndoCheckpoint = false)
+        public void LogAction(string logText, int points = 0, bool omitPlayerNameFromLog = false, bool isUndoCheckpoint = false)
         {
             var activePlayer = GetActivePlayer();
 
@@ -96,7 +96,7 @@ namespace Transdim.Service.Services
             {
                 if (component is IOnPasser && component is IAdjustablePointsScorer)
                 {
-                    queueManagementService.Add(new GameUpdateEvent { EventToPerform = () => { AddAction($"The {component.FriendlyName} activated on passing...", default, true); } });
+                    queueManagementService.Add(new GameEvent { EventToPerform = () => { LogAction($"The {component.FriendlyName} activated on passing...", default, true); } });
                     queueManagementService.Add(new UiModalEvent(string.Empty, ModalIdentifier.AdjustablePointsScorer, new ModalParameters(nameof(IGameComponent), component)));
                 }
             }

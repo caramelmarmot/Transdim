@@ -24,10 +24,10 @@ namespace Transdim.Service.ComponentActivators.Actions
                 return;
             }
 
-            queueManagementService.AddImmediate(new GameUpdateEvent { EventToPerform = () => { gameStateService.AddAction("passed.", default, default, true); } });
-            queueManagementService.AddImmediate(new GameUpdateEvent { EventToPerform = () => { gameStateService.ScoreOnPass(); } });
-            queueManagementService.AddFinal(new GameUpdateEvent { EventToPerform = () => { gameStateService.Pass(); } });
-            queueManagementService.AddFinal(new GameUpdateEvent { EventToPerform = () => { gameStateService.EndTurn(); } });
+            queueManagementService.AddImmediate(new GameEvent { EventToPerform = () => { gameStateService.LogAction("passed.", default, default, true); } });
+            queueManagementService.AddImmediate(new GameEvent { EventToPerform = () => { gameStateService.ScoreOnPass(); } });
+            queueManagementService.AddFinal(new GameEvent { EventToPerform = () => { gameStateService.Pass(); } });
+            queueManagementService.AddFinal(new GameEvent { EventToPerform = () => { gameStateService.EndTurn(); } });
 
             queueManagementService.Execute();
         }
