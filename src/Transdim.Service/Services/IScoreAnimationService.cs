@@ -1,16 +1,25 @@
 ﻿using System;
+using System.Threading.Tasks;
 using Transdim.DomainModel.GameComponents;
 
 namespace Transdim.Service.Services
 {
     public interface IScoreAnimationService
     {
-        event Action<IGameComponent, int> OnScore;
+        event Func<Task> StateHasChanged;
 
-        event Action OnFinishAnimation;
+        bool IsVisible { get; }
 
-        void FinishAnimation();
+        bool IsInAnimatedDismissal { get; }
 
-        void Score(IGameComponent component, int points);
+        bool FadeOutAfterDismissal { get; set; }
+
+        string ImgSrc { get; }
+
+        string PointsImgSrc { get; }
+
+        Task Score(IGameComponent component, int points);
+
+        void Dismiss();
     }
 }

@@ -79,30 +79,20 @@ namespace Transdim.Service.Services
 
             if (itemToProcess is IUiModalEvent modalToProcess)
             {
-                var result = await modalService.Show(modalToProcess.Title, modalToProcess.ModalIdentifier, modalToProcess.ModalParameters);
-                // TODO: Async might reduce the need for this?
-                ProcessNext();
+                await modalService.Show(modalToProcess.Title, modalToProcess.ModalIdentifier, modalToProcess.ModalParameters);
             }
             else if (itemToProcess is IUiComponentScoringEvent componentScoringToProcess)
             {
-                scoreAnimationService.OnFinishAnimation += ProcessNext;
-                scoreAnimationService.Score(componentScoringToProcess.GameComponent, componentScoringToProcess.Points);
+                scoreAnimationService.FadeOutAfterDismissal = (PreviewNextEvent() is IUiComponentScoringEvent);
+                await scoreAnimationService.Score(componentScoringToProcess.GameComponent, componentScoringToProcess.Points);
             }
             else if (itemToProcess is IGameEvent gameUpdateEvent)
             {
                 gameUpdateEvent.EventToPerform.Invoke();
-                currentlyExecuting = false;
-                await Execute();
             }
-        }
 
-
-        private void ProcessNext()
-        {
-            scoreAnimationService.OnFinishAnimation -= ProcessNext;
             currentlyExecuting = false;
-
-            Execute();
+            await Execute();
         }
     }
 }

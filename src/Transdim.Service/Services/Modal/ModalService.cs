@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Threading;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Components;
 using Transdim.DomainModel;
 
 namespace Transdim.Service.Services.Modal

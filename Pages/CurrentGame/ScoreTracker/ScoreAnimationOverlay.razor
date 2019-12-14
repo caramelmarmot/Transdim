@@ -1,33 +1,25 @@
-﻿@using Transdim.DomainModel.GameComponents;
+﻿@inject Transdim.Service.Services.IScoreAnimationService scoreAnimationService;
 
-@inject Transdim.Service.Controllers.CurrentGame.ScoreTracker.IScoreAnimationOverlayController controller;
-
-@if (showStatic)
+@if (scoreAnimationService.IsVisible || scoreAnimationService.IsInAnimatedDismissal)
 {
-    <div class="transdim-modal-container transdim-modal-active" @onclick="@StartAnimation">
-
-        <div class="points-modal-overlay"></div>
-        <div class="row animation-container">
-            <span class="col-12 text-center">
-                <img class="scored-component" src="@imgSrc" asp-append-version="true" />
-            </span>
-            <span class="col-12 text-center">
-                <img class="scored-points points-image" src="@pointsImgSrc" asp-append-version="true" />
-            </span>
+    <div class="transdim-modal-container transdim-modal-active" @onclick="(() => scoreAnimationService.Dismiss())">
+        <div class="points-modal-overlay @(
+    scoreAnimationService.IsInAnimatedDismissal && scoreAnimationService.FadeOutAfterDismissal ?
+        "animated-overlay" :
+        string.Empty)">
         </div>
-    </div>
-}
-@if (showAnimated)
-{
-    <div class="transdim-modal-container transdim-modal-active" @onclick="@StartAnimation">
-
-        <div class="points-modal-overlay @(fadeOutAfterDisplay ? "animated-overlay" : string.Empty)"></div>
         <div class="row animation-container">
             <span class="col-12 text-center">
-                <img class="scored-component animated-component" src="@imgSrc" asp-append-version="true" />
+                <img
+                     class="scored-component @(scoreAnimationService.IsInAnimatedDismissal ? "animated-component" : string.Empty)"
+                     src="@scoreAnimationService.ImgSrc"
+                     asp-append-version="true" />
             </span>
             <span class="col-12 text-center">
-                <img class="scored-points points-image animated-points" src="@pointsImgSrc" asp-append-version="true" />
+                <img
+                     class="scored-points points-image @(scoreAnimationService.IsInAnimatedDismissal ? "animated-points" : string.Empty)"
+                     src="@scoreAnimationService.PointsImgSrc"
+                     asp-append-version="true" />
             </span>
 
         </div>
@@ -35,19 +27,8 @@
 }
 
 @functions {
-    private bool showStatic => controller.ShowStatic;
-
-    private bool showAnimated => controller.ShowAnimated;
-
-    private bool fadeOutAfterDisplay => controller.FadeOutAfterDisplay;
-
-    private string imgSrc => controller.ImgSrc;
-
-    private string pointsImgSrc => controller.PointsImgSrc;
-
-    protected override void OnInitialized() => controller.OnInitialized(StateHasChanged, InvokeAsync);
-
-    public void ShowScoredComponent(IGameComponent gameComponent, int points) => controller.ShowScoredComponent(gameComponent, points);
-
-    public void StartAnimation() => controller.StartAnimation();
+    protected override void OnInitialized()
+    {
+        scoreAnimationService.StateHasChanged += async () => await InvokeAsync(StateHasChanged);
+    }
 }
