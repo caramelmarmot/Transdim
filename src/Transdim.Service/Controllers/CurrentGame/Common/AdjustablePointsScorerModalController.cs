@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using Transdim.DomainModel;
 using Transdim.DomainModel.GameComponents;
 using Transdim.Service.Services;
@@ -50,7 +51,10 @@ namespace Transdim.Service.Controllers.CurrentGame.Common
 
         public void Close()
         {
-            modalService.BeforeClose += ScorePoints;
+            gameStateService.LogAction($"scoring {points} points!", points, true);
+
+            queueManagementService.AddImmediate(new UiComponentScoringEvent(GameComponent, points));
+
             modalService.Close(ModalResult.Ok(points));
         }
 
@@ -59,17 +63,5 @@ namespace Transdim.Service.Controllers.CurrentGame.Common
             var pointsString = (points < 10) ? "0" + points.ToString() : points.ToString();
             PointsImageSource = $"/Images/points-{pointsString}.png";
         }
-
-        private void ScorePoints(ModalResult modalResult)
-        {
-            var pointsScored = (int)modalResult.Data;
-            modalService.BeforeClose -= ScorePoints;
-
-            gameStateService.LogAction($"scoring {pointsScored} points!", (int)modalResult.Data, true);
-
-            queueManagementService.AddImmediate(new UiComponentScoringEvent(GameComponent, pointsScored));
-            queueManagementService.Execute();
-        }
-
     }
 }

@@ -4,71 +4,49 @@
 
 @inject Transdim.Service.Services.Modal.IModalService ModalService;
 
-<div class="transdim-modal-container @(IsVisible ? "transdim-modal-active" : string.Empty)">
+<div class="transdim-modal-container @(ModalService.IsVisible ? "transdim-modal-active" : string.Empty)">
 
     <div class="transdim-modal-overlay"></div>
 
-    <div class="transdim-modal @(IsTransparent ? "transdim-modal-transparent" : string.Empty)">
-        @if (!String.IsNullOrEmpty(@Title))
+    <div class="transdim-modal transdim-modal-transparent">
+        @if (!String.IsNullOrEmpty(ModalService.Title))
         {
             <div class="transdim-modal-header">
-                <h3 class="transdim-modal-title">@Title</h3>
+                <h3 class="transdim-modal-title">@ModalService.Title</h3>
             </div>
         }
-        <div class="transdim-modal-content">
-            <CascadingValue Value="@Parameters">
-                @Content
-            </CascadingValue>
-        </div>
+        @if (ModalService.CurrentModalIdentifier != ModalIdentifier.None)
+        {
+            <div class="transdim-modal-content">
+                <CascadingValue Value="@ModalService.Parameters">
+                    @GetContent()
+                </CascadingValue>
+            </div>
+        }
     </div>
 </div>
 
 @functions {
-    private bool IsVisible;
-
     private bool IsTransparent = true;
 
-    private string Title { get; set; }
-    private RenderFragment Content { get; set; }
-    private ModalParameters Parameters { get; set; }
+    protected override void OnInitialized()
+    {
+        ModalService.StateHasChanged += async () => await InvokeAsync(StateHasChanged);
+    }
 
     private Dictionary<ModalIdentifier, Type> ModalMapping = new Dictionary<ModalIdentifier, Type>()
-{
-        // TODO: rename PointsModal
+    {
         { ModalIdentifier.AdjustablePointsScorer, typeof(AdjustablePointsScorerModal)},
         { ModalIdentifier.PowerActionPicker, typeof(PowerActionModal)}
     };
 
-    protected override void OnInitialized()
+    private RenderFragment GetContent()
     {
-        ModalService.OnShow += ShowModal;
-        ModalService.OnClose += CloseModal;
-    }
-
-    private void ShowModal(string title, ModalIdentifier modalIdentifier, ModalParameters parameters)
-    {
-        if (!ModalMapping.TryGetValue(modalIdentifier, out var modalType))
+        if (!ModalMapping.TryGetValue(ModalService.CurrentModalIdentifier, out var modalType))
         {
             throw new ArgumentNullException(nameof(modalType));
         }
 
-        var content = new RenderFragment(x => { x.OpenComponent(1, modalType); x.CloseComponent(); });
-
-        Title = title;
-        Content = content;
-        Parameters = parameters;
-
-        IsVisible = true;
-        StateHasChanged();
-    }
-
-
-    internal void CloseModal(ModalResult modalResult)
-    {
-        IsVisible = false;
-        Title = "";
-        Content = null;
-
-        StateHasChanged();
+        return new RenderFragment(x => { x.OpenComponent(1, modalType); x.CloseComponent(); });
     }
 }

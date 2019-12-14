@@ -1,30 +1,73 @@
 ﻿using System;
+using System.Threading;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Components;
 using Transdim.DomainModel;
 
 namespace Transdim.Service.Services.Modal
 {
     internal class ModalService : IModalService
     {
-        public event Action<string, ModalIdentifier, ModalParameters> OnShow;
+        public event Func<Task> StateHasChanged;
 
-        public event Action<ModalResult> BeforeClose;
+        public bool IsVisible { get; private set; } = false;
 
-        public event Action<ModalResult> OnClose;
+        public string Title { get; private set; }
 
-        public void Show(string title, ModalIdentifier modalIdentifier)
+        public ModalIdentifier CurrentModalIdentifier { get; private set; } = ModalIdentifier.None;
+
+        public ModalParameters Parameters { get; private set; }
+
+        private readonly SemaphoreSlim signal = new SemaphoreSlim(0, 1);
+
+        private ModalResult modalResult;
+
+        public async Task<ModalResult> Show(string title, ModalIdentifier identifier)
         {
-            Show(title, modalIdentifier, new ModalParameters());
+            return await Show(title, identifier, new ModalParameters());
         }
 
-        public void Show(string title, ModalIdentifier modalIdentifier, ModalParameters parameters)
+        public async Task<ModalResult> Show(string title, ModalIdentifier identifier, ModalParameters parameters)
         {
-            OnShow?.Invoke(title, modalIdentifier, parameters);
+            ReinitializeModal();
+            Title = title;
+            CurrentModalIdentifier = identifier;
+            Parameters = parameters;
+            modalResult = null;
+
+            await SetVisibleAndNotifyApp();
+
+            // Block execution on this thread until the signal is recieved from CloseModal
+            await signal.WaitAsync();
+
+            ReinitializeModal();
+            await SetHiddenAndNotifyApp();
+            return modalResult;
         }
 
-        public void Close(ModalResult modalResult)
+        public void Close(ModalResult result)
         {
-            BeforeClose?.Invoke(modalResult);
-            OnClose?.Invoke(modalResult);
+            modalResult = result;
+            signal.Release();
+        }
+
+        private void ReinitializeModal()
+        {
+            Title = null;
+            CurrentModalIdentifier = ModalIdentifier.None;
+            Parameters = null;
+        }
+
+        private async Task SetVisibleAndNotifyApp()
+        {
+            IsVisible = true;
+            await StateHasChanged.Invoke();
+        }
+
+        private async Task SetHiddenAndNotifyApp()
+        {
+            IsVisible = false;
+            await StateHasChanged.Invoke();
         }
     }
 }

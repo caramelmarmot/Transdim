@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Transdim.DomainModel;
 using Transdim.Service.Services.Modal;
 
@@ -60,7 +61,7 @@ namespace Transdim.Service.Services
             EventualEventQueue.FirstOrDefault() ??
             FinalEventQueue.FirstOrDefault();
 
-        public void Execute()
+        public async Task Execute()
         {
             if (currentlyExecuting)
             {
@@ -78,9 +79,9 @@ namespace Transdim.Service.Services
 
             if (itemToProcess is IUiModalEvent modalToProcess)
             {
-                modalService.OnClose += ProcessNext;
-
-                modalService.Show(modalToProcess.Title, modalToProcess.ModalIdentifier, modalToProcess.ModalParameters);
+                var result = await modalService.Show(modalToProcess.Title, modalToProcess.ModalIdentifier, modalToProcess.ModalParameters);
+                // TODO: Async might reduce the need for this?
+                ProcessNext();
             }
             else if (itemToProcess is IUiComponentScoringEvent componentScoringToProcess)
             {
@@ -91,15 +92,10 @@ namespace Transdim.Service.Services
             {
                 gameUpdateEvent.EventToPerform.Invoke();
                 currentlyExecuting = false;
-                Execute();
+                await Execute();
             }
         }
 
-        private void ProcessNext(ModalResult modalResult)
-        {
-            modalService.OnClose -= ProcessNext;
-            ProcessNext();
-        }
 
         private void ProcessNext()
         {

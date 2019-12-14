@@ -1,4 +1,5 @@
-﻿using Transdim.DomainModel;
+﻿using System.Threading.Tasks;
+using Transdim.DomainModel;
 
 namespace Transdim.Service.Services
 {
@@ -14,6 +15,6 @@ namespace Transdim.Service.Services
 
         IUiEvent PreviewNextEvent();
 
-        void Execute();
+        Task Execute();
     }
 }

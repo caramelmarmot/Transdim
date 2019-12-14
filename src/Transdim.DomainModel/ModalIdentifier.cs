@@ -6,6 +6,7 @@ namespace Transdim.DomainModel
 {
     public enum ModalIdentifier
     {
+        None,
         AdjustablePointsScorer,
         PowerActionPicker,
     }

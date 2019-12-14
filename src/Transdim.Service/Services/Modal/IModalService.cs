@@ -1,20 +1,25 @@
 ﻿using System;
+using System.Threading.Tasks;
 using Transdim.DomainModel;
 
 namespace Transdim.Service.Services.Modal
 {
-        public interface IModalService
-        {
-            event Action<ModalResult> BeforeClose;
+    public interface IModalService
+    {
+        event Func<Task> StateHasChanged;
 
-            event Action<ModalResult> OnClose;
+        bool IsVisible { get; }
 
-            event Action<string, ModalIdentifier, ModalParameters> OnShow;
+        string Title { get; }
 
-            void Show(string title, ModalIdentifier modalIdentifier);
+        ModalIdentifier CurrentModalIdentifier { get; }
 
-            void Show(string title, ModalIdentifier modalIdentifier, ModalParameters parameters);
+        ModalParameters Parameters { get; }
 
-            void Close(ModalResult modalResult);
-        }
+        Task<ModalResult> Show(string title, ModalIdentifier identifier);
+
+        Task<ModalResult> Show(string title, ModalIdentifier identifier, ModalParameters parameters);
+
+        void Close(ModalResult modalResult);
+    }
 }
